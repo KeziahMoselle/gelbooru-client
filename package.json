@@ -1,0 +1,31 @@
+{
+  "name": "gelbooru-client",
+  "version": "0.0.1",
+  "description": "You already know what it is.",
+  "main": "main.js",
+  "dependencies": {
+    "axios": "^0.17.1",
+    "electron": "1.7.11"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ."
+  },
+  "author": "KeziahMoselle",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KeziahMoselle/gelbooru-client.git"
+  },
+  "keywords": [
+    "electron",
+    "gelbooru",
+    "client",
+    "app"
+  ],
+  "bugs": {
+    "url": "https://github.com/KeziahMoselle/gelbooru-client/issues"
+  },
+  "homepage": "https://github.com/KeziahMoselle/gelbooru-client#readme"
+}

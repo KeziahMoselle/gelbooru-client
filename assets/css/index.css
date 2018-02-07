@@ -1,0 +1,92 @@
+.primary {
+  background-color: #35385B;
+}
+
+.primary-dark {
+  background-color: #303252;
+}
+
+.accent {
+  background-color: #6688EC;
+}
+
+body {
+  background-color: #242424;
+}
+.light-mode {
+  background-color: #eee;
+}
+
+.drag {
+  height: 20px;
+  width: 100%;
+  background-color: #6688EC;
+  -webkit-user-select: none;
+  -webkit-app-region: drag;
+}
+
+input#searchBar {
+  color: #FFF;
+}
+
+/*
+* MATERIALIZE CSS
+*/
+
+.card .card-action a:not(.btn):not(.btn-large):not(.btn-large):not(.btn-floating) {
+  color: #35385B;
+}
+.card .card-action a:not(.btn):not(.btn-large):not(.btn-large):not(.btn-floating):hover {
+  color: #6688EC;
+}
+
+.progress {
+  height: 8px;
+  background-color: #303252;
+  margin: 0;
+}
+.progress .indeterminate {
+  background-color: #6688EC;
+}
+input:not([type]):focus:not([readonly]),
+input[type=text]:not(.browser-default):focus:not([readonly]),
+input[type=password]:not(.browser-default):focus:not([readonly]),
+input[type=email]:not(.browser-default):focus:not([readonly]),
+input[type=url]:not(.browser-default):focus:not([readonly]),
+input[type=time]:not(.browser-default):focus:not([readonly]),
+input[type=date]:not(.browser-default):focus:not([readonly]),
+input[type=datetime]:not(.browser-default):focus:not([readonly]),
+input[type=datetime-local]:not(.browser-default):focus:not([readonly]),
+input[type=tel]:not(.browser-default):focus:not([readonly]),
+input[type=number]:not(.browser-default):focus:not([readonly]),
+input[type=search]:not(.browser-default):focus:not([readonly]),
+textarea.materialize-textarea:focus:not([readonly]) {
+  border-bottom: 1px solid #6688EC;
+  box-shadow: 0 1px 0 0 #6688EC;
+}
+.input-field .prefix.active {
+  color: #6688EC;
+}
+.btn:focus, .btn-large:focus,
+.btn-floating:focus {
+  background-color: #1d7d74;
+}
+
+.btn, .btn-large {
+  text-decoration: none;
+  color: #fff;
+  background: linear-gradient(45deg, #576fe6 0%, #9844b7 100%);
+  text-align: center;
+  letter-spacing: .5px;
+  -webkit-transition: background-color .2s ease-out;
+  transition: background-color .2s ease-out;
+  cursor: pointer;
+}
+[type="checkbox"].filled-in:checked + span:not(.lever):after {
+  top: 0;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #576fe6;
+  background-color: #576fe6;
+  z-index: 0;
+}
