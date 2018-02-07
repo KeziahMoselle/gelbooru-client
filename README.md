@@ -2,7 +2,7 @@
 
 Electron app for Gelbooru
 
-![preview](https://puu.sh/ziU4k/bd205bc835.gif "preview")
+<img src="/assets/preview.gif">
 
 ## Installing
 
