@@ -4,13 +4,16 @@
   "description": "You already know what it is.",
   "main": "main.js",
   "dependencies": {
-    "axios": "^0.17.1",
-    "electron": "1.7.11"
+    "axios": "0.17.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "electron": "1.7.11",
+    "electron-packager": "11.0.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron ."
+    "start": "electron .",
+    "build": "electron-packager ."
   },
   "author": "KeziahMoselle",
   "license": "MIT",

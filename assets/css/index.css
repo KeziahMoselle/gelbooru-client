@@ -11,6 +11,7 @@
 }
 
 body {
+  margin-top: 20px;
   background-color: #242424;
 }
 .light-mode {
@@ -18,6 +19,10 @@ body {
 }
 
 .drag {
+  z-index: 2;
+  overflow: hidden;
+  top: 0;
+  position: fixed;
   height: 20px;
   width: 100%;
   background-color: #6688EC;
@@ -89,4 +94,31 @@ textarea.materialize-textarea:focus:not([readonly]) {
   border: 2px solid #576fe6;
   background-color: #576fe6;
   z-index: 0;
+}
+.select-wrapper input.select-dropdown {
+  position: relative;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid #576fe6;
+  color: #9e9e9e;
+  outline: none;
+  height: 3rem;
+  line-height: 3rem;
+  width: 100%;
+  font-size: 16px;
+  margin: 8px 0 8px 0;
+  padding: 0;
+  display: block;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  z-index: 1;
+}
+.select-wrapper input.select-dropdown:focus {
+  border-bottom: 1px solid #6688EC;
+}
+a, .dropdown-content li > span {
+  color: #303252;
 }
