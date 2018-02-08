@@ -27,6 +27,7 @@ npm start || electron .
 * [Electron](https://electronjs.org/) - framework for creating native applications with web technologies
 * [Axios](https://github.com/axios/axios) - Promise based HTTP client for the browser and node.js
 * [MaterializeCSS](http://next.materializecss.com/) - A modern responsive front-end framework based on Material Design
+* [Gelbooru API](https://gelbooru.com/index.php?page=help&topic=dapi) - An image board based on Danbooru
 
 
 ## License
