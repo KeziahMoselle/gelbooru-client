@@ -10,6 +10,10 @@
   background-color: #6688EC;
 }
 
+body::-webkit-scrollbar {background-color: #242424; width: 0.5em;}
+body::-webkit-scrollbar-thumb {background-color: #6688EC;}
+::selection {background: #FFF;}
+
 body {
   margin-top: 20px;
   background-color: #242424;
