@@ -7,7 +7,6 @@
   // Axios
   const axios = require('axios');
 
-
 // Var
 
   // HTML elements
@@ -86,6 +85,7 @@
     if (themeBtn.checked)
     { // Si la checkbox est check = on veut le dark mode
       root.classList.add('light-mode');
+      
       console.log('Light mode !');
     }
     else
@@ -173,7 +173,9 @@ function search(tags, limit = 10, layout)
         // GET request
         axios.get(`https://gelbooru.com/index.php?page=dapi&s=post&q=index&limit=${limit}&json=1&tags=${tags}&pid=1`, {})
         .then((response) => {
-          response.data.forEach(image => {
+          if (response.data)
+          {
+            response.data.forEach(image => {
               container.insertAdjacentHTML('beforeend', `<div class="col s12 ${layout}">
                 <div class="card">
                   <div class="card-image">
@@ -183,14 +185,18 @@ function search(tags, limit = 10, layout)
                     <a href="${image.source}">Source</a>
                   </div>
                 </div>
-              </div>`);
-          });
-
-          // Hide loading ...
-          loading.classList.add('hide');
-
+              </div>`)});
+          }
+          else
+          {
+            loading.classList.add('hide');
+            container.insertAdjacentHTML('afterbegin', `<div class="card-panel red white-text">
+              <span class="white-text">
+                Can't find images for ${tags}
+              </span>
+            </div>`);
+          }
         }).catch((error) => {
-          console.log(error);
           loading.classList.add('hide');
           container.insertAdjacentHTML('afterbegin', `<div class="card-panel red white-text">
           <span class="white-text">
