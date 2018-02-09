@@ -8,9 +8,7 @@ jobs:
     working_directory: ~/repo
 
     steps:
-      - run: dpkg --add-architecture i386 && apt-get update && apt-get install wine32
-      - run: sudo apt-get update
-      - run: sudo apt-get install wine
+      - run: sudo dpkg --add-architecture i386 && sudo apt-get update && sudo apt-get install wine32
       - checkout
       - restore_cache:
           keys:
