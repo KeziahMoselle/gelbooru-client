@@ -19,7 +19,3 @@ build_script:
 test_script:
   - node --version
   - npm --version
-
-environment:
-  GH_TOKEN:
-secure: H2b1mq+K/miUzkxP1jtaiNwonVsUPMDxqtQknijwNFCmIFjz0DFF7ktgXZ8nzA81
