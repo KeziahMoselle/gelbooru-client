@@ -175,6 +175,7 @@ function search(tags, limit = 10, layout)
         .then((response) => {
           if (response.data)
           {
+            loading.classList.add('hide');
             response.data.forEach(image => {
               container.insertAdjacentHTML('beforeend', `<div class="col s12 ${layout}">
                 <div class="card">
