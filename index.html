@@ -14,25 +14,29 @@
       <div class="drag"></div>
       <nav>
         <div class="nav-wrapper primary">
-          <a href="#" class="brand-logo center">Gelbooru</a>
-            <ul id="nav-mobile" class="left hide-on-med-and-down">
+          <a class="brand-logo center">Gelbooru</a>
+          <ul id="nav-mobile" class="left hide-on-med-and-down">
               <li class="active"><a href="#">Home</a></li>
               <li><a id="linkGelbooru">Gelbooru</a></li>
               <li><a id="linkGithub">Github</a></li>
-            </ul>
-            <ul id="nav-mobile" class="right hide-on-med-and-down">
-              <li><a id="win-minimize"><i class="material-icons">remove</i></a></li>
-              <li><a id="win-fullscreen"><i class="material-icons">crop_free</i></a></li>
-              <li><a id="win-close"><i class="material-icons">close</i></a></li>
-            </ul>
+          </ul>
+          <ul class="right hide-on-med-and-down">
+            <li><a id="win-minimize"><i class="material-icons">remove</i></a></li>
+            <li><a id="win-fullscreen"><i class="material-icons">crop_free</i></a></li>
+            <li><a id="win-close"><i class="material-icons">close</i></a></li>
+          </ul>
         </div>
       </nav>
+      <ul class="sidenav" id="sidenav">
+        <li><a id="linkGelbooru">Gelbooru</a></li>
+        <li><a id="linkGithub">Github</a></li>
+      </ul>
       <!-- [End First navbar] -->
 
       <!-- Search bar & others -->
       <nav class="primary-dark">
         <div class="row">
-            <div class="col s5">
+            <div class="col s5">  
                 <div class="input-field col s8">
                     <input type="text" id="searchBar" placeholder="Ex: tag1 tag2 (Type Enter)" />
                 </div>
