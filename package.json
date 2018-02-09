@@ -15,7 +15,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron .",
     "package": "electron-packager . --overwrite --asar=true --all --icon=assets/icons/icon.ico --prune=true --out=releases --version-string.CompanyName=gelbooru --version-string.FileDescription=gelbooru --version-string.ProductName=\"Gelbooru Client\"",
-    "installer": "node installers/win.js"
+    "installer": "node installers/win.js",
+    "build": "npm run package && npm run installer"
 
   },
   "author": "KeziahMoselle",

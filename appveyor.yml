@@ -1,0 +1,25 @@
+platform:
+  - x64
+
+environment:
+  nodejs_version: "8.9.1"
+
+cache:
+  - node_modules
+  - '%APPDATA%\npm-cache'
+  - '%USERPROFILE%\.electron'
+
+install:
+  - ps: Install-Product node $env:nodejs_version
+  - npm install
+
+build_script:
+  - npm run build
+
+test_script:
+  - node --version
+  - npm --version
+
+environment:
+  GH_TOKEN:
+secure: H2b1mq+K/miUzkxP1jtaiNwonVsUPMDxqtQknijwNFCmIFjz0DFF7ktgXZ8nzA81
