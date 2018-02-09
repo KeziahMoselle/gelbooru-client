@@ -2,7 +2,7 @@
 
 Electron app for Gelbooru
 
-[![CircleCI](https://circleci.com/gh/KeziahMoselle/gelbooru-client.svg?style=svg)](https://circleci.com/gh/KeziahMoselle/gelbooru-client)
+[![Build status](https://ci.appveyor.com/api/projects/status/gfl7he065q83b7eo?svg=true)](https://ci.appveyor.com/project/KeziahMoselle/gelbooru-client)
 
 <img src="/assets/preview.gif">
 
