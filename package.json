@@ -8,12 +8,15 @@
   },
   "devDependencies": {
     "electron": "1.7.11",
-    "electron-packager": "11.0.0"
+    "electron-packager": "11.0.0",
+    "electron-winstaller": "2.6.4"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron .",
-    "build": "electron-packager ."
+    "package": "electron-packager . --overwrite --asar=true --all --icon=assets/icons/icon.ico --prune=true --out=releases --version-string.CompanyName=gelbooru --version-string.FileDescription=gelbooru --version-string.ProductName=\"Gelbooru Client\"",
+    "installer": "node installers/win.js"
+
   },
   "author": "KeziahMoselle",
   "license": "MIT",
