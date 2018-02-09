@@ -2,6 +2,8 @@
 
 Electron app for Gelbooru
 
+[![CircleCI](https://circleci.com/gh/KeziahMoselle/gelbooru-client.svg?style=svg)](https://circleci.com/gh/KeziahMoselle/gelbooru-client)
+
 <img src="/assets/preview.gif">
 
 ## Installing
