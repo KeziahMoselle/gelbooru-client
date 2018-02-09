@@ -23,6 +23,7 @@
   var layout = 'm4';
   // Links
   const linkGelbooru = document.getElementById('linkGelbooru');
+  const linkGithub = document.getElementById('linkGithub');
 
 // Events
 
@@ -100,6 +101,7 @@
     event.preventDefault();
     shell.openExternal('https://gelbooru.com');
   });
+
   linkGithub.addEventListener('click', (event) => {
     event.preventDefault();
     shell.openExternal('https://github.com/KeziahMoselle/gelbooru-client');
@@ -131,6 +133,7 @@ function search(tags, limit = 10, layout)
       .then((response) => {
         // Display images
         response.data.forEach(image => {
+          console.log(image);
             container.insertAdjacentHTML('beforeend', `<div class="col s12 ${layout}">
               <div class="card">
                 <div class="card-image">

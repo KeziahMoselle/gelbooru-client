@@ -48,9 +48,8 @@ input#searchBar {
 .card .card-action a:not(.btn):not(.btn-large):not(.btn-large):not(.btn-floating):hover {
   color: #6688EC;
 }
-
 .progress {
-  height: 8px;
+  height: 12px;
   background-color: #303252;
   margin: 0;
 }
