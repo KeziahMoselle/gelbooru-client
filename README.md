@@ -1,28 +1,43 @@
-# gelbooru-client
+# Gelbooru Client
 
-Electron app for Gelbooru
+An Electron app for Gelbooru
 
-[![Build status](https://ci.appveyor.com/api/projects/status/gfl7he065q83b7eo?svg=true)](https://ci.appveyor.com/project/KeziahMoselle/gelbooru-client)
+[![AppVeyor](https://img.shields.io/appveyor/ci/KeziahMoselle/gelbooru-client.svg?style=for-the-badge)](https://ci.appveyor.com/project/KeziahMoselle/gelbooru-client)
+[![GitHub (Pre-)Release Date](https://img.shields.io/github/release-date-pre/KeziahMoselle/gelbooru-client.svg?style=for-the-badge)](https://github.com/KeziahMoselle/gelbooru-client/releases)
+[![apm](https://img.shields.io/apm/l/vim-mode.svg?style=for-the-badge)]()
+
 
 <img src="/assets/preview.gif">
+
+## Features
+
+* [x] Search images
+* [x] Image limit (10,20,50,100)
+* [x] 3 cards layout
+* [x] Dark & Light mode
+* [ ] Save image
+* [ ] Rating (Safe or Explicit)
 
 ## Installing
 
 ```sh
 git clone https://github.com/KeziahMoselle/gelbooru-client.git
 ```
-
+Install dependencies :
 ```sh
-cd gelbooru-client
+cd gelbooru-client && npm install
+```
+To run the app :
+```sh
+npm start
 ```
 
-```sh
-npm install
-```
+## Build
 
 ```sh
-npm start || electron .
+npm run build
 ```
+A release folder should be created with all builds and one installer for Windows x64.
 
 ## Built With
 
@@ -34,4 +49,4 @@ npm start || electron .
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
