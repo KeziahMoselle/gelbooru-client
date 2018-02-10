@@ -138,7 +138,7 @@ function search(tags, limit = 10, layout)
       displayLoading()
 
       // GET request
-      axios.get(`https://gelbooru.com/index.php?page=dapi&s=post&q=index&limit=${limit}&json=1&pid=1`, {})
+      axios.get(`https://gelbooru.com/index.php?page=dapi&s=post&q=index&limit=${limit}&tags=${isNsfw}&json=1`, {})
       .then((response) => {
         // Display images
         response.data.forEach(image => {
@@ -180,7 +180,7 @@ function search(tags, limit = 10, layout)
         tags.replace(/\s/g, '+');
 
         // GET request
-        axios.get(`https://gelbooru.com/index.php?page=dapi&s=post&q=index&limit=${limit}&json=1&tags=${isNsfw}+${tags}&pid=1`, {})
+        axios.get(`https://gelbooru.com/index.php?page=dapi&s=post&q=index&limit=${limit}&json=1&tags=${isNsfw}+${tags}`, {})
         .then((response) => { console.log(response);
           if (response.data)
           {
@@ -199,6 +199,7 @@ function search(tags, limit = 10, layout)
                   </div>
                 </div>
               </div>`)});
+              console.log(`https://gelbooru.com/index.php?page=dapi&s=post&q=index&limit=${limit}&json=1&tags=${isNsfw}+${tags}&pid=1`);
               console.log(`Results : ${i}`);
           }
           else
