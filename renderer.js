@@ -1,24 +1,24 @@
 // Modules
-
-  // Electron
-  const shell = require('electron').shell;
-  const remote = require('electron').remote;
-
-  // Axios
-  const axios = require('axios');
+  const shell = require('electron').shell,
+        remote = require('electron').remote,
+        axios = require('axios');
 
 // Var
-
   // HTML elements
-  const root = document.getElementById('root'); // Body
-  const searchBar = document.getElementById('searchBar'); // Input type text
-  const loading = document.getElementById('loading'); // Display loading or not
-  const container = document.getElementById('container'); // Container of images
-  const enableNsfw = document.getElementById('enableNsfw'); // Checkbox for nsfw
-  const themeBtn = document.getElementById('themeBtn'); // Checkbox for theme
-  const imgLimit = document.getElementById('imgLimit'); // Select for img limit
-  const selectCardLayout = document.getElementById('selectCardLayout'); // Select for Card Layout
+  const root = document.getElementById('root'), // Body
+        searchBar = document.getElementById('searchBar'), // Input type text
+        loading = document.getElementById('loading'), // Display loading or not
+        container = document.getElementById('container'), // Container of images
+        enableNsfw = document.getElementById('enableNsfw'), // Checkbox for nsfw
+        themeBtn = document.getElementById('themeBtn'), // Checkbox for theme
+        imgLimit = document.getElementById('imgLimit'), // Select for img limit
+        selectCardLayout = document.getElementById('selectCardLayout'), // Select for Card Layout
+        displayRating = document.getElementById('displayRating'), // Display Rating
+        displayLimit = document.getElementById('displayLimit'), // Display Image limit
+        displayLayout = document.getElementById('displayLayout'); // Display Card Layout
+
   // Value
+  var tags;
   var isNsfw = "rating:safe";
   var limit = 10;
   var layout = 'm4';
@@ -59,7 +59,7 @@
   searchBar.onkeypress = (event) => {
     if (event.keyCode === 13)
     {
-      let tags = searchBar.value;
+      tags = searchBar.value;
       console.log(`Searching images for ${tags} and ${isNsfw}`);
       search(tags, limit, layout);
     }
@@ -69,12 +69,18 @@
 
     // Enable NSFW
     enableNsfw.addEventListener('change', () => {
-      if (enableNsfw.checked) {
+      if (enableNsfw.checked)
+      {
         isNsfw = "rating:explicit";
+        displayRating.innerHTML = 'lock_open';
+        search(tags, limit, layout);
         console.log('Images are now nsfw');
       }
-      else {
+      else
+      {
         isNsfw = "rating:safe";
+        displayRating.innerHTML = 'lock_outline';
+        search(tags, limit, layout);
         console.log('Images are now safe');
       }
     });
@@ -82,12 +88,28 @@
     // Image limit
     imgLimit.addEventListener('change', () => {
       limit = imgLimit.value;
+      displayLimit.innerHTML = `${limit} images`;
+      search(tags, limit, layout);
       console.log(`Image limit is now ${limit}`);
     });
 
     // Card layout
     selectCardLayout.addEventListener('change', () => {
       layout = selectCardLayout.value;
+      switch (layout) {
+        case 'm4':
+          displayLayout.innerHTML = 'view_module';
+        break;
+
+        case 'm6':
+          displayLayout.innerHTML = 'view_carousel';
+        break;
+
+        case 'm8 offset-m2':
+          displayLayout.innerHTML = 'view_agenda';
+        break;
+      }
+      search(tags, limit, layout);
       console.log(`Card layout is now ${layout}`);
     });
 
@@ -223,6 +245,9 @@ function search(tags, limit = 10, layout)
 
 }
 
+/**
+ * Remove all images in container
+ */
 function clearImg()
 {
   while (container.firstChild)
@@ -231,11 +256,17 @@ function clearImg()
   }
 }
 
+/**
+ * Show loading
+ */
 function displayLoading()
 {
   loading.classList.remove('hide');
 }
 
+/**
+ * Hide loading
+ */
 function hideLoading()
 {
   loading.classList.add('hide');
