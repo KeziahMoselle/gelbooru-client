@@ -3,7 +3,7 @@ platform:
   - x64
 
 environment:
-  nodejs_version: "8.9.1"
+  nodejs_version: "8.9.1"GitHub:
 
 cache:
   - node_modules
@@ -20,3 +20,15 @@ install:
 
 build_script:
   - npm run build
+
+deploy:
+  release: gelbooru-client v$(appveyor_build_version)
+  provider: GitHub
+  auth_token:
+    secure: oZGyi7pPIdF3lFXXRpaWxxoLpakgUXdBKLmi3VlUGFFvdEQ6MzTNEPGspNOHWFbb
+  artifact: /gelbooruClient.exe/
+  draft: true
+  prerelease: true
+  on:
+    branch: master
+    appveyor_repo_tag: true
