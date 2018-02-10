@@ -3,7 +3,7 @@ platform:
   - x64
 
 environment:
-  nodejs_version: "8.9.1"GitHub:
+  nodejs_version: "8.9.1"
 
 cache:
   - node_modules
