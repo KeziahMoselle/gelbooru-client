@@ -23,6 +23,7 @@ build_script:
 
 deploy:
   release: gelbooru-client v$(appveyor_build_version)
+  tag: $(appveyor_repo_tag)
   provider: GitHub
   auth_token:
     secure: oZGyi7pPIdF3lFXXRpaWxxoLpakgUXdBKLmi3VlUGFFvdEQ6MzTNEPGspNOHWFbb
