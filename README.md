@@ -1,4 +1,4 @@
-# Gelbooru Client
+# Gelbooru Client 
 
 An Electron app for Gelbooru
 
@@ -6,17 +6,16 @@ An Electron app for Gelbooru
 [![GitHub (Pre-)Release Date](https://img.shields.io/github/release-date-pre/KeziahMoselle/gelbooru-client.svg?style=for-the-badge)](https://github.com/KeziahMoselle/gelbooru-client/releases)
 [![apm](https://img.shields.io/apm/l/vim-mode.svg?style=for-the-badge)]()
 
-
 <img src="/assets/preview.gif">
 
 ## Features
 
-* [x] Search images
-* [x] Image limit (10,20,50,100)
+* [x] Search images (10 to 100)
 * [x] 3 cards layout
 * [x] Dark & Light mode
+* [x] Rating (Safe or Explicit)
+* [ ] Pagination
 * [ ] Save image
-* [ ] Rating (Safe or Explicit)
 
 ## Installing
 
