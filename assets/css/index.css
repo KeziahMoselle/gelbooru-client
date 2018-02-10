@@ -10,8 +10,14 @@
   background-color: #6688EC;
 }
 
+.dark {
+  background-color: #242424;
+}
+
 body::-webkit-scrollbar {background-color: #242424; width: 0.5em;}
 body::-webkit-scrollbar-thumb {background-color: #6688EC;}
+ul.sidenav::-webkit-scrollbar {background-color: #242424; width: 0.5em;}
+ul.sidenav::-webkit-scrollbar-thumb {background-color: #6688EC;}
 ::selection {background: #FFF;}
 
 body {
@@ -124,4 +130,36 @@ textarea.materialize-textarea:focus:not([readonly]) {
 }
 a, .dropdown-content li > span {
   color: #303252;
+}
+.sidenav .user-view {
+  position: relative;
+  padding: 69px 32px 0;
+  margin-bottom: 8px;
+}
+.sidenav li > label, .sidenav li > .select-wrapper {
+  padding: 0 32px;
+}
+label {
+  font-size: 0.8rem;
+  color: rgba(0, 0, 0, 0.87);
+}
+.input-field input[type=search] {
+  display: block;
+  line-height: inherit;
+}
+.input-field input[type=search]:focus:not(.browser-default) {
+  background-color: #292b46;
+  border: 0;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  color: #FFF;
+}
+
+.input-field input[type=search]:focus:not(.browser-default) + label i,
+.input-field input[type=search]:focus:not(.browser-default) ~ .mdi-navigation-close,
+.input-field input[type=search]:focus:not(.browser-default) ~ .material-icons {
+  color: #FFF;
+}
+input.select-dropdown.dropdown-trigger {
+  margin: 0;
 }

@@ -10,15 +10,16 @@
 // Var
 
   // HTML elements
-  const root = document.getElementById('root'); // 
+  const root = document.getElementById('root'); // Body
   const searchBar = document.getElementById('searchBar'); // Input type text
-  const searchBtn = document.getElementById('searchBtn'); // Input type btn
   const loading = document.getElementById('loading'); // Display loading or not
   const container = document.getElementById('container'); // Container of images
+  const enableNsfw = document.getElementById('enableNsfw'); // Checkbox for nsfw
   const themeBtn = document.getElementById('themeBtn'); // Checkbox for theme
   const imgLimit = document.getElementById('imgLimit'); // Select for img limit
   const selectCardLayout = document.getElementById('selectCardLayout'); // Select for Card Layout
   // Value
+  var isNsfw = "rating:safe";
   var limit = 10;
   var layout = 'm4';
   // Links
@@ -59,53 +60,64 @@
     if (event.keyCode === 13)
     {
       let tags = searchBar.value;
+      console.log(`Searching images for ${tags} and ${isNsfw}`);
       search(tags, limit, layout);
     }
   };
 
-  // BTN
-  searchBtn.addEventListener('click', () => {
-    let tags = searchBar.value;
-    search(tags, limit, layout);
-  });
+  // GET VAR
 
-  // LIMIT VAR
-  imgLimit.addEventListener('change', () => {
-    limit = imgLimit.value;
-    console.log(limit);
-  });
+    // Enable NSFW
+    enableNsfw.addEventListener('change', () => {
+      if (enableNsfw.checked) {
+        isNsfw = "rating:explicit";
+        console.log('Images are now nsfw');
+      }
+      else {
+        isNsfw = "rating:safe";
+        console.log('Images are now safe');
+      }
+    });
 
-  // LAYOUT VAR
-  selectCardLayout.addEventListener('change', () => {
-    layout = selectCardLayout.value;
-    console.log(layout);
-  });
+    // Image limit
+    imgLimit.addEventListener('change', () => {
+      limit = imgLimit.value;
+      console.log(`Image limit is now ${limit}`);
+    });
+
+    // Card layout
+    selectCardLayout.addEventListener('change', () => {
+      layout = selectCardLayout.value;
+      console.log(`Card layout is now ${layout}`);
+    });
 
   // Light & Dark Mode
-  themeBtn.addEventListener('change', () => {
-    if (themeBtn.checked)
-    { // Si la checkbox est check = on veut le dark mode
-      root.classList.add('light-mode');
-      
-      console.log('Light mode !');
-    }
-    else
-    { // Si la checkbox n'est pas check on retire le dark mode
-      root.classList.remove('light-mode');
-      console.log('Dark mode !');
-    }
-  });
+    themeBtn.addEventListener('change', () => {
+      if (themeBtn.checked)
+      { // Si la checkbox est check = on veut le dark mode
+        root.classList.add('light-mode');
+        
+        console.log('Theme : Light mode enabled.');
+      }
+      else
+      { // Si la checkbox n'est pas check on retire le dark mode
+        root.classList.remove('light-mode');
+        console.log('Theme : Dark mode enabled.');
+      }
+    });
 
   // Links
-  linkGelbooru.addEventListener('click', (event) => {
-    event.preventDefault();
-    shell.openExternal('https://gelbooru.com');
-  });
+    linkGelbooru.addEventListener('click', (event) => {
+      event.preventDefault();
+      shell.openExternal('https://gelbooru.com');
+    });
 
-  linkGithub.addEventListener('click', (event) => {
-    event.preventDefault();
-    shell.openExternal('https://github.com/KeziahMoselle/gelbooru-client');
-  });
+    linkGithub.addEventListener('click', (event) => {
+      event.preventDefault();
+      shell.openExternal('https://github.com/KeziahMoselle/gelbooru-client');
+    });
+
+
 
 
 
@@ -116,17 +128,14 @@
  */
 function search(tags, limit = 10, layout)
 {
-
+  // If no tags
   if (searchBar.value === "")
     {
       // Empty cards
-      while (container.firstChild)
-      {
-        container.removeChild(container.firstChild);
-      }
+      clearImg()
 
       // Display loading...
-      loading.classList.remove('hide');
+      displayLoading()
 
       // GET request
       axios.get(`https://gelbooru.com/index.php?page=dapi&s=post&q=index&limit=${limit}&json=1&pid=1`, {})
@@ -146,12 +155,11 @@ function search(tags, limit = 10, layout)
             </div>`);
         });
 
-        // Hide loading ...
-        loading.classList.add('hide');
+        hideLoading()
 
       }).catch((error) => {
         console.log(error);
-        loading.classList.add('hide');
+        hideLoading()
         container.insertAdjacentHTML('afterbegin', `<div class="card-panel red white-text">
         <span class="white-text">
           ${error}
@@ -160,26 +168,27 @@ function search(tags, limit = 10, layout)
       });
     }
     else
-    {
+    { // If tags
+      
       // Empty cards
-      while (container.firstChild)
-      {
-        container.removeChild(container.firstChild);
-      }
+      clearImg()
 
       // Display loading ...
-      loading.classList.remove('hide');
+      displayLoading()
 
         // Tags replace space -> '+'
         tags.replace(/\s/g, '+');
 
         // GET request
-        axios.get(`https://gelbooru.com/index.php?page=dapi&s=post&q=index&limit=${limit}&json=1&tags=${tags}&pid=1`, {})
-        .then((response) => {
+        axios.get(`https://gelbooru.com/index.php?page=dapi&s=post&q=index&limit=${limit}&json=1&tags=${isNsfw}+${tags}&pid=1`, {})
+        .then((response) => { console.log(response);
           if (response.data)
           {
-            loading.classList.add('hide');
+            console.log(response.data);
+            hideLoading()
+            var i = 0;
             response.data.forEach(image => {
+              i++;
               container.insertAdjacentHTML('beforeend', `<div class="col s12 ${layout}">
                 <div class="card">
                   <div class="card-image">
@@ -190,10 +199,11 @@ function search(tags, limit = 10, layout)
                   </div>
                 </div>
               </div>`)});
+              console.log(`Results : ${i}`);
           }
           else
           {
-            loading.classList.add('hide');
+            hideLoading()
             container.insertAdjacentHTML('afterbegin', `<div class="card-panel red white-text">
               <span class="white-text">
                 Can't find images for ${tags}
@@ -201,7 +211,7 @@ function search(tags, limit = 10, layout)
             </div>`);
           }
         }).catch((error) => {
-          loading.classList.add('hide');
+          hideLoading()
           container.insertAdjacentHTML('afterbegin', `<div class="card-panel red white-text">
           <span class="white-text">
             ${error}
@@ -210,4 +220,22 @@ function search(tags, limit = 10, layout)
         });
     }
 
+}
+
+function clearImg()
+{
+  while (container.firstChild)
+  {
+    container.removeChild(container.firstChild);
+  }
+}
+
+function displayLoading()
+{
+  loading.classList.remove('hide');
+}
+
+function hideLoading()
+{
+  loading.classList.add('hide');
 }
