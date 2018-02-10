@@ -65,6 +65,80 @@
     }
   };
 
+  // Change values by clicking on it 
+  displayRating.addEventListener('click', () => {
+    if (isNsfw === 'rating:safe')
+    {
+      displayRating.innerHTML = 'lock_open';
+      isNsfw = 'rating:explicit';
+      console.log(isNsfw);
+      search(tags, limit, layout);
+    }
+    else
+    {
+      displayRating.innerHTML = 'lock_outline';
+      isNsfw = 'rating:safe';
+      console.log(isNsfw);
+      search(tags, limit, layout);
+    }
+  });
+
+  displayLayout.addEventListener('click', () => {
+      switch (layout)
+      {
+        case 'm4': // If m4 switch on m6
+          displayLayout.innerHTML = 'view_agenda';
+          layout = 'm6';
+          console.log(layout);
+          search(tags, limit, layout);
+        break;
+
+        case 'm6': // if m6 switch on m8 offset-m2
+          displayLayout.innerHTML = 'view_carousel';
+          layout = 'm8 offset-m2';
+          console.log(layout);
+          search(tags, limit, layout);
+        break;
+
+        case 'm8 offset-m2': // if m8 offset-m2 switch on m4
+          displayLayout.innerHTML = 'view_module';
+          layout = 'm4';
+          console.log(layout);
+          search(tags, limit, layout);
+        break;
+      }
+  });
+
+  displayLimit.addEventListener('click', () => {
+    console.log(limit);
+    switch (limit)
+    {
+      case 10: // If 10 switch on 20
+        displayLimit.innerHTML = '20 images';
+        limit = 20;
+        search(tags, limit, layout);
+      break;
+
+      case 20: // If 20 switch on 50
+        displayLimit.innerHTML = '50 images';
+        limit = 50;
+        search(tags, limit, layout);
+      break;
+
+      case 50: // If 50 switch on 100
+        displayLimit.innerHTML = '100 images';
+        limit = 100;
+        search(tags, limit, layout);
+      break;
+
+      case 100: // If 100 switch on 10
+        displayLimit.innerHTML = '10 images';
+        limit = 10;
+        search(tags, limit, layout);
+      break;
+    }
+  });
+
   // GET VAR
 
     // Enable NSFW
@@ -96,7 +170,8 @@
     // Card layout
     selectCardLayout.addEventListener('change', () => {
       layout = selectCardLayout.value;
-      switch (layout) {
+      switch (layout)
+      {
         case 'm4':
           displayLayout.innerHTML = 'view_module';
         break;
@@ -148,7 +223,7 @@
  * @param {string} tags 
  * @param {number} limit 
  */
-function search(tags, limit = 10, layout)
+function search(tags, limit, layout)
 {
   // If no tags
   if (searchBar.value === "")
@@ -164,7 +239,6 @@ function search(tags, limit = 10, layout)
       .then((response) => {
         // Display images
         response.data.forEach(image => {
-          console.log(image);
             container.insertAdjacentHTML('beforeend', `<div class="col s12 ${layout}">
               <div class="card">
                 <div class="card-image">
@@ -203,10 +277,9 @@ function search(tags, limit = 10, layout)
 
         // GET request
         axios.get(`https://gelbooru.com/index.php?page=dapi&s=post&q=index&limit=${limit}&json=1&tags=${isNsfw}+${tags}`, {})
-        .then((response) => { console.log(response);
+        .then((response) => {
           if (response.data)
           {
-            console.log(response.data);
             hideLoading()
             var i = 0;
             response.data.forEach(image => {

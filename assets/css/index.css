@@ -28,7 +28,7 @@ body {
   background-color: #eee;
 }
 
-.drag {
+#drag {
   z-index: 2;
   overflow: hidden;
   top: 0;
@@ -40,8 +40,19 @@ body {
   -webkit-app-region: drag;
 }
 
+#titlebar {
+  z-index: 2;
+  overflow: hidden;
+  top: 20px;
+  position: fixed;
+}
+
 input#searchBar {
   color: #FFF;
+}
+
+.nav-search {
+  margin-top: 84px;
 }
 
 /*
