@@ -22,11 +22,11 @@ build_script:
   - npm run build
 
 deploy:
-  release: gelbooru-client
+  release: gelbooru-client v$(appveyor_build_version)
   provider: GitHub
   auth_token:
     secure: oZGyi7pPIdF3lFXXRpaWxxoLpakgUXdBKLmi3VlUGFFvdEQ6MzTNEPGspNOHWFbb
-  artifact: /gelbooruClient.exe/
+  artifact: /.*\.exe/
   draft: true
   prerelease: true
   on:
