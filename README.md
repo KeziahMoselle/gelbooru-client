@@ -36,6 +36,7 @@ npm start
 ```sh
 npm run dist
 ```
+A `dist` folder should be created with `win-unpacked` and `gelbooru-client Setup version.exe`.
 
 ## Built With
 
