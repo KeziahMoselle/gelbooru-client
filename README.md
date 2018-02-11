@@ -34,9 +34,8 @@ npm start
 ## Build
 
 ```sh
-npm run build
+npm run dist
 ```
-A release folder should be created with all builds and one installer for Windows x64.
 
 ## Built With
 

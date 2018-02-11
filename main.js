@@ -1,7 +1,3 @@
-// Setup Events
-  const setupEvents = require('./installers/setupEvent');
-  if (setupEvents.handleSquirrelEvent()) {return;}
-
 // Modules
 
   const electron = require('electron');

@@ -19,18 +19,4 @@ install:
   - npm install
 
 build_script:
-  - npm run build
-
-deploy:
-  release: gelbooru-client-v$(appveyor_build_version)
-  tag: $(appveyor_build_version)
-  description: 'If you want builds for other platforms, please clone this repository and run npm run build you will find the packages for each platform.'
-  provider: GitHub
-  auth_token:
-    secure: oZGyi7pPIdF3lFXXRpaWxxoLpakgUXdBKLmi3VlUGFFvdEQ6MzTNEPGspNOHWFbb
-  artifact: /.*\.exe/
-  draft: true
-  prerelease: true
-  on:
-    branch: master
-    appveyor_repo_tag: true
+  - npm run dist
