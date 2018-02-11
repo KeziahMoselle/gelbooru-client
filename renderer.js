@@ -23,9 +23,6 @@
       isNsfw = "rating:safe",
       limit = 10,
       layout = 'm4';
-  // Links
-  const linkGelbooru = document.getElementById('linkGelbooru'),
-        linkGithub = document.getElementById('linkGithub');
 
 // Events
 
@@ -201,25 +198,21 @@
       }
     });
 
-  // Links
-    linkGelbooru.addEventListener('click', (event) => {
-      event.preventDefault();
-      shell.openExternal('https://gelbooru.com');
+  // Handle links
+    document.addEventListener('click', (event) => {
+      console.log(event);
+      if (event.target.tagName === 'A' && event.target.href.startsWith('http'))
+      {
+        event.preventDefault();
+        shell.openExternal(event.target.href);
+      }
     });
-
-    linkGithub.addEventListener('click', (event) => {
-      event.preventDefault();
-      shell.openExternal('https://github.com/KeziahMoselle/gelbooru-client');
-    });
-
-
-
-
 
 /**
  * GET Request to Gelbooru and display results
  * @param {string} tags 
  * @param {number} limit 
+ * @param {string} layout
  */
 function search(tags, limit, layout)
 {
@@ -251,7 +244,7 @@ function search(tags, limit, layout)
                     <img src="${image.file_url}">
                   </div>
                   <div class="card-action">
-                    <a href="${image.source}">Source</a>
+                    <a href="https://gelbooru.com/index.php?page=post&s=view&id=${image.id}">Source</a>
                   </div>
                 </div>
               </div>`)});
@@ -268,7 +261,7 @@ function search(tags, limit, layout)
                         <img src="${image.file_url}">
                       </div>
                       <div class="card-action">
-                        <a href="${image.source}">Source</a>
+                        <a href="https://gelbooru.com/index.php?page=post&s=view&id=${image.id}">Source</a>
                       </div>
                     </div>`);
               });
@@ -314,7 +307,7 @@ function search(tags, limit, layout)
                     <img src="${image.file_url}">
                   </div>
                   <div class="card-action">
-                    <a href="${image.source}">Source</a>
+                    <a href="https://gelbooru.com/index.php?page=post&s=view&id=${image.id}">Source</a>
                   </div>
                 </div>
               </div>`)});
@@ -330,7 +323,7 @@ function search(tags, limit, layout)
                         <img src="${image.file_url}">
                       </div>
                       <div class="card-action">
-                        <a href="${image.source}">Source</a>
+                        <a href="https://gelbooru.com/index.php?page=post&s=view&id=${image.id}">Source</a>
                       </div>
                     </div>`);
               });
