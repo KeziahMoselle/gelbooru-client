@@ -16,15 +16,16 @@
         displayRating = document.getElementById('displayRating'), // Display Rating
         displayLimit = document.getElementById('displayLimit'), // Display Image limit
         displayLayout = document.getElementById('displayLayout'); // Display Card Layout
+        cardContainer = document.querySelector('div.card-container'); // Masonry or not
 
   // Value
-  var tags;
-  var isNsfw = "rating:safe";
-  var limit = 10;
-  var layout = 'm4';
+  var tags,
+      isNsfw = "rating:safe",
+      limit = 10,
+      layout = 'm4';
   // Links
-  const linkGelbooru = document.getElementById('linkGelbooru');
-  const linkGithub = document.getElementById('linkGithub');
+  const linkGelbooru = document.getElementById('linkGelbooru'),
+        linkGithub = document.getElementById('linkGithub');
 
 // Events
 
@@ -66,7 +67,7 @@
   };
 
   // Change values by clicking on it 
-  displayRating.addEventListener('click', () => {
+  clickRating.addEventListener('click', () => {
     if (isNsfw === 'rating:safe')
     {
       displayRating.innerHTML = 'lock_open';
@@ -83,33 +84,30 @@
     }
   });
 
-  displayLayout.addEventListener('click', () => {
+  clickLayout.addEventListener('click', () => {
       switch (layout)
       {
         case 'm4': // If m4 switch on m6
           displayLayout.innerHTML = 'view_agenda';
           layout = 'm6';
-          console.log(layout);
           search(tags, limit, layout);
         break;
 
         case 'm6': // if m6 switch on m8 offset-m2
           displayLayout.innerHTML = 'view_carousel';
           layout = 'm8 offset-m2';
-          console.log(layout);
           search(tags, limit, layout);
         break;
 
         case 'm8 offset-m2': // if m8 offset-m2 switch on m4
           displayLayout.innerHTML = 'view_module';
           layout = 'm4';
-          console.log(layout);
           search(tags, limit, layout);
         break;
       }
   });
 
-  displayLimit.addEventListener('click', () => {
+  clickLimit.addEventListener('click', () => {
     console.log(limit);
     switch (limit)
     {
@@ -238,29 +236,52 @@ function search(tags, limit, layout)
       axios.get(`https://gelbooru.com/index.php?page=dapi&s=post&q=index&limit=${limit}&tags=${isNsfw}&json=1`, {})
       .then((response) => {
         // Display images
-        response.data.forEach(image => {
-            container.insertAdjacentHTML('beforeend', `<div class="col s12 ${layout}">
-              <div class="card">
-                <div class="card-image">
-                  <img src="${image.file_url}">
-                </div>
-                <div class="card-action">
-                  <a href="${image.source}">Source</a>
-                </div>
-              </div>
-            </div>`);
-        });
-
         hideLoading()
-
-      }).catch((error) => {
-        console.log(error);
-        hideLoading()
-        container.insertAdjacentHTML('afterbegin', `<div class="card-panel red white-text">
-        <span class="white-text">
-          ${error}
-        </span>
-      </div>`);
+            var i = 0;
+            console.log(layout);
+            if (layout != 'm4') // Show with grid
+            {
+              cardContainer['id'] = 'null';
+              console.log('with grid');
+              response.data.forEach(image => {
+                i++;
+                container.insertAdjacentHTML('beforeend', `<div class="col s12 ${layout}">
+                <div class="card">
+                  <div class="card-image">
+                    <img src="${image.file_url}">
+                  </div>
+                  <div class="card-action">
+                    <a href="${image.source}">Source</a>
+                  </div>
+                </div>
+              </div>`)});
+              console.log(`Results : ${i}`);
+              hideLoading();
+            }
+            else // m4 -> masonry
+            {
+              cardContainer.id = "container";
+              console.log('masonry');
+              response.data.forEach(image => {
+                container.insertAdjacentHTML('beforeend', `<div class="card">
+                      <div class="card-image">
+                        <img src="${image.file_url}">
+                      </div>
+                      <div class="card-action">
+                        <a href="${image.source}">Source</a>
+                      </div>
+                    </div>`);
+              });
+              hideLoading();
+            }
+          }).catch((error) => {
+            console.log(error);
+            hideLoading()
+            container.insertAdjacentHTML('afterbegin', `<div class="card-panel red white-text">
+            <span class="white-text">
+              ${error}
+            </span>
+          </div>`);
       });
     }
     else
@@ -282,9 +303,12 @@ function search(tags, limit, layout)
           {
             hideLoading()
             var i = 0;
-            response.data.forEach(image => {
-              i++;
-              container.insertAdjacentHTML('beforeend', `<div class="col s12 ${layout}">
+            if (layout != 'm4') // Show with grid
+            {
+              cardContainer['id'] = 'null';
+              response.data.forEach(image => {
+                i++;
+                container.insertAdjacentHTML('beforeend', `<div class="col s12 ${layout}">
                 <div class="card">
                   <div class="card-image">
                     <img src="${image.file_url}">
@@ -294,8 +318,24 @@ function search(tags, limit, layout)
                   </div>
                 </div>
               </div>`)});
-              console.log(`https://gelbooru.com/index.php?page=dapi&s=post&q=index&limit=${limit}&json=1&tags=${isNsfw}+${tags}&pid=1`);
               console.log(`Results : ${i}`);
+              hideLoading();
+            }
+            else // m4 -> masonry
+            {
+              cardContainer['id'] = 'container';
+              response.data.forEach(image => {
+                container.insertAdjacentHTML('beforeend', `<div class="card">
+                      <div class="card-image">
+                        <img src="${image.file_url}">
+                      </div>
+                      <div class="card-action">
+                        <a href="${image.source}">Source</a>
+                      </div>
+                    </div>`);
+              });
+              hideLoading();
+            }
           }
           else
           {

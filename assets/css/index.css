@@ -24,6 +24,12 @@ body {
   margin-top: 20px;
   background-color: #242424;
 }
+
+main {
+  transition: padding-top 0.4s;
+  padding-top: 90px;
+}
+
 .light-mode {
   background-color: #eee;
 }
@@ -51,8 +57,72 @@ input#searchBar {
   color: #FFF;
 }
 
-.nav-search {
-  margin-top: 84px;
+#nav-search {
+  z-index: 1;
+  overflow: hidden;
+  position: fixed;
+  transition: margin-top 0.4s;
+  margin-top: 0px;
+}
+
+#container {
+  column-break-inside: avoid;
+}
+#container .card {
+  display: inline-block;
+  overflow: visible;
+}
+
+div#loading {
+  margin-top: -20px;
+}
+
+@media only screen and (max-width: 600px) {
+  #container {
+    -webkit-column-count: 1;
+    -moz-column-count: 1;
+    column-count: 1;
+  }
+}
+@media only screen and (min-width: 601px) {
+  #container {
+    -webkit-column-count: 2;
+    -moz-column-count: 2;
+    column-count: 2;
+  }
+}
+@media only screen and (min-width: 993px) {
+  #container {
+    -webkit-column-count: 3;
+    -moz-column-count: 3;
+    column-count: 3;
+  }
+}
+.text-center {
+  text-align: center;
+}
+
+
+@media only screen and (max-width: 600px) {
+  .masonry {
+    -webkit-column-count: 1;
+    -moz-column-count: 1;
+    column-count: 1;
+  }
+}
+@media only screen and (min-width: 601px) {
+  .masonry {
+    -webkit-column-count: 2;
+    -moz-column-count: 2;
+    column-count: 2;
+  }
+}
+@media only screen and (min-width: 993px) {
+  .masonry {
+    -webkit-column-count: 3;
+    -moz-column-count: 3;
+    column-count: 3;
+  }
 }
 
 /*

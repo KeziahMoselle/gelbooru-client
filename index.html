@@ -17,9 +17,10 @@
           <a class="brand-logo center">Gel<b>booru</b></a>
           <ul id="nav-mobile" class="left hide-on-med-and-down">
               <li class="active"><a id="openSidenav" href="#"><i class="material-icons">menu</i></a></li>
-              <li><a href="#"><i id="displayRating" class="material-icons">lock_outline</i></a></li>
-              <li><a href="#"><div id="displayLimit" class="chip">10 images</div></a></li>
-              <li><a href="#"><i id="displayLayout" class="material-icons">view_module</i></a></li>
+              <li><a id="clickSearch" href="#"><i class="material-icons">search</i></a></li>
+              <li><a id="clickRating" href="#"><i id="displayRating" class="material-icons">lock_outline</i></a></li>
+              <li><a id="clickLimit" href="#"><div id="displayLimit" class="chip">10 images</div></a></li>
+              <li><a id="clickLayout" href="#"><i id="displayLayout" class="material-icons">view_module</i></a></li>
           </ul>
           <ul class="right hide-on-med-and-down">
             <li><a id="win-minimize"><i class="material-icons">remove</i></a></li>
@@ -61,8 +62,8 @@
       </ul>
       <!-- [End First navbar] -->
 
-      <!-- Search bar & others -->
-      <nav class="nav-search">
+      <!-- Search bar -->
+      <nav id="nav-search">
         <div class="nav-wrapper primary-dark">
           <div class="input-field">
             <input id="searchBar" type="search">
@@ -71,7 +72,7 @@
           </div>
         </div>
       </nav>
-      <!-- End Search bar & others -->
+      <!-- End Search bar -->
   </header>
   <!-- [END HEADER] -->
 
@@ -87,7 +88,7 @@
     <!-- [End loading] -->
 
     <!-- List image cards #container -->
-    <div class="col s10 offset-s1" id="container">
+    <div class="card-container col s10 offset-s1" id="container">
       <!-- If empty: waiting for a request -->   
     </div>
     <!-- End list image cards -->
@@ -107,12 +108,32 @@
       const selectCardLayout = document.getElementById('selectCardLayout');
       var instanceCardLayout = M.Select.init(selectCardLayout);
 
-      var sidenav = document.querySelector('.sidenav');
+      const sidenav = document.querySelector('.sidenav');
       var instanceSidenav = M.Sidenav.init(sidenav);
       document.getElementById('openSidenav').addEventListener('click', () => {
         instanceSidenav.open();
       });
-      
+
+      const clickSearch = document.getElementById('clickSearch');
+      const navSearch = document.querySelector('nav#nav-search');
+      const main = document.querySelector('main.row');
+      var marginTop = 0;
+      clickSearch.addEventListener('click', () => {
+        if (marginTop === 0)
+        {
+          marginTop = 64;
+          navSearch.style.marginTop = '64px';
+          main.style.paddingTop = '148px';
+          document.getElementById('searchBar').focus();
+        }
+        else
+        {
+          marginTop = 0;
+          main.style.paddingTop = '90px';
+          navSearch.style.marginTop = '0px';
+        }
+      });
+
     })();
   </script>
 </body>
