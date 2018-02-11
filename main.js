@@ -27,7 +27,7 @@
       height,
       frame: false,
       backgroundColor: '#242424',
-      icon: path.join(__dirname, 'assets/icons/icon.ico')
+      icon: path.join(__dirname, 'build/icon.ico')
     });
     window.loadURL(url.format({
       pathname: path.join(__dirname, 'index.html'),

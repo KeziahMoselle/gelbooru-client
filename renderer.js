@@ -11,8 +11,6 @@
         container = document.getElementById('container'), // Container of images
         enableNsfw = document.getElementById('enableNsfw'), // Checkbox for nsfw
         themeBtn = document.getElementById('themeBtn'), // Checkbox for theme
-        imgLimit = document.getElementById('imgLimit'), // Select for img limit
-        selectCardLayout = document.getElementById('selectCardLayout'), // Select for Card Layout
         displayRating = document.getElementById('displayRating'), // Display Rating
         displayLimit = document.getElementById('displayLimit'), // Display Image limit
         displayLayout = document.getElementById('displayLayout'); // Display Card Layout
@@ -133,55 +131,6 @@
       break;
     }
   });
-
-  // GET VAR
-
-    // Enable NSFW
-    enableNsfw.addEventListener('change', () => {
-      if (enableNsfw.checked)
-      {
-        isNsfw = "rating:explicit";
-        displayRating.innerHTML = 'lock_open';
-        search(tags, limit, layout);
-        console.log('Images are now nsfw');
-      }
-      else
-      {
-        isNsfw = "rating:safe";
-        displayRating.innerHTML = 'lock_outline';
-        search(tags, limit, layout);
-        console.log('Images are now safe');
-      }
-    });
-
-    // Image limit
-    imgLimit.addEventListener('change', () => {
-      limit = imgLimit.value;
-      displayLimit.innerHTML = `${limit} images`;
-      search(tags, limit, layout);
-      console.log(`Image limit is now ${limit}`);
-    });
-
-    // Card layout
-    selectCardLayout.addEventListener('change', () => {
-      layout = selectCardLayout.value;
-      switch (layout)
-      {
-        case 'm4':
-          displayLayout.innerHTML = 'view_module';
-        break;
-
-        case 'm6':
-          displayLayout.innerHTML = 'view_carousel';
-        break;
-
-        case 'm8 offset-m2':
-          displayLayout.innerHTML = 'view_agenda';
-        break;
-      }
-      search(tags, limit, layout);
-      console.log(`Card layout is now ${layout}`);
-    });
 
   // Light & Dark Mode
     themeBtn.addEventListener('change', () => {
