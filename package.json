@@ -1,10 +1,11 @@
 {
   "name": "gelbooru-client",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "You already know what it is.",
   "main": "main.js",
   "dependencies": {
-    "axios": "0.17.1"
+    "axios": "0.17.1",
+    "electron-save-file": "^1.0.2"
   },
   "devDependencies": {
     "electron": "1.7.11",

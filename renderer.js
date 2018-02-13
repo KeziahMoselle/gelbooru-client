@@ -1,7 +1,8 @@
 // Modules
   const shell = require('electron').shell,
         remote = require('electron').remote,
-        axios = require('axios');
+        axios = require('axios'),
+        saveFile = remote.require('electron-save-file');
 
 // Var
   // HTML elements
@@ -14,14 +15,13 @@
         displayRating = document.getElementById('displayRating'), // Display Rating
         displayLimit = document.getElementById('displayLimit'), // Display Image limit chip
         displayLayout = document.getElementById('displayLayout'), // Display Card Layout
-        displayPid = document.getElementById('displayPid'), // Display chip
-        cardContainer = document.querySelector('div.card-container'); // Masonry or not
+        displayPid = document.getElementById('displayPid'); // Display chip
 
   // Value
   var tags,
       rating = "rating:safe",
       imgLimit = 10,
-      view = 'm4'
+      view = 'one_column'
       pid = 1;
 
 // Events
@@ -89,9 +89,9 @@
     var cards = Array.from(cardsNodeList);
     switch (view)
     {
-      case 'm4': // If m4 switch on m6
+      case 'one_column': // If one_column switch on two_column
         displayLayout.innerHTML = 'view_agenda';
-        view = 'm6';
+        view = 'two_column';
         container.classList.remove('card-container');
         if(cards)
         {
@@ -106,9 +106,9 @@
         }
       break;
 
-      case 'm6': // if m6 switch on m8 offset-m2
+      case 'two_column': // if two_column switch on three_column
         displayLayout.innerHTML = 'view_carousel';
-        view = 'm8 offset-m2';
+        view = 'three_column';
         container.classList.remove('card-container');
         if(cards)
         {
@@ -123,9 +123,9 @@
         }
       break;
 
-      case 'm8 offset-m2': // if m8 offset-m2 switch on m4
+      case 'three_column': // if three_column switch on one_column
         displayLayout.innerHTML = 'view_module';
-        view = 'm4';
+        view = 'one_column';
         container.classList.add('card-container');
         if(cards)
         {
@@ -167,7 +167,7 @@
         imgLimit = 10;
       break;
     }
-    console.log(imgLimit);
+    console.log(`Image limit is now ${imgLimit}`);
   }
 
   // Light & Dark Mode
@@ -187,12 +187,43 @@
 
   // Handle links
     document.addEventListener('click', (event) => {
-      if (event.target.tagName === 'A' && event.target.href.startsWith('http'))
+      console.log(event);
+      if (event.target.tagName === 'A' && event.target.href.startsWith('https://gelbooru.com/index.php?page=post&s=view&id='))
       {
         event.preventDefault();
         shell.openExternal(event.target.href);
       }
+      else if (event.target.tagName === 'A' && event.target.href.startsWith('https://simg3.gelbooru.com/'))
+      {
+        event.preventDefault();
+        saveFile(event.target.href)
+          .then()
+          .catch(err => console.error(err.stack));
+      }
     });
+
+
+    // Pagination
+    function clickNext()
+    {
+      pid++;
+      displayPid.innerHTML = `Page ${pid}`;
+      emptyContainer();
+      let url = getUrl(tags, imgLimit, rating, pid);
+      getResults(url);
+    }
+    
+    function clickPrevious()
+    {
+      if (pid > 1)
+      {
+        pid--;
+        displayPid.innerHTML = `Page ${pid}`;
+        emptyContainer();
+        let url = getUrl(tags, imgLimit, rating, pid);
+        getResults(url);
+      }
+    }
 
 
   
@@ -220,6 +251,7 @@ function getResults(url)
               </div>
               <div class="card-action">
                 <a href="https://gelbooru.com/index.php?page=post&s=view&id=${image.id}">Source</a>
+                <a href="${image.file_url}">Save as</a>
               </div>
             </div>
           </div>`);
@@ -232,24 +264,6 @@ function getResults(url)
         return;
       }
     })
-}
-
-function clickNext()
-{
-  pid++;
-  displayPid.innerHTML = `Page ${pid}`;
-  emptyContainer();
-  let url = getUrl(tags, imgLimit, rating, pid);
-  getResults(url);
-}
-
-function clickPrevious()
-{
-  pid--;
-  displayPid.innerHTML = `Page ${pid}`;
-  emptyContainer();
-  let url = getUrl(tags, imgLimit, rating, pid);
-  getResults(url);
 }
 
 /**
