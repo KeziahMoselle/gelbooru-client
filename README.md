@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://github.com/KeziahMoselle/gelbooru-client">
+  <a href="build/icon-black.png">
     <img src="https://i.imgur.com/OmhYzTa.png" height="150">
   </a>
 
@@ -29,7 +29,7 @@
 * [x] Dark & Light mode
 * [x] Rating (Safe or Explicit)
 * [x] Pagination
-* [ ] Save image
+* [x] Save image
 
 ## Installing
 
