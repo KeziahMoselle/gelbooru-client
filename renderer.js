@@ -250,7 +250,7 @@ function getResults(url)
                 <img src="${image.file_url}">
               </div>
               <div class="card-action">
-                <a href="https://simg3.gelbooru.com//samples/${image.directory}/sample_${image.image}">Source</a>
+                <a href="https://gelbooru.com/index.php?page=post&s=view&id=${image.id}">Source</a>
                 <a href="${image.file_url}">Save as</a>
               </div>
             </div>
