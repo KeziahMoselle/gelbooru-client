@@ -10,11 +10,11 @@ An Electron app for Gelbooru
 
 ## Features
 
-* [x] Search images (10 to 100)
+* [x] Search images (10 to 100 per request)
 * [x] 3 cards layout
 * [x] Dark & Light mode
 * [x] Rating (Safe or Explicit)
-* [ ] Pagination
+* [x] Pagination
 * [ ] Save image
 
 ## Installing

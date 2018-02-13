@@ -12,15 +12,17 @@
         enableNsfw = document.getElementById('enableNsfw'), // Checkbox for nsfw
         themeBtn = document.getElementById('themeBtn'), // Checkbox for theme
         displayRating = document.getElementById('displayRating'), // Display Rating
-        displayLimit = document.getElementById('displayLimit'), // Display Image limit
-        displayLayout = document.getElementById('displayLayout'); // Display Card Layout
+        displayLimit = document.getElementById('displayLimit'), // Display Image limit chip
+        displayLayout = document.getElementById('displayLayout'), // Display Card Layout
+        displayPid = document.getElementById('displayPid'), // Display chip
         cardContainer = document.querySelector('div.card-container'); // Masonry or not
 
   // Value
   var tags,
       rating = "rating:safe",
       imgLimit = 10,
-      view = 'm4';
+      view = 'm4'
+      pid = 1;
 
 // Events
 
@@ -55,6 +57,7 @@
   searchBar.onkeypress = (event) => {
     if (event.keyCode === 13)
     {
+      emptyContainer();
       tags = searchBar.value;
       console.log(`Searching images for ${tags} and ${rating}`);
       var url = getUrl(tags, imgLimit, rating);
@@ -62,44 +65,86 @@
     }
   };
 
-  // Change values by clicking on it 
-  clickRating.addEventListener('click', () => {
+  // GET rating
+  function clickRating()
+  {
     if (rating === 'rating:safe')
     {
       displayRating.innerHTML = 'lock_open';
       rating = 'rating:explicit';
-      console.log(rating);
+      console.log(`Rating is now ${rating}`);
     }
     else
     {
       displayRating.innerHTML = 'lock_outline';
       rating = 'rating:safe';
-      console.log(rating);
+      console.log(`Rating is now ${rating}`);
     }
-  });
+  }
 
-  clickLayout.addEventListener('click', () => {
-      switch (view)
-      {
-        case 'm4': // If m4 switch on m6
-          displayLayout.innerHTML = 'view_agenda';
-          view = 'm6';
-        break;
+  // Change layout view
+  function clickLayout()
+  {
+    var cardsNodeList = document.getElementsByClassName('card-view');
+    var cards = Array.from(cardsNodeList);
+    switch (view)
+    {
+      case 'm4': // If m4 switch on m6
+        displayLayout.innerHTML = 'view_agenda';
+        view = 'm6';
+        container.classList.remove('card-container');
+        if(cards)
+        {
+          cards.forEach(card => {
+            container.classList.remove('card-column-3');
+            container.classList.add('card-column-2');
+          });
+        }
+        else
+        {
+          console.log('No cards');
+        }
+      break;
 
-        case 'm6': // if m6 switch on m8 offset-m2
-          displayLayout.innerHTML = 'view_carousel';
-          view = 'm8 offset-m2';
-        break;
+      case 'm6': // if m6 switch on m8 offset-m2
+        displayLayout.innerHTML = 'view_carousel';
+        view = 'm8 offset-m2';
+        container.classList.remove('card-container');
+        if(cards)
+        {
+          cards.forEach(card => {
+            container.classList.remove('card-column-2');
+            container.classList.add('card-column-1');
+          });
+        }
+        else
+        {
+          console.log('No cards');
+        }
+      break;
 
-        case 'm8 offset-m2': // if m8 offset-m2 switch on m4
-          displayLayout.innerHTML = 'view_module';
-          view = 'm4';
-        break;
-      }
-  });
+      case 'm8 offset-m2': // if m8 offset-m2 switch on m4
+        displayLayout.innerHTML = 'view_module';
+        view = 'm4';
+        container.classList.add('card-container');
+        if(cards)
+        {
+          cards.forEach(card => {
+            container.classList.remove('card-column-1');
+            container.classList.add('card-column-3');
+          });
+        }
+        else
+        {
+          console.log('No cards');
+        }
+      break;
+    }
+  }
 
-  clickLimit.addEventListener('click', () => {
-    console.log(imgLimit);
+  // GET imgLimit
+  function clickLimit()
+  {
     switch (imgLimit)
     {
       case 10: // If 10 switch on 20
@@ -122,18 +167,19 @@
         imgLimit = 10;
       break;
     }
-  });
+    console.log(imgLimit);
+  }
 
   // Light & Dark Mode
     themeBtn.addEventListener('change', () => {
       if (themeBtn.checked)
-      { // Si la checkbox est check = on veut le dark mode
+      {
         root.classList.add('light-mode');
         
         console.log('Theme : Light mode enabled.');
       }
       else
-      { // Si la checkbox n'est pas check on retire le dark mode
+      {
         root.classList.remove('light-mode');
         console.log('Theme : Dark mode enabled.');
       }
@@ -149,8 +195,11 @@
     });
 
 
+  
 /**
- * Return JSON data
+ * Show loading
+ * Finished: Append cards to the container
+ * Hide loading
  * 
  * @param {string} url 
  */
@@ -164,12 +213,14 @@ function getResults(url)
       { // We find results
         hideLoading();
         response.data.forEach(image => {
-          container.insertAdjacentHTML('beforeend', `<div class="card">
-            <div class="card-image">
-              <img src="${image.file_url}">
-            </div>
-            <div class="card-action">
-              <a href="https://gelbooru.com/index.php?page=post&s=view&id=${image.id}">Source</a>
+          container.insertAdjacentHTML('beforeend', `<div class="card-view">
+            <div class="card">
+              <div class="card-image">
+                <img src="${image.file_url}">
+              </div>
+              <div class="card-action">
+                <a href="https://gelbooru.com/index.php?page=post&s=view&id=${image.id}">Source</a>
+              </div>
             </div>
           </div>`);
         });
@@ -181,6 +232,24 @@ function getResults(url)
         return;
       }
     })
+}
+
+function clickNext()
+{
+  pid++;
+  displayPid.innerHTML = `Page ${pid}`;
+  emptyContainer();
+  let url = getUrl(tags, imgLimit, rating, pid);
+  getResults(url);
+}
+
+function clickPrevious()
+{
+  pid--;
+  displayPid.innerHTML = `Page ${pid}`;
+  emptyContainer();
+  let url = getUrl(tags, imgLimit, rating, pid);
+  getResults(url);
 }
 
 /**
@@ -199,6 +268,10 @@ function getUrl(tags = '', imgLimit = 10, rating = 'rating:safe', pid = 1)
   {
     url += `&tags=${tags.replace(/\s/g, '+')}`;
     url += `+${rating}`;
+  }
+  else
+  {
+    url += `&tags=${rating}`;
   }
   if (pid != 1)
   {

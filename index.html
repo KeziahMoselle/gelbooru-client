@@ -18,9 +18,12 @@
           <ul id="nav-mobile" class="left hide-on-med-and-down">
               <li class="active"><a id="openSidenav" href="#"><i class="material-icons">menu</i></a></li>
               <li><a id="clickSearch" href="#"><i class="material-icons">search</i></a></li>
-              <li><a id="clickLimit" href="#"><div id="displayLimit" class="chip">10 images</div></a></li>
-              <li><a id="clickRating" href="#"><i id="displayRating" class="material-icons">lock_outline</i></a></li>
-              <li><a id="clickLayout" href="#"><i id="displayLayout" class="material-icons">view_module</i></a></li>
+              <li><a onclick="clickLimit()" href="#"><div id="displayLimit" class="chip">10 images</div></a></li>
+              <li><a onclick="clickRating()" href="#"><i id="displayRating" class="material-icons">lock_outline</i></a></li>
+              <li><a onclick="clickLayout()" href="#"><i id="displayLayout" class="material-icons">view_module</i></a></li>
+              <li><a onclick="clickPrevious()" href="#"><i class="material-icons">keyboard_arrow_left</i></a></li>
+              <li><a><div id="displayPid" class="chip">Page 1</div></a></li>
+              <li><a onclick="clickNext()" href="#"><i class="material-icons">keyboard_arrow_right</i></a></li>
           </ul>
           <ul class="right hide-on-med-and-down">
             <li><a id="win-minimize"><i class="material-icons">remove</i></a></li>
@@ -34,7 +37,7 @@
           <div class="user-view">
             <div class="background dark"></div>
             <span class="white-text name">Gelbooru Client</span>
-            <span class="white-text email">v0.1.0</span>
+            <span class="white-text email">v0.2.0</span>
           </div>
         </li>
         <li><a class="subheader">Settings</a></li>
@@ -72,7 +75,7 @@
     <!-- [End loading] -->
 
     <!-- List image cards #container -->
-    <div class="card-container col s10 offset-s1" id="container">
+    <div class="col s10 offset-s1 card-column-3" id="container">
       <!-- If empty: waiting for a request -->   
     </div>
     <!-- End list image cards -->
