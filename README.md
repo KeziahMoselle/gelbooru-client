@@ -1,10 +1,24 @@
-# Gelbooru Client 
+<p align="center">
+  <a href="https://github.com/KeziahMoselle/gelbooru-client">
+    <img src="https://i.imgur.com/OmhYzTa.png" height="150">
+  </a>
 
-An Electron app for Gelbooru
+  <h3 align="center">Gelbooru Client</h3>
 
-[![AppVeyor](https://img.shields.io/appveyor/ci/KeziahMoselle/gelbooru-client.svg?style=for-the-badge)](https://ci.appveyor.com/project/KeziahMoselle/gelbooru-client)
-[![GitHub (Pre-)Release Date](https://img.shields.io/github/release-date-pre/KeziahMoselle/gelbooru-client.svg?style=for-the-badge)](https://github.com/KeziahMoselle/gelbooru-client/releases)
-[![apm](https://img.shields.io/apm/l/vim-mode.svg?style=for-the-badge)]()
+  <p align="center">
+    An Electron app for Gelbooru.
+    <br>
+    <br>
+    <a href="https://ci.appveyor.com/project/KeziahMoselle/gelbooru-client">
+      <img src="https://img.shields.io/appveyor/ci/KeziahMoselle/gelbooru-client.svg?style=for-the-badge" alt="AppVeyor Badge">
+    </a>
+    <a href="https://github.com/KeziahMoselle/gelbooru-client/releases">
+      <img src="https://img.shields.io/github/release-date-pre/KeziahMoselle/gelbooru-client.svg?style=for-the-badge" alt="Last release Badge">
+    </a>
+    <a href="LICENSE">
+      <img src="https://img.shields.io/apm/l/vim-mode.svg?style=for-the-badge" alt="License Badge">
+    </a>
+</p>
 
 <img src="/assets/preview.gif">
 
