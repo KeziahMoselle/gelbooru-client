@@ -2,7 +2,8 @@
   const shell = require('electron').shell,
         remote = require('electron').remote,
         axios = require('axios'),
-        saveFile = remote.require('electron-save-file');
+        saveFile = remote.require('electron-save-file'),
+        Store = require('./Store');
 
 // Var
   // HTML elements
@@ -23,6 +24,17 @@
       imgLimit = 10,
       view = 'one_column'
       pid = 1;
+
+// Store
+
+const store = new Store({
+  configName: 'settings',
+  defaults: {
+    theme: ''
+  }
+});
+
+var theme = store.get('theme');
 
 // Events
 
@@ -171,26 +183,37 @@
   }
 
   // Light & Dark Mode
+    if (theme === 'light-mode')
+    {
+      root.classList.add('light-mode');
+      themeBtn.checked = true;
+      console.log('Theme : Light mode enabled.');
+    }
+
     themeBtn.addEventListener('change', () => {
       if (themeBtn.checked)
       {
         root.classList.add('light-mode');
-        
+        store.set('theme','light-mode');
         console.log('Theme : Light mode enabled.');
       }
       else
       {
         root.classList.remove('light-mode');
+        store.set('theme','dark-mode');
         console.log('Theme : Dark mode enabled.');
       }
     });
 
   // Handle links
     document.addEventListener('click', (event) => {
-      if (event.target.tagName === 'A' && event.target.href.startsWith('https://gelbooru.com/index.php?page=post&s=view&id='))
+      if (event.target.tagName === 'A')
       {
-        event.preventDefault();
-        shell.openExternal(event.target.href);
+        if (event.target.href.startsWith('https://gelbooru.com/') || event.target.href.startsWith('https://github.com/'))
+        {
+          event.preventDefault();
+          shell.openExternal(event.target.href);
+        }
       }
       else if (event.target.tagName === 'A' && event.target.href.startsWith('https://simg3.gelbooru.com/'))
       {
@@ -243,7 +266,6 @@ function getResults(url)
       { // We find results
         hideLoading();
         response.data.forEach(image => {
-          console.log(image);
           var sample_url;
           if (image.sample)
           {
@@ -297,7 +319,7 @@ function getUrl(tags = '', imgLimit = 10, rating = 'rating:safe', pid = 1)
   {
     url += `&pid=${pid}`;
   }
-  console.log(`getUrl has returned ${url}`);
+  console.log(`getUrl() has returned ${url}`);
   return url;
 }
 
