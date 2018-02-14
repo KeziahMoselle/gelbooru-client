@@ -187,7 +187,6 @@
 
   // Handle links
     document.addEventListener('click', (event) => {
-      console.log(event);
       if (event.target.tagName === 'A' && event.target.href.startsWith('https://gelbooru.com/index.php?page=post&s=view&id='))
       {
         event.preventDefault();
@@ -244,10 +243,17 @@ function getResults(url)
       { // We find results
         hideLoading();
         response.data.forEach(image => {
+          console.log(image);
+          var sample_url;
+          if (image.sample)
+          {
+            sample_url = `https://simg3.gelbooru.com//samples/${image.directory}/sample_${image.hash}.jpg`;
+          }
+          
           container.insertAdjacentHTML('beforeend', `<div class="card-view">
             <div class="card">
               <div class="card-image">
-                <img src="${image.file_url}">
+                <img src="${isSampleExist(sample_url) ? sample_url : image.file_url}">
               </div>
               <div class="card-action">
                 <a href="https://gelbooru.com/index.php?page=post&s=view&id=${image.id}">Source</a>
@@ -320,4 +326,18 @@ function showLoading()
 function hideLoading()
 {
   loading.classList.add('hide');
+}
+
+function isSampleExist(sample_url)
+{
+  if (sample_url)
+  {
+    console.log(`Sample exist: ${sample_url}`);
+    return true;
+  }
+  else
+  {
+    console.log(`Sample doesn't exist: ${sample_url}`);
+    return false;
+  }
 }
