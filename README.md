@@ -20,7 +20,7 @@
     </a>
 </p>
 
-<img src="/assets/preview.gif">
+<img src="/assets/preview4.gif">
 
 ## Features
 
