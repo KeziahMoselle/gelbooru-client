@@ -16,7 +16,8 @@
         displayRating = document.getElementById('displayRating'), // Display Rating
         displayLimit = document.getElementById('displayLimit'), // Display Image limit chip
         displayLayout = document.getElementById('displayLayout'), // Display Card Layout
-        displayPid = document.getElementById('displayPid'); // Display chip
+        displayPid = document.getElementById('displayPid'), // Display chip
+        tagsResults = document.getElementById('tagsResults');
 
   // Value
   var tags,
@@ -74,6 +75,19 @@ var theme = store.get('theme');
       console.log(`Searching images for ${tags} and ${rating}`);
       var url = getUrl(tags, imgLimit, rating);
       getResults(url);
+    }
+    else
+    {
+      tags = searchBar.value;
+      axios.get(`https://gelbooru.com/index.php?page=dapi&s=tag&q=index&json=1&name_pattern=${tags.replace(/\s/g, '+')}&limit=3&order=DESC&orderby=count`)
+      .then((response) => {
+        var popularTags = response.data;
+        var list = document.getElementsByClassName('tagResult');
+        for (let i = 0; i < list.length; i++)
+        {
+          list[i].innerHTML = `${popularTags[i].tag} (${popularTags[i].count})`;
+        }
+      });
     }
   };
 

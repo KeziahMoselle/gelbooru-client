@@ -11,7 +11,19 @@
 
   <!-- HEADER -->
   <header>
-      <div id="drag"></div>
+      <nav id="drag">
+          <ul id="tagsResults" class="left">
+            <li><a class="tagResult"></a></li>
+            <li><a class="tagResult"></a></li>
+            <li><a class="tagResult"></a></li>
+          </ul>
+          <ul class="no-drag right">
+              <li><a id="win-minimize"><i class="material-icons">remove</i></a></li>
+              <li><a id="win-fullscreen"><i class="material-icons">crop_free</i></a></li>
+              <li><a id="win-close"><i class="material-icons">close</i></a></li>
+          </ul>
+      </nav>
+
       <nav id="titlebar">
         <div class="nav-wrapper primary">
           <a class="brand-logo center">Gel<b>booru</b></a>
@@ -19,25 +31,23 @@
               <li class="active"><a id="openSidenav" href="#"><i class="material-icons">menu</i></a></li>
               <li><a title="Click to search" id="clickSearch" href="#"><i class="material-icons">search</i></a></li>
               <li><a title="Click to change image limit" onclick="clickLimit()" href="#"><div id="displayLimit" class="chip">10 images</div></a></li>
-              <li><a title="Enable NSFW" onclick="clickRating()" href="#"><i id="displayRating" class="material-icons">lock_outline</i></a></li>
+              <li><a title="Click to enable NSFW" onclick="clickRating()" href="#"><i id="displayRating" class="material-icons">lock_outline</i></a></li>
               <li><a title="Click to change cards layout" onclick="clickLayout()" href="#"><i id="displayLayout" class="material-icons">view_module</i></a></li>
-              <li><a title="Previous page" onclick="clickPrevious()" href="#"><i class="material-icons">keyboard_arrow_left</i></a></li>
-              <li><a title="Page ID" ><div id="displayPid" class="chip">No results</div></a></li>
-              <li><a title="Next page" onclick="clickNext()" href="#"><i class="material-icons">keyboard_arrow_right</i></a></li>
           </ul>
           <ul class="right hide-on-med-and-down">
-            <li><a id="win-minimize"><i class="material-icons">remove</i></a></li>
-            <li><a id="win-fullscreen"><i class="material-icons">crop_free</i></a></li>
-            <li><a id="win-close"><i class="material-icons">close</i></a></li>
+            <li><a title="Previous page" onclick="clickPrevious()" href="#"><i class="material-icons">keyboard_arrow_left</i></a></li>
+            <li><a title="Page ID" ><div id="displayPid" class="chip">Page 0</div></a></li>
+            <li><a title="Next page" onclick="clickNext()" href="#"><i class="material-icons">keyboard_arrow_right</i></a></li>
           </ul>
         </div>
       </nav>
+
       <ul class="sidenav">
         <li>
           <div class="user-view">
             <div class="background dark"></div>
             <span class="white-text name">Gelbooru Client</span>
-            <span class="white-text email">v0.3.1</span>
+            <span class="white-text email">v0.4.0</span>
           </div>
         </li>
         <li><a class="subheader">Settings</a></li>
@@ -45,6 +55,7 @@
         <li><div class="divider"></div></li>
         <li><a class="subheader">Links</a></li>
         <li><a class="waves-effect" href="https://gelbooru.com/"><i class="material-icons">open_in_new</i>Gelbooru</a></li>
+        <li><a class="waves-effect" href="https://gelbooru.com/index.php?page=help&topic=cheatsheet"><i class="material-icons">open_in_new</i>How Gelbooru works ?</a></li>
         <li><a class="waves-effect" href="https://github.com/KeziahMoselle/gelbooru-client"><i class="material-icons">open_in_new</i>GitHub</a></li>
       </ul>
       <!-- [End First navbar] -->
@@ -89,12 +100,14 @@
   <script src="./renderer.js"></script>
   <script>
     (function() {
+      // MaterializeCSS
       const sidenav = document.querySelector('.sidenav');
       var instanceSidenav = M.Sidenav.init(sidenav);
       document.getElementById('openSidenav').addEventListener('click', () => {
         instanceSidenav.open();
       });
 
+      // Animations
       const clickSearch = document.getElementById('clickSearch');
       const navSearch = document.querySelector('nav#nav-search');
       const main = document.querySelector('main.row');
@@ -102,8 +115,8 @@
       clickSearch.addEventListener('click', () => {
         if (marginTop === 0)
         {
-          marginTop = 64;
-          navSearch.style.marginTop = '64px';
+          marginTop = 70;
+          navSearch.style.marginTop = '70px';
           main.style.paddingTop = '148px';
           document.getElementById('searchBar').focus();
         }

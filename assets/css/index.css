@@ -39,17 +39,38 @@ main {
   overflow: hidden;
   top: 0;
   position: fixed;
-  height: 20px;
+  height: 30px;
   width: 100%;
   background-color: #6688EC;
   -webkit-user-select: none;
   -webkit-app-region: drag;
 }
+nav#drag i.material-icons {
+  display: block;
+  font-size: 18px;
+  height: 30px;
+  line-height: 30px;
+}
+.no-drag {
+  -webkit-app-region: no-drag;
+}
+
+ul#tagsResults {
+  max-height: 30px;
+}
+
+#tagsResults li a {
+  line-height: 30px;
+}
+
+#tagsResults li {
+  max-height: 30px;
+}
 
 #titlebar {
   z-index: 2;
   overflow: hidden;
-  top: 20px;
+  top: 30px;
   position: fixed;
 }
 
