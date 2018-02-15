@@ -93,6 +93,10 @@ input#searchBar {
   display: inline-block;
   overflow: visible;
 }
+.card-container .responsive-video {
+  display: inline-block;
+  overflow: visible;
+}
 
 div#loading {
   margin-top: -20px;

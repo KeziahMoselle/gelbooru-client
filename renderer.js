@@ -113,15 +113,26 @@ var theme = store.get('theme');
   {
     var cardsNodeList = document.getElementsByClassName('card-view');
     var cards = Array.from(cardsNodeList);
+    var videosNodeList = document.getElementsByClassName('responsive-video');
+    var videos = Array.from(videosNodeList);
     switch (view)
     {
       case 'one_column': // If one_column switch on two_column
         displayLayout.innerHTML = 'view_agenda';
         view = 'two_column';
         container.classList.remove('card-container');
-        if(cards)
+        if(cards.length >= 1)
         {
+          console.log(cards);
           cards.forEach(card => {
+            container.classList.remove('card-column-3');
+            container.classList.add('card-column-2');
+          });
+        }
+        else if (videos.length >= 1)
+        {
+          console.log(videos);
+          videos.forEach(video => {
             container.classList.remove('card-column-3');
             container.classList.add('card-column-2');
           });
@@ -136,9 +147,16 @@ var theme = store.get('theme');
         displayLayout.innerHTML = 'view_carousel';
         view = 'three_column';
         container.classList.remove('card-container');
-        if(cards)
+        if(cards.length >= 1)
         {
           cards.forEach(card => {
+            container.classList.remove('card-column-2');
+            container.classList.add('card-column-1');
+          });
+        }
+        else if (videos.length >= 1)
+        {
+          videos.forEach(video => {
             container.classList.remove('card-column-2');
             container.classList.add('card-column-1');
           });
@@ -153,9 +171,16 @@ var theme = store.get('theme');
         displayLayout.innerHTML = 'view_module';
         view = 'one_column';
         container.classList.add('card-container');
-        if(cards)
+        if(cards.length >= 1)
         {
           cards.forEach(card => {
+            container.classList.remove('card-column-1');
+            container.classList.add('card-column-3');
+          });
+        }
+        else if (videos.length >= 1)
+        {
+          videos.forEach(video => {
             container.classList.remove('card-column-1');
             container.classList.add('card-column-3');
           });
@@ -285,18 +310,28 @@ function getResults(url)
           {
             sample_url = `https://simg3.gelbooru.com//samples/${image.directory}/sample_${image.hash}.jpg`;
           }
+          if (tags.includes('webm'))
+          {
+            container.insertAdjacentHTML('beforeend', `
+            <video class="responsive-video" controls>
+              <source src="${image.file_url}" type="video/webm">
+            </video>`)
+          }
+          else
+          {
+            container.insertAdjacentHTML('beforeend', `<div class="card-view">
+              <div class="card">
+                <div class="card-image">
+                  <img src="${isSampleExist(sample_url) ? sample_url : image.file_url}">
+                </div>
+                <div class="card-action">
+                  <a href="https://gelbooru.com/index.php?page=post&s=view&id=${image.id}">Source</a>
+                  <a href="${image.file_url}">Save as</a>
+                </div>
+              </div>
+            </div>`);
+          }
           
-          container.insertAdjacentHTML('beforeend', `<div class="card-view">
-            <div class="card">
-              <div class="card-image">
-                <img src="${isSampleExist(sample_url) ? sample_url : image.file_url}">
-              </div>
-              <div class="card-action">
-                <a href="https://gelbooru.com/index.php?page=post&s=view&id=${image.id}">Source</a>
-                <a href="${image.file_url}">Save as</a>
-              </div>
-            </div>
-          </div>`);
         });
       }
       else
@@ -322,8 +357,16 @@ function getUrl(tags = '', imgLimit = 10, rating = 'rating:safe', pid = 1)
   var url = `https://gelbooru.com/index.php?page=dapi&s=post&q=index&json=1&limit=${imgLimit}`;
   if (tags != '')
   {
-    url += `&tags=${tags.replace(/\s/g, '+')}`;
-    url += `+${rating}`;
+    if (tags.includes('webm'))
+    {
+      url += `&tags=${tags.replace(/\s/g, '+')}`;
+      url += `+${rating}`;
+    }
+    else
+    {
+      url += `&tags=${tags.replace(/\s/g, '+')}`;
+      url += `+${rating}-webm`;
+    }
   }
   else
   {
