@@ -1,6 +1,6 @@
 {
   "name": "gelbooru-client",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "You already know what it is.",
   "main": "main.js",
   "dependencies": {
@@ -17,10 +17,11 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron .",
     "pack": "electron-builder --dir",
-    "dist": "electron-builder"
+    "dist": "electron-builder",
+    "release": "build"
   },
   "build": {
-    "appId": "com.keziahmoselle.gelbooru-client",
+    "appId": "com.gelbooru-client.app",
     "productName": "gelbooru-client",
     "win": {
       "target": "NSIS",
