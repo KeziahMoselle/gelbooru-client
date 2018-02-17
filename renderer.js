@@ -117,6 +117,10 @@ var lastTheme = store.get('theme');
           sidenavImageDirectory.innerHTML = `<i class="material-icons">folder</i> Directory: ${image.directory}`;
           sidenavImageOwner.innerHTML = `<i class="material-icons">account_circle</i> Owner: ${image.owner}`;
           sidenavImageScore.innerHTML = `<i class="material-icons">show_chart</i> Score: ${image.score}`;
+          while (document.getElementById('TagsParent').firstChild)
+          {
+            document.getElementById('TagsParent').removeChild(document.getElementById('TagsParent').firstChild);
+          }
           tags.forEach(tag => {
             document.getElementById('TagsParent').insertAdjacentHTML('beforeend', `
               <li><a class="waves-effect">${tag}</a></li>
