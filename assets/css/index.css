@@ -18,6 +18,8 @@ body::-webkit-scrollbar {background-color: #242424; width: 0.5em;}
 body::-webkit-scrollbar-thumb {background-color: #6688EC;}
 ul.sidenav::-webkit-scrollbar {background-color: #242424; width: 0.5em;}
 ul.sidenav::-webkit-scrollbar-thumb {background-color: #6688EC;}
+ul#dropdownTagsParent::-webkit-scrollbar {background-color: #242424; width: 0.5em;}
+ul#dropdownTagsParent::-webkit-scrollbar-thumb {background-color: #6688EC;}
 ::selection {background: #FFF;}
 
 body {
@@ -117,6 +119,15 @@ div#loading {
 .text-center {
   text-align: center;
 }
+
+.card-image img {
+  cursor: pointer;
+  transition: filter 0.2s;
+}
+.card-image img:hover {
+  filter: brightness(80%)
+}
+
 
 /*
 * MATERIALIZE CSS

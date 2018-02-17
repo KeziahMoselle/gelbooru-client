@@ -30,6 +30,7 @@
           <ul id="nav-mobile" class="left hide-on-med-and-down">
               <li class="active"><a id="openSidenav" href="#"><i class="material-icons">menu</i></a></li>
               <li><a title="Click to search" id="clickSearch" href="#"><i class="material-icons">search</i></a></li>
+              <li><a title="Click to actualize" onclick="clickActualize()" href="#"><i class="material-icons">cached</i></a></li>
               <li><a title="Click to change image limit" onclick="clickLimit()" href="#"><div id="displayLimit" class="chip">10 images</div></a></li>
               <li><a title="Click to enable NSFW" onclick="clickRating()" href="#"><i id="displayRating" class="material-icons">lock_outline</i></a></li>
               <li><a title="Click to change cards layout" onclick="clickLayout()" href="#"><i id="displayLayout" class="material-icons">view_module</i></a></li>
@@ -47,11 +48,15 @@
           <div class="user-view">
             <div class="background dark"></div>
             <span class="white-text name">Gelbooru Client</span>
-            <span class="white-text email">v0.4.1</span>
+            <span class="white-text email">v0.5.0</span>
           </div>
         </li>
         <li><a class="subheader">Settings</a></li>
-        <li><label><input id="themeBtn" type="checkbox" class="filled-in" /><span>Enable light mode</span></label></li>
+        <li><a onclick="dontExist()" class="waves-effect"><i class="material-icons left">favorite</i>Favorites</a></li>
+        <li><a onclick="dontExist()" class="waves-effect"><i class="material-icons left">folder</i>Change download folder</a></li>
+        <li><a onclick="dontExist()" class="waves-effect"><i class="material-icons left">label</i>Exclude tags</a></li>
+        <li><a onclick="dontExist()" class="waves-effect"><i class="material-icons left">library_add</i>Add sources</a></li>
+        <li><a onclick="handleTheme()" id="displayTheme" class="waves-effect"><i class="material-icons left">invert_colors</i>Enable light theme</a></li>
         <li><div class="divider"></div></li>
         <li><a class="subheader">Links</a></li>
         <li><a class="waves-effect" href="https://gelbooru.com/"><i class="material-icons">open_in_new</i>Gelbooru</a></li>
@@ -90,6 +95,20 @@
       <!-- If empty: waiting for a request -->   
     </div>
     <!-- End list image cards -->
+
+    <!-- Sidenav with image details -->
+    <ul id="sidenavImageDetails" class="sidenav">
+      <li><a class="subheader">Image informations</a></li>
+      <li><a class="waves-effect" id="sidenavImageSource" class="waves-effect" href=""><i class="material-icons">open_in_new</i>Source</a></li>
+      <li><a class="waves-effect" id="sidenavImageDirectory"></a></li>
+      <li><a class="waves-effect" id="sidenavImageOwner"></a></li>
+      <li><a class="waves-effect" id="sidenavImageScore"></a></li>
+      <li><div class="divider"></div></li>
+      <li><a class="subheader">Tags</a></li>
+      <ul id="TagsParent">
+      </ul>
+    </ul>
+    <!-- [End Sidenav with image details ] -->
     
   </main>
   <!-- [END MAIN] -->
@@ -97,12 +116,11 @@
 
   <!-- Require MaterializeCSS & The renderer process -->
   <script src="./assets/js/materialize.min.js"></script>
-  <script src="./renderer.js"></script>
   <script>
     (function() {
       // MaterializeCSS
       const sidenav = document.querySelector('.sidenav');
-      var instanceSidenav = M.Sidenav.init(sidenav);
+      const instanceSidenav = M.Sidenav.init(sidenav);
       document.getElementById('openSidenav').addEventListener('click', () => {
         instanceSidenav.open();
       });
@@ -136,5 +154,6 @@
 
     })();
   </script>
+  <script src="./renderer.js"></script>
 </body>
 </html>

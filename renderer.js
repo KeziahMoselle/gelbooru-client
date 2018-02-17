@@ -11,13 +11,16 @@
         searchBar = document.getElementById('searchBar'), // Input type text
         loading = document.getElementById('loading'), // Display loading or not
         container = document.getElementById('container'), // Container of images
-        enableNsfw = document.getElementById('enableNsfw'), // Checkbox for nsfw
-        themeBtn = document.getElementById('themeBtn'), // Checkbox for theme
+        themeBtn = document.getElementById('themeBtn'), // Btn for theme
         displayRating = document.getElementById('displayRating'), // Display Rating
         displayLimit = document.getElementById('displayLimit'), // Display Image limit chip
         displayLayout = document.getElementById('displayLayout'), // Display Card Layout
         displayPid = document.getElementById('displayPid'), // Display chip
-        tagsResults = document.getElementById('tagsResults');
+        displayTheme = document.getElementById('displayTheme'), // Display actual theme
+        tagsResults = document.getElementById('tagsResults'), // Displays popular tags
+        sidenavImg = document.getElementById('sidenavImg'),
+        sidenavImageSource = document.getElementById('sidenavImageSource'),
+        sidenavImageTagsParent = document.getElementById('sidenavImageTagsParent');
 
   // Value
   var tags,
@@ -30,13 +33,10 @@
 
 const store = new Store({
   configName: 'settings',
-  defaults: {
-    theme: ''
-  }
+  defaults: {theme: ''}
 });
 
-var theme = store.get('theme');
-
+var lastTheme = store.get('theme');
 // Events
 
   // Window events
@@ -91,6 +91,51 @@ var theme = store.get('theme');
     }
   };
 
+  function clickActualize()
+  {
+    emptyContainer();
+    tags = searchBar.value;
+    console.log(`Actualize with: ${tags} and ${rating}`);
+    var url = getUrl(tags, imgLimit, rating);
+    getResults(url);
+  }
+
+  // Sidenav image details
+
+  // Listen to the click on img and launch openImageDetails()
+  document.addEventListener('click', (event) => {
+    if (event.target.localName === 'img')
+    {
+      openImageDetails(event);
+    }
+  });
+
+  function openImageDetails(event)
+  {
+    // Fetch image informations with ID
+    var image_id = event.target.id;
+      axios.get(`https://gelbooru.com/index.php?page=dapi&s=post&q=index&id=${image_id}&json=1`)
+        .then((response) => { console.log(response.data[0]);
+          // Setting up values
+          var image = response.data[0],
+              tags = image.tags.split(' ');
+          // Update values
+          sidenavImageSource.setAttribute('href', `https://gelbooru.com/index.php?page=post&s=view&id=${image.id}`);
+          sidenavImageDirectory.innerHTML = `<i class="material-icons">folder</i> Directory: ${image.directory}`;
+          sidenavImageOwner.innerHTML = `<i class="material-icons">account_circle</i> Owner: ${image.owner}`;
+          sidenavImageScore.innerHTML = `<i class="material-icons">show_chart</i> Score: ${image.score}`;
+          tags.forEach(tag => {
+            document.getElementById('TagsParent').insertAdjacentHTML('beforeend', `
+              <li><a class="waves-effect">${tag}</a></li>
+            `);
+          });
+        });
+    // Open sidenav
+    const sidenavImageDetails = document.querySelector('#sidenavImageDetails.sidenav');
+    var instanceSidenavImageDetails = M.Sidenav.init(sidenavImageDetails);
+    instanceSidenavImageDetails.open();
+  }
+
   // GET rating
   function clickRating()
   {
@@ -98,13 +143,13 @@ var theme = store.get('theme');
     {
       displayRating.innerHTML = 'lock_open';
       rating = 'rating:explicit';
-      console.log(`Rating is now ${rating}`);
+      M.toast({html: `Rating is now ${rating}`});
     }
     else
     {
       displayRating.innerHTML = 'lock_outline';
       rating = 'rating:safe';
-      console.log(`Rating is now ${rating}`);
+      M.toast({html: `Rating is now ${rating}`});
     }
   }
 
@@ -218,31 +263,42 @@ var theme = store.get('theme');
         imgLimit = 10;
       break;
     }
-    console.log(`Image limit is now ${imgLimit}`);
+    M.toast({html: `Image limit is now ${imgLimit}`})
   }
 
   // Light & Dark Mode
-    if (theme === 'light-mode')
+
+    // Enable light theme if enabled before
+    if (lastTheme === 'light-mode')
     {
       root.classList.add('light-mode');
-      themeBtn.checked = true;
       console.log('Theme : Light mode enabled.');
     }
 
-    themeBtn.addEventListener('change', () => {
-      if (themeBtn.checked)
-      {
-        root.classList.add('light-mode');
-        store.set('theme','light-mode');
-        console.log('Theme : Light mode enabled.');
+    // Add / Remove light theme
+    function handleTheme()
+    {
+      var actualTheme = store.get('theme');
+      if (actualTheme === 'light-mode')
+      { // Actual theme = Light Mode -> Switch on Dark Mode
+        root.classList.remove('light-mode');
+        displayTheme.innerHTML = '<i class="material-icons left">invert_colors</i> Enable light theme';
+        M.toast({html: 'Dark theme activated'});
+        store.set('theme','dark-mode');
       }
       else
-      {
-        root.classList.remove('light-mode');
-        store.set('theme','dark-mode');
-        console.log('Theme : Dark mode enabled.');
+      { // Actual theme = Dark Mode -> Switch on Light Mode
+        root.classList.add('light-mode');
+        displayTheme.innerHTML = '<i class="material-icons left">invert_colors</i> Enable dark theme';
+        M.toast({html: 'Light theme activated'});
+        store.set('theme','light-mode');
       }
-    });
+    }
+
+    function dontExist()
+    {
+      M.toast({html: 'This feature is not implemented yet !'});
+    }
 
   // Handle links
     document.addEventListener('click', (event) => {
@@ -322,16 +378,11 @@ function getResults(url)
             container.insertAdjacentHTML('beforeend', `<div class="card-view">
               <div class="card">
                 <div class="card-image">
-                  <img src="${isSampleExist(sample_url) ? sample_url : image.file_url}">
-                </div>
-                <div class="card-action">
-                  <a href="https://gelbooru.com/index.php?page=post&s=view&id=${image.id}">Source</a>
-                  <a href="${image.file_url}">Save as</a>
+                  <img id="${image.id}" src="${isSampleExist(sample_url) ? sample_url : image.file_url}">
                 </div>
               </div>
             </div>`);
           }
-          
         });
       }
       else
