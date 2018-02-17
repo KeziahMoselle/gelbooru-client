@@ -102,14 +102,6 @@ var lastTheme = store.get('theme');
 
   // Sidenav image details
 
-  // Listen to the click on img and launch openImageDetails()
-  document.addEventListener('click', (event) => {
-    if (event.target.localName === 'img')
-    {
-      openImageDetails(event);
-    }
-  });
-
   function openImageDetails(event)
   {
     // Fetch image informations with ID
@@ -121,6 +113,7 @@ var lastTheme = store.get('theme');
               tags = image.tags.split(' ');
           // Update values
           sidenavImageSource.setAttribute('href', `https://gelbooru.com/index.php?page=post&s=view&id=${image.id}`);
+          sidenavImageSaveAs.setAttribute('href', `${image.file_url}`);
           sidenavImageDirectory.innerHTML = `<i class="material-icons">folder</i> Directory: ${image.directory}`;
           sidenavImageOwner.innerHTML = `<i class="material-icons">account_circle</i> Owner: ${image.owner}`;
           sidenavImageScore.innerHTML = `<i class="material-icons">show_chart</i> Score: ${image.score}`;
@@ -302,6 +295,7 @@ var lastTheme = store.get('theme');
 
   // Handle links
     document.addEventListener('click', (event) => {
+      console.log(event);
       if (event.target.tagName === 'A')
       {
         if (event.target.href.startsWith('https://gelbooru.com/') || event.target.href.startsWith('https://github.com/'))
@@ -309,13 +303,17 @@ var lastTheme = store.get('theme');
           event.preventDefault();
           shell.openExternal(event.target.href);
         }
+        else if (event.target.id === 'sidenavImageSaveAs')
+        {
+          event.preventDefault();
+          saveFile(event.target.href)
+            .then()
+            .catch(err => console.error(err.stack));
+        }
       }
-      else if (event.target.tagName === 'A' && event.target.href.startsWith('https://simg3.gelbooru.com/'))
+      else if (event.target.localName === 'img')
       {
-        event.preventDefault();
-        saveFile(event.target.href)
-          .then()
-          .catch(err => console.error(err.stack));
+        openImageDetails(event);
       }
     });
 
