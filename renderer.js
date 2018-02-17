@@ -414,7 +414,7 @@ function getUrl(tags = '', imgLimit = 10, rating = 'rating:safe', pid = 1)
     else
     {
       url += `&tags=${tags.replace(/\s/g, '+')}`;
-      url += `+${rating}-webm`;
+      url += `+${rating}+-webm`;
     }
   }
   else
