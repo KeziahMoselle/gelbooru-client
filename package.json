@@ -5,7 +5,7 @@
   "main": "main.js",
   "dependencies": {
     "axios": "0.17.1",
-    "electron-save-file": "^1.0.2"
+    "electron-save-file": "1.0.2"
   },
   "devDependencies": {
     "electron": "1.7.11",

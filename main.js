@@ -5,7 +5,7 @@
   const BrowserWindow = electron.BrowserWindow;
   const path = require('path');
   const url = require('url');
-  const Store = require('./Store');
+  const Store = require('./src/Store');
 
   let window;
 
@@ -30,7 +30,7 @@
       icon: path.join(__dirname, 'build/icon.ico')
     });
     window.loadURL(url.format({
-      pathname: path.join(__dirname, 'index.html'),
+      pathname: path.join(__dirname, './src/index.html'),
       protocol: 'file:',
       slashes: true
     }));
