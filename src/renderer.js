@@ -27,7 +27,8 @@
       rating = "rating:safe",
       imgLimit = 10,
       view = 'one_column'
-      pid = 1;
+      pid = 1,
+      blacklistTags;
 
 // Store
 
@@ -100,6 +101,20 @@ var lastTheme = store.get('theme');
     getResults(url);
   }
 
+  function openBlacklistModal()
+  {
+    const blacklistModal = document.querySelector('#blacklist.modal');
+    const instanceBlacklistModal = M.Modal.init(blacklistModal);
+    instanceBlacklistModal.open();
+  }
+
+  function updateBlacklist()
+  {
+    blacklistTags = document.getElementById('blacklistTags').value;
+    blacklistTags.split(' ');
+    console.log(blacklistTags);
+  }
+
   // Sidenav image details
 
   function openImageDetails(event)
@@ -129,7 +144,7 @@ var lastTheme = store.get('theme');
         });
     // Open sidenav
     const sidenavImageDetails = document.querySelector('#sidenavImageDetails.sidenav');
-    var instanceSidenavImageDetails = M.Sidenav.init(sidenavImageDetails);
+    const instanceSidenavImageDetails = M.Sidenav.init(sidenavImageDetails);
     instanceSidenavImageDetails.open();
   }
 
@@ -299,7 +314,6 @@ var lastTheme = store.get('theme');
 
   // Handle links
     document.addEventListener('click', (event) => {
-      console.log(event);
       if (event.target.tagName === 'A')
       {
         if (event.target.href.startsWith('https://gelbooru.com/') || event.target.href.startsWith('https://github.com/'))
@@ -410,15 +424,10 @@ function getUrl(tags = '', imgLimit = 10, rating = 'rating:safe', pid = 1)
   var url = `https://gelbooru.com/index.php?page=dapi&s=post&q=index&json=1&limit=${imgLimit}`;
   if (tags != '')
   {
-    if (tags.includes('webm'))
+    url += `&tags=${tags.replace(/\s/g, '+')}+${rating}+${blacklistTags}`;
+    if (!tags.includes('webm'))
     {
-      url += `&tags=${tags.replace(/\s/g, '+')}`;
-      url += `+${rating}`;
-    }
-    else
-    {
-      url += `&tags=${tags.replace(/\s/g, '+')}`;
-      url += `+${rating}+-webm`;
+      url += `+-webm`;
     }
   }
   else

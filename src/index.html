@@ -54,7 +54,7 @@
         <li><a class="subheader">Settings</a></li>
         <li><a onclick="dontExist()" class="waves-effect"><i class="material-icons left">favorite</i>Favorites</a></li>
         <li><a onclick="dontExist()" class="waves-effect"><i class="material-icons left">folder</i>Change download folder</a></li>
-        <li><a onclick="dontExist()" class="waves-effect"><i class="material-icons left">label</i>Exclude tags</a></li>
+        <li><a onclick="openBlacklistModal()" class="waves-effect modal-trigger"><i class="material-icons left">label</i>Exclude tags</a></li>
         <li><a onclick="dontExist()" class="waves-effect"><i class="material-icons left">library_add</i>Add sources</a></li>
         <li><a onclick="handleTheme()" id="displayTheme" class="waves-effect"><i class="material-icons left">invert_colors</i>Enable light theme</a></li>
         <li><div class="divider"></div></li>
@@ -110,6 +110,31 @@
       </ul>
     </ul>
     <!-- [End Sidenav with image details ] -->
+
+    <!-- Blacklist tags modal -->
+    <div id="blacklist" class="modal">
+      <div class="modal-content">
+        <div class="row">
+
+          <div class="col s12 center">
+            <h1>Your Blacklist</h1>
+          </div>
+
+          <div class="col s10 offset-s1 modalInput">
+            <div class="input-field">
+              <textarea id="blacklistTags" class="materialize-textarea"></textarea>
+              <label for="blacklistTags">Enter blacklisted tags separated with space</label>
+            </div>
+          </div>
+
+          <div class="modalClose col s10 offset-s1">
+            <a href="#" onclick="updateBlacklist()" class="modal-action modal-close waves-effect btn">Update Blacklist</a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <!-- [End Blacklist tags modal] -->
     
   </main>
   <!-- [END MAIN] -->

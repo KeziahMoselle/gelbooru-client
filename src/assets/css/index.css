@@ -14,12 +14,8 @@
   background-color: #242424;
 }
 
-body::-webkit-scrollbar {background-color: #242424; width: 0.5em;}
-body::-webkit-scrollbar-thumb {background-color: #6688EC;}
-ul.sidenav::-webkit-scrollbar {background-color: #242424; width: 0.5em;}
-ul.sidenav::-webkit-scrollbar-thumb {background-color: #6688EC;}
-ul#dropdownTagsParent::-webkit-scrollbar {background-color: #242424; width: 0.5em;}
-ul#dropdownTagsParent::-webkit-scrollbar-thumb {background-color: #6688EC;}
+*::-webkit-scrollbar {background-color: #242424; width: 0.5em;}
+*::-webkit-scrollbar-thumb {background-color: #6688EC;}
 ::selection {background: #FFF;}
 
 body {
@@ -128,6 +124,20 @@ div#loading {
   filter: brightness(80%)
 }
 
+.modal h1 {
+  font-weight: 600;
+  margin: 0;
+}
+
+.modal .modalClose {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+.modal .input-field {
+  margin-top: 2rem;
+}
 
 /*
 * MATERIALIZE CSS
