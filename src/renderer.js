@@ -34,7 +34,7 @@
 
 const store = new Store({
   configName: 'settings',
-  defaults: {theme: ''}
+  defaults: {theme: '', blacklist: ''}
 });
 
 var lastTheme = store.get('theme');
@@ -112,7 +112,6 @@ var lastTheme = store.get('theme');
   {
     blacklistTags = document.getElementById('blacklistTags').value;
     blacklistTags.split(' ');
-    console.log(blacklistTags);
   }
 
   // Sidenav image details
@@ -151,17 +150,31 @@ var lastTheme = store.get('theme');
   // GET rating
   function clickRating()
   {
-    if (rating === 'rating:safe')
-    {
-      displayRating.innerHTML = 'lock_open';
-      rating = 'rating:explicit';
-      M.toast({html: `Rating is now ${rating}`});
-    }
-    else
-    {
-      displayRating.innerHTML = 'lock_outline';
-      rating = 'rating:safe';
-      M.toast({html: `Rating is now ${rating}`});
+    switch (rating) {
+      case 'rating:safe': // Switch on Questionable
+        displayRating.innerHTML = 'warning';
+        rating = 'rating:questionable';
+        M.toast({html: `Rating is now ${rating}`});
+      break;
+
+      case 'rating:questionable': // Switch on Explicit
+        displayRating.innerHTML = 'lock_open';
+        rating = 'rating:explicit';
+        M.toast({html: `Rating is now ${rating}`});
+      break;
+
+      case 'rating:explicit': // Switch on All
+        displayRating.innerHTML = 'all_inclusive';
+        rating = '';
+        M.toast({html: `Rating is now everything`});
+      break;
+
+      case '': // Switch on Safe
+        displayRating.innerHTML = 'lock_outline';
+        rating = 'rating:safe';
+        M.toast({html: `Rating is now ${rating}`});
+      break;
+
     }
   }
 
