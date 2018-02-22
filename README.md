@@ -27,9 +27,14 @@
 * [x] Search images (10 to 100 per request)
 * [x] 3 cards layout
 * [x] Dark & Light mode
-* [x] Rating (Safe or Explicit)
+* [x] Rating (Safe, Explicit, Questionable)
 * [x] Pagination
 * [x] Save image
+* [ ] Browse all
+* [ ] Top images
+* [ ] Hot images
+* [ ] Favorites
+* [ ] Blacklist (Exclude tags)
 
 ## Installing
 
@@ -62,4 +67,4 @@ A `dist` folder should be created with `win-unpacked` and `gelbooru-client Setup
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
+Gelbooru Client is licensed under the MIT License, see [LICENSE](LICENSE) file for details

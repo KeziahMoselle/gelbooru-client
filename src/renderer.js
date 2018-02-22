@@ -437,7 +437,7 @@ function getUrl(tags = '', imgLimit = 10, rating = 'rating:safe', pid = 1)
   var url = `https://gelbooru.com/index.php?page=dapi&s=post&q=index&json=1&limit=${imgLimit}`;
   if (tags != '')
   {
-    url += `&tags=${tags.replace(/\s/g, '+')}+${rating}+${blacklistTags}`;
+    url += `&tags=${tags.replace(/\s/g, '+')}+${rating}${blacklistTags}`;
     if (!tags.includes('webm'))
     {
       url += `+-webm`;
