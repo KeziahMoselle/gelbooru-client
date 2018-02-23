@@ -48,14 +48,15 @@
           <div class="user-view">
             <div class="background dark"></div>
             <span class="white-text name">Gelbooru Client</span>
-            <span class="white-text email">v0.5.4</span>
+            <span class="white-text email">v0.6.0</span>
           </div>
         </li>
         <li><a class="subheader">Settings</a></li>
-        <li><a onclick="dontExist()" class="waves-effect"><i class="material-icons left">favorite</i>Favorites</a></li>
-        <li><a onclick="dontExist()" class="waves-effect"><i class="material-icons left">folder</i>Change download folder</a></li>
+        <li><a onclick="clickActualize()" class="waves-effect"><i class="material-icons left">home</i>All</a></li>
+        <li><a onclick="searchTop()" class="waves-effect"><i class="material-icons left">star</i>Top</a></li>
+        <li><a onclick="searchHot()" class="waves-effect"><i class="material-icons left">whatshot</i>Hot</a></li>
+        <li><a class="waves-effect disabled"><i class="material-icons left">favorite</i>Favorites</a></li>
         <li><a onclick="openBlacklistModal()" class="waves-effect"><i class="material-icons left">label</i>Exclude tags</a></li>
-        <li><a onclick="dontExist()" class="waves-effect"><i class="material-icons left">library_add</i>Add sources</a></li>
         <li><a onclick="handleTheme()" id="displayTheme" class="waves-effect"><i class="material-icons left">invert_colors</i>Enable light theme</a></li>
         <li><div class="divider"></div></li>
         <li><a class="subheader">Links</a></li>
@@ -122,8 +123,7 @@
 
           <div class="col s10 offset-s1 modalInput">
             <div class="input-field">
-              <textarea id="blacklistTags" class="materialize-textarea"></textarea>
-              <label for="blacklistTags">Enter blacklisted tags separated with space</label>
+                <div class="chips chips-placeholder"></div>
             </div>
           </div>
 
@@ -145,11 +145,16 @@
   <script>
     (function() {
       // MaterializeCSS
-      const sidenav = document.querySelector('.sidenav');
-      const instanceSidenav = M.Sidenav.init(sidenav);
+      const sidenav = document.querySelector('.sidenav'),
+            instanceSidenav = M.Sidenav.init(sidenav);
       document.getElementById('openSidenav').addEventListener('click', () => {
         instanceSidenav.open();
       });
+
+      var chips = document.querySelector('.chips'),
+        instanceChips = M.Chips.init(chips, {
+          placeholder: 'Enter tag...'
+        });
 
       // Animations
       const clickSearch = document.getElementById('clickSearch');

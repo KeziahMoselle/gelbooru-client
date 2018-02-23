@@ -21,6 +21,7 @@
 body {
   margin-top: 20px;
   background-color: #242424;
+  transition: background-color 0.4s;
 }
 
 main {
@@ -176,20 +177,27 @@ textarea.materialize-textarea:focus:not([readonly]) {
 .input-field .prefix.active {
   color: #6688EC;
 }
-.btn:focus, .btn-large:focus,
-.btn-floating:focus {
-  background-color: #1d7d74;
-}
 
 .btn, .btn-large {
   text-decoration: none;
   color: #fff;
-  background: linear-gradient(45deg, #576fe6 0%, #9844b7 100%);
+  background-color: #242424;
   text-align: center;
   letter-spacing: .5px;
   -webkit-transition: background-color .2s ease-out;
   transition: background-color .2s ease-out;
   cursor: pointer;
+}
+
+.btn:hover, .btn-large:hover,
+.btn-floating:hover {
+  background-color: #FFF;
+  color: #242424;
+}
+
+.btn:focus, .btn-large:focus,
+.btn-floating:focus {
+  background-color: #FFF;
 }
 [type="checkbox"].filled-in:checked + span:not(.lever):after {
   top: 0;

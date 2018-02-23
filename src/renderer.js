@@ -20,276 +20,304 @@
         tagsResults = document.getElementById('tagsResults'), // Displays popular tags
         sidenavImg = document.getElementById('sidenavImg'),
         sidenavImageSource = document.getElementById('sidenavImageSource'),
-        sidenavImageTagsParent = document.getElementById('sidenavImageTagsParent');
+        sidenavImageTagsParent = document.getElementById('sidenavImageTagsParent'),
+        chips = document.querySelector('.chips');
 
   // Value
   var tags,
       rating = "rating:safe",
       imgLimit = 10,
-      view = 'one_column'
+      view = 'one_column',
       pid = 1,
-      blacklistTags;
+      tagsBlacklist;
 
 // Store
 
 const store = new Store({
   configName: 'settings',
-  defaults: {theme: '', blacklist: ''}
+  defaults: {theme: ''}
 });
 
 var lastTheme = store.get('theme');
-// Events
 
-  // Window events
-    // Minimize
-    document.getElementById('win-minimize').addEventListener('click', (event) => {
-      let window = remote.getCurrentWindow();
-      window.minimize();
-    });
+// Minimize
+document.getElementById('win-minimize').addEventListener('click', (event) => {
+  let window = remote.getCurrentWindow();
+  window.minimize();
+});
 
-    // Fullscreen
-    document.getElementById('win-fullscreen').addEventListener('click', (event) => {
-      let window = remote.getCurrentWindow();
-      if (!window.isMaximized())
-      {
-        window.maximize();
-      }
-      else
-      {
-        window.unmaximize();
-      }
-    });
+// Fullscreen
+document.getElementById('win-fullscreen').addEventListener('click', (event) => {
+  let window = remote.getCurrentWindow();
+  if (!window.isMaximized())
+  {
+    window.maximize();
+  }
+  else
+  {
+    window.unmaximize();
+  }
+});
 
-    // Close
-    document.getElementById('win-close').addEventListener('click', (event) => {
-      let window = remote.getCurrentWindow();
-      window.close();
-    });
+// Close
+document.getElementById('win-close').addEventListener('click', (event) => {
+  let window = remote.getCurrentWindow();
+  window.close();
+});
 
-
-  // INPUT AND HIT ENTER
-  searchBar.onkeypress = (event) => {
-    if (event.keyCode === 13)
-    {
-      emptyContainer();
-      tags = searchBar.value;
-      console.log(`Searching images for ${tags} and ${rating}`);
-      var url = getUrl(tags, imgLimit, rating);
-      getResults(url);
-    }
-    else
-    {
-      tags = searchBar.value;
-      axios.get(`https://gelbooru.com/index.php?page=dapi&s=tag&q=index&json=1&name_pattern=${tags.replace(/\s/g, '+')}&limit=3&order=DESC&orderby=count`)
-      .then((response) => {
-        var popularTags = response.data;
-        var list = document.getElementsByClassName('tagResult');
-        for (let i = 0; i < list.length; i++)
-        {
-          list[i].innerHTML = `${popularTags[i].tag} (${popularTags[i].count})`;
-        }
-      });
-    }
-  };
-
-  function clickActualize()
+// INPUT AND HIT ENTER
+searchBar.onkeypress = (event) => {
+  if (event.keyCode === 13)
   {
     emptyContainer();
     tags = searchBar.value;
-    console.log(`Actualize with: ${tags} and ${rating}`);
+    console.log(`Searching images for ${tags} and ${rating}`);
     var url = getUrl(tags, imgLimit, rating);
     getResults(url);
   }
-
-  function openBlacklistModal()
+  else
   {
-    const blacklistModal = document.querySelector('#blacklist.modal');
-    const instanceBlacklistModal = M.Modal.init(blacklistModal);
-    instanceBlacklistModal.open();
+    tags = searchBar.value;
+    axios.get(`https://gelbooru.com/index.php?page=dapi&s=tag&q=index&json=1&name_pattern=${tags.replace(/\s/g, '+')}&limit=3&order=DESC&orderby=count`)
+    .then((response) => {
+      var popularTags = response.data;
+      var list = document.getElementsByClassName('tagResult');
+      for (let i = 0; i < list.length; i++)
+      {
+        list[i].innerHTML = `${popularTags[i].tag} (${popularTags[i].count})`;
+      }
+    });
   }
+};
 
-  function updateBlacklist()
+// Refresh
+function clickActualize()
+{
+  emptyContainer();
+  tags = searchBar.value;
+  console.log(`Actualize with: ${tags} and ${rating}`);
+  var url = getUrl(tags, imgLimit, rating);
+  getResults(url);
+}
+
+// Top images
+function searchTop()
+{
+  tags = 'sort:score'
+  emptyContainer();
+  var url = getUrl(tags, imgLimit, rating);
+  getResults(url);
+}
+
+// Hot images
+function searchHot()
+{
+  tags = 'sort:date score:>=5'
+  emptyContainer();
+  var url = getUrl(tags, imgLimit, rating);
+  getResults(url);
+}
+
+// Open Blacklist modal
+function openBlacklistModal()
+{
+  const blacklistModal = document.querySelector('#blacklist.modal');
+  const instanceBlacklistModal = M.Modal.init(blacklistModal);
+  instanceBlacklistModal.open();
+}
+
+// Update 'tagsBlacklist' var
+function updateBlacklist()
+{ // TO DO
+  var ChipsData = M.Chips.getInstance(chips).chipsData;
+
+  if (ChipsData.length > 1)
   {
-    blacklistTags = document.getElementById('blacklistTags').value;
-    blacklistTags.split(' ');
+    ChipsData.forEach(data => {
+      tagsBlacklist += data.tag;
+    });
   }
-
-  // Sidenav image details
-
-  function openImageDetails(event)
+  else if (ChipsData.length === 1)
   {
-    // Fetch image informations with ID
-    var image_id = event.target.id;
-      axios.get(`https://gelbooru.com/index.php?page=dapi&s=post&q=index&id=${image_id}&json=1`)
-        .then((response) => { console.log(response.data[0]);
-          // Setting up values
-          var image = response.data[0],
-              tags = image.tags.split(' ');
-          // Update values
-          sidenavImageSource.setAttribute('href', `https://gelbooru.com/index.php?page=post&s=view&id=${image.id}`);
-          sidenavImageSaveAs.setAttribute('href', `${image.file_url}`);
-          sidenavImageDirectory.innerHTML = `<i class="material-icons">folder</i> Directory: ${image.directory}`;
-          sidenavImageOwner.innerHTML = `<i class="material-icons">account_circle</i> Owner: ${image.owner}`;
-          sidenavImageScore.innerHTML = `<i class="material-icons">show_chart</i> Score: ${image.score}`;
-          while (document.getElementById('TagsParent').firstChild)
-          {
-            document.getElementById('TagsParent').removeChild(document.getElementById('TagsParent').firstChild);
-          }
-          tags.forEach(tag => {
-            document.getElementById('TagsParent').insertAdjacentHTML('beforeend', `
-              <li><a class="waves-effect">${tag}</a></li>
-            `);
-          });
+    tagsBlacklist = ChipsData[0].tag;
+  }
+}
+
+// Sidenav image details
+function openImageDetails(event)
+{
+  // Fetch image informations with ID
+  var image_id = event.target.id;
+    axios.get(`https://gelbooru.com/index.php?page=dapi&s=post&q=index&id=${image_id}&json=1`)
+      .then((response) => {
+        // Setting up values
+        var image = response.data[0],
+            tags = image.tags.split(' ');
+        // Update values
+        sidenavImageSource.setAttribute('href', `https://gelbooru.com/index.php?page=post&s=view&id=${image.id}`);
+        sidenavImageSaveAs.setAttribute('href', `${image.file_url}`);
+        sidenavImageDirectory.innerHTML = `<i class="material-icons">folder</i> Directory: ${image.directory}`;
+        sidenavImageOwner.innerHTML = `<i class="material-icons">account_circle</i> Owner: ${image.owner}`;
+        sidenavImageScore.innerHTML = `<i class="material-icons">show_chart</i> Score: ${image.score}`;
+        while (document.getElementById('TagsParent').firstChild)
+        {
+          document.getElementById('TagsParent').removeChild(document.getElementById('TagsParent').firstChild);
+        }
+        tags.forEach(tag => {
+          document.getElementById('TagsParent').insertAdjacentHTML('beforeend', `
+            <li><a class="waves-effect">${tag}</a></li>
+          `);
         });
-    // Open sidenav
-    const sidenavImageDetails = document.querySelector('#sidenavImageDetails.sidenav');
-    const instanceSidenavImageDetails = M.Sidenav.init(sidenavImageDetails);
-    instanceSidenavImageDetails.open();
-  }
+      });
+  // Open sidenav
+  const sidenavImageDetails = document.querySelector('#sidenavImageDetails.sidenav');
+  const instanceSidenavImageDetails = M.Sidenav.init(sidenavImageDetails);
+  instanceSidenavImageDetails.open();
+}
 
-  // GET rating
-  function clickRating()
+// GET rating
+function clickRating()
+{
+  switch (rating) {
+    case 'rating:safe': // Switch on Questionable
+      displayRating.innerHTML = 'warning';
+      rating = 'rating:questionable';
+      M.toast({html: `Rating is now ${rating}`});
+    break;
+
+    case 'rating:questionable': // Switch on Explicit
+      displayRating.innerHTML = 'lock_open';
+      rating = 'rating:explicit';
+      M.toast({html: `Rating is now ${rating}`});
+    break;
+
+    case 'rating:explicit': // Switch on All
+      displayRating.innerHTML = 'all_inclusive';
+      rating = '';
+      M.toast({html: `Rating is now everything`});
+    break;
+
+    case '': // Switch on Safe
+      displayRating.innerHTML = 'lock_outline';
+      rating = 'rating:safe';
+      M.toast({html: `Rating is now ${rating}`});
+    break;
+
+  }
+}
+
+// Change layout view
+function clickLayout()
+{
+  var cardsNodeList = document.getElementsByClassName('card-view');
+  var cards = Array.from(cardsNodeList);
+  var videosNodeList = document.getElementsByClassName('responsive-video');
+  var videos = Array.from(videosNodeList);
+  switch (view)
   {
-    switch (rating) {
-      case 'rating:safe': // Switch on Questionable
-        displayRating.innerHTML = 'warning';
-        rating = 'rating:questionable';
-        M.toast({html: `Rating is now ${rating}`});
-      break;
+    case 'one_column': // If one_column switch on two_column
+      displayLayout.innerHTML = 'view_agenda';
+      view = 'two_column';
+      container.classList.remove('card-container');
+      if(cards.length >= 1)
+      {
+        console.log(cards);
+        cards.forEach(card => {
+          container.classList.remove('card-column-3');
+          container.classList.add('card-column-2');
+        });
+      }
+      else if (videos.length >= 1)
+      {
+        console.log(videos);
+        videos.forEach(video => {
+          container.classList.remove('card-column-3');
+          container.classList.add('card-column-2');
+        });
+      }
+      else
+      {
+        console.log('No cards');
+      }
+    break;
 
-      case 'rating:questionable': // Switch on Explicit
-        displayRating.innerHTML = 'lock_open';
-        rating = 'rating:explicit';
-        M.toast({html: `Rating is now ${rating}`});
-      break;
+    case 'two_column': // if two_column switch on three_column
+      displayLayout.innerHTML = 'view_carousel';
+      view = 'three_column';
+      container.classList.remove('card-container');
+      if(cards.length >= 1)
+      {
+        cards.forEach(card => {
+          container.classList.remove('card-column-2');
+          container.classList.add('card-column-1');
+        });
+      }
+      else if (videos.length >= 1)
+      {
+        videos.forEach(video => {
+          container.classList.remove('card-column-2');
+          container.classList.add('card-column-1');
+        });
+      }
+      else
+      {
+        console.log('No cards');
+      }
+    break;
 
-      case 'rating:explicit': // Switch on All
-        displayRating.innerHTML = 'all_inclusive';
-        rating = '';
-        M.toast({html: `Rating is now everything`});
-      break;
-
-      case '': // Switch on Safe
-        displayRating.innerHTML = 'lock_outline';
-        rating = 'rating:safe';
-        M.toast({html: `Rating is now ${rating}`});
-      break;
-
-    }
+    case 'three_column': // if three_column switch on one_column
+      displayLayout.innerHTML = 'view_module';
+      view = 'one_column';
+      container.classList.add('card-container');
+      if(cards.length >= 1)
+      {
+        cards.forEach(card => {
+          container.classList.remove('card-column-1');
+          container.classList.add('card-column-3');
+        });
+      }
+      else if (videos.length >= 1)
+      {
+        videos.forEach(video => {
+          container.classList.remove('card-column-1');
+          container.classList.add('card-column-3');
+        });
+      }
+      else
+      {
+        console.log('No cards');
+      }
+    break;
   }
+}
 
-  // Change layout view
-  function clickLayout()
+// GET imgLimit
+function clickLimit()
+{
+  switch (imgLimit)
   {
-    var cardsNodeList = document.getElementsByClassName('card-view');
-    var cards = Array.from(cardsNodeList);
-    var videosNodeList = document.getElementsByClassName('responsive-video');
-    var videos = Array.from(videosNodeList);
-    switch (view)
-    {
-      case 'one_column': // If one_column switch on two_column
-        displayLayout.innerHTML = 'view_agenda';
-        view = 'two_column';
-        container.classList.remove('card-container');
-        if(cards.length >= 1)
-        {
-          console.log(cards);
-          cards.forEach(card => {
-            container.classList.remove('card-column-3');
-            container.classList.add('card-column-2');
-          });
-        }
-        else if (videos.length >= 1)
-        {
-          console.log(videos);
-          videos.forEach(video => {
-            container.classList.remove('card-column-3');
-            container.classList.add('card-column-2');
-          });
-        }
-        else
-        {
-          console.log('No cards');
-        }
-      break;
+    case 10: // If 10 switch on 20
+      displayLimit.innerHTML = '20 images';
+      imgLimit = 20;
+    break;
 
-      case 'two_column': // if two_column switch on three_column
-        displayLayout.innerHTML = 'view_carousel';
-        view = 'three_column';
-        container.classList.remove('card-container');
-        if(cards.length >= 1)
-        {
-          cards.forEach(card => {
-            container.classList.remove('card-column-2');
-            container.classList.add('card-column-1');
-          });
-        }
-        else if (videos.length >= 1)
-        {
-          videos.forEach(video => {
-            container.classList.remove('card-column-2');
-            container.classList.add('card-column-1');
-          });
-        }
-        else
-        {
-          console.log('No cards');
-        }
-      break;
+    case 20: // If 20 switch on 50
+      displayLimit.innerHTML = '50 images';
+      imgLimit = 50;
+    break;
 
-      case 'three_column': // if three_column switch on one_column
-        displayLayout.innerHTML = 'view_module';
-        view = 'one_column';
-        container.classList.add('card-container');
-        if(cards.length >= 1)
-        {
-          cards.forEach(card => {
-            container.classList.remove('card-column-1');
-            container.classList.add('card-column-3');
-          });
-        }
-        else if (videos.length >= 1)
-        {
-          videos.forEach(video => {
-            container.classList.remove('card-column-1');
-            container.classList.add('card-column-3');
-          });
-        }
-        else
-        {
-          console.log('No cards');
-        }
-      break;
-    }
+    case 50: // If 50 switch on 100
+      displayLimit.innerHTML = '100 images';
+      imgLimit = 100;
+    break;
+
+    case 100: // If 100 switch on 10
+      displayLimit.innerHTML = '10 images';
+      imgLimit = 10;
+    break;
   }
-
-  // GET imgLimit
-  function clickLimit()
-  {
-    switch (imgLimit)
-    {
-      case 10: // If 10 switch on 20
-        displayLimit.innerHTML = '20 images';
-        imgLimit = 20;
-      break;
-
-      case 20: // If 20 switch on 50
-        displayLimit.innerHTML = '50 images';
-        imgLimit = 50;
-      break;
-
-      case 50: // If 50 switch on 100
-        displayLimit.innerHTML = '100 images';
-        imgLimit = 100;
-      break;
-
-      case 100: // If 100 switch on 10
-        displayLimit.innerHTML = '10 images';
-        imgLimit = 10;
-      break;
-    }
-    M.toast({html: `Image limit is now ${imgLimit}`})
-  }
+  M.toast({html: `Image limit is now ${imgLimit}`})
+}
 
   // Light & Dark Mode
 
@@ -318,11 +346,6 @@ var lastTheme = store.get('theme');
         M.toast({html: 'Light theme activated'});
         store.set('theme','light-mode');
       }
-    }
-
-    function dontExist()
-    {
-      M.toast({html: 'This feature is not implemented yet !'});
     }
 
   // Handle links
@@ -395,6 +418,7 @@ function getResults(url)
           {
             sample_url = `https://simg3.gelbooru.com//samples/${image.directory}/sample_${image.hash}.jpg`;
           }
+          console.log(tags);
           if (tags.includes('webm'))
           {
             container.insertAdjacentHTML('beforeend', `
@@ -434,18 +458,10 @@ function getResults(url)
  */
 function getUrl(tags = '', imgLimit = 10, rating = 'rating:safe', pid = 1)
 {
-  var url = `https://gelbooru.com/index.php?page=dapi&s=post&q=index&json=1&limit=${imgLimit}`;
-  if (tags != '')
+  var url = `https://gelbooru.com/index.php?page=dapi&s=post&q=index&json=1&limit=${imgLimit}&tags=${rating}+${tags.replace(/\s/g, '+')}`;
+  if (!tags.includes('webm'))
   {
-    url += `&tags=${tags.replace(/\s/g, '+')}+${rating}${blacklistTags}`;
-    if (!tags.includes('webm'))
-    {
-      url += `+-webm`;
-    }
-  }
-  else
-  {
-    url += `&tags=${rating}`;
+    url += `+-webm`;
   }
   if (pid != 1)
   {
