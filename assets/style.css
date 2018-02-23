@@ -10,20 +10,51 @@
 }
 
 .hero {
-    padding: 40px 100px 40px 100px;
     background-color: var(--primary-dark);
+}
+
+.hero-image {
+    padding: 100px 200px 100px 200px;
 }
 
 .hero-image img {
     width: 100%;
+    height: auto;
 }
 
 .hero-actions {
+    width: 100%;
+    margin-top: -25px;
     position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.hero-actions button {
+.hero-actions a {
     background-color: var(--accent);
-    margin-top: 20px;
     padding: 0 26px;
+    margin: 0 10px 0 10px;
+    height: 46px;
+    line-height: 46px;
+}
+
+main {
+    margin-top: 80px;
+}
+
+
+/* MaterializeCSS Overriding */
+
+.btn:focus, .btn-large:focus, .btn-small:focus,
+.btn-floating:focus {
+  background-color: var(--accent);
+}
+
+.btn, .btn-large, .btn-small {
+  background-color: var(--accent);
+}
+
+.btn:hover, .btn-large:hover, .btn-small:hover {
+  background-color: #5679e2;
 }
