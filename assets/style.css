@@ -43,6 +43,10 @@ main {
     margin-top: 80px;
 }
 
+li {
+    font-size: 24px;
+}
+
 
 /* MaterializeCSS Overriding */
 
