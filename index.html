@@ -20,7 +20,7 @@
                         <a href="#!" class="brand-logo">Gel<b>booru</b> Client</a>
                         <a href="#" data-target="sidenav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                         <ul class="right hide-on-med-and-down">
-                            <li><a href="https://github.com/KeziahMoselle/gelbooru-client/releases/download/v0.5.4/gelbooru-client-setup-0.5.4.exe">Download</a></li>
+                            <li><a href="" class="download_url">Download</a></li>
                             <li><a href="https://github.com/KeziahMoselle/gelbooru-client">Github</a></li>
                         </ul>
                     </div>
@@ -38,7 +38,7 @@
                 <img src="./assets/preview.gif" alt="Gelbooru Client Preview">
             </div>
             <div class="hero-actions">
-                <a href="https://github.com/KeziahMoselle/gelbooru-client/releases/download/v0.5.4/gelbooru-client-setup-0.5.4.exe" class="btn waves-effect waves">Download</a>
+                <a href="" class="btn waves-effect waves download_url">Download</a>
                 <a href="https://github.com/KeziahMoselle/gelbooru-client" class="btn waves-effect waves">Github</a>
             </div>
         </div>
@@ -77,5 +77,18 @@
 
     </footer>
     <script defer src="./assets/init.js"></script>
+    <script>
+        fetch('https://api.github.com/repos/KeziahMoselle/gelbooru-client/releases')
+            .then(response => response.json())
+            .then((response) => {
+                var download_url = response[0].assets[0].browser_download_url,
+                    tag_name = response[0].tag_name,
+                    download_btns = document.querySelectorAll('.download_url');
+                download_btns.forEach(node => {
+                    node.setAttribute('href', download_url);
+                    node.innerHTML = `Download ${tag_name}`;
+                });
+            });
+    </script>
 </body>
 </html>
