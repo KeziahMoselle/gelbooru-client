@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-alpha.4/css/materialize.min.css">
     <link rel="stylesheet" href="./assets/style.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-alpha.4/js/materialize.min.js"></script>
 </head>
 <body>
@@ -38,7 +39,7 @@
                 <img src="./assets/preview.gif" alt="Gelbooru Client Preview">
             </div>
             <div class="hero-actions">
-                <a href="" class="btn waves-effect waves download_url">Download</a>
+                <a href="" class="btn waves-effect waves download_url"><i class="material-icons left">file_download</i>Download</a>
                 <a href="https://github.com/KeziahMoselle/gelbooru-client" class="btn waves-effect waves">Github</a>
             </div>
         </div>
@@ -66,6 +67,7 @@
                         <ul>
                             <li>Favorites</li>
                             <li>Blacklist (exclude tags)</li>
+                            <li>UI Improvements</li>
                         </ul>
                     </div>
                 </div>
@@ -73,9 +75,16 @@
         </div>
     </main>
 
-    <footer>
-
+    
+    <footer class="page-footer">
+        <div class="footer-copyright">
+            <div class="container">
+            Hello there !
+            <a class="grey-text text-lighten-4 right" href="#">This is not a link</a>
+            </div>
+        </div>
     </footer>
+              
     <script defer src="./assets/init.js"></script>
     <script>
         fetch('https://api.github.com/repos/KeziahMoselle/gelbooru-client/releases')
@@ -86,7 +95,7 @@
                     download_btns = document.querySelectorAll('.download_url');
                 download_btns.forEach(node => {
                     node.setAttribute('href', download_url);
-                    node.innerHTML = `Download ${tag_name}`;
+                    node.innerHTML = `<i class="material-icons left">file_download</i>Download ${tag_name}`;
                 });
             });
     </script>

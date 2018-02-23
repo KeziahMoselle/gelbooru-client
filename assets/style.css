@@ -5,6 +5,12 @@
     --dark: #242424;
 }
 
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
 .nav-wrapper {
     background-color: var(--primary);
 }
@@ -40,11 +46,16 @@
 }
 
 main {
+    flex: 1 0 auto;
     margin-top: 80px;
 }
 
 li {
     font-size: 24px;
+}
+
+.page-footer {
+    background-color: var(--primary);
 }
 
 
