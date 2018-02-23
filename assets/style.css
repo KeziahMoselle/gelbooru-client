@@ -1,0 +1,29 @@
+:root {
+    --primary: #35385B;
+    --primary-dark: #303252;
+    --accent: #6688EC;
+    --dark: #242424;
+}
+
+.nav-wrapper {
+    background-color: var(--primary);
+}
+
+.hero {
+    padding: 40px 100px 40px 100px;
+    background-color: var(--primary-dark);
+}
+
+.hero-image img {
+    width: 100%;
+}
+
+.hero-actions {
+    position: absolute;
+}
+
+.hero-actions button {
+    background-color: var(--accent);
+    margin-top: 20px;
+    padding: 0 26px;
+}
