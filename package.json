@@ -1,10 +1,11 @@
 {
   "name": "gelbooru-client",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "You already know what it is.",
   "main": "main.js",
   "dependencies": {
     "axios": "0.17.1",
+    "electron-data": "2.1.0",
     "electron-save-file": "1.0.2"
   },
   "devDependencies": {
@@ -20,7 +21,8 @@
     "start": "electron .",
     "pack": "electron-builder --dir",
     "dist": "electron-builder",
-    "release": "build"
+    "release": "build",
+    "livereload": "gulp"
   },
   "build": {
     "appId": "com.gelbooru-client.app",

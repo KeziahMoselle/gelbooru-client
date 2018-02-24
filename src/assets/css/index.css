@@ -5,7 +5,7 @@
   --dark: #242424;
 }
 
-*::-webkit-scrollbar {background-color: var(--dark); width: 0.5em;}
+*::-webkit-scrollbar {background-color: var(--dark); width: 0.7em;}
 *::-webkit-scrollbar-thumb {background-color: var(--accent);}
 ::selection {background: #FFF;}
 
@@ -47,6 +47,7 @@ nav#drag i.material-icons {
 
 .nav-wrapper {
   background-color: var(--primary);
+  -webkit-user-select: none;
 }
 
 .user-view .background {
@@ -277,12 +278,33 @@ input.select-dropdown.dropdown-trigger {
   color: #fff;
 }
 
+.chip:focus {
+  background-color: var(--accent);
+}
 .chips.focus {
-  border-bottom: 1px solid #26a69a;
-  -webkit-box-shadow: 0 1px 0 0 #26a69a;
-          box-shadow: 0 1px 0 0 #26a69a;
+  border-bottom: 1px solid var(--accent);
+  -webkit-box-shadow: 0 1px 0 0 var(--accent);
+          box-shadow: 0 1px 0 0 var(--accent);
 }
 
 .input-field .prefix.active {
-  color: #26a69a;
+  color: var(--accent);
+}
+
+input:not([type]):focus:not([readonly]),
+input[type=text]:not(.browser-default):focus:not([readonly]),
+input[type=password]:not(.browser-default):focus:not([readonly]),
+input[type=email]:not(.browser-default):focus:not([readonly]),
+input[type=url]:not(.browser-default):focus:not([readonly]),
+input[type=time]:not(.browser-default):focus:not([readonly]),
+input[type=date]:not(.browser-default):focus:not([readonly]),
+input[type=datetime]:not(.browser-default):focus:not([readonly]),
+input[type=datetime-local]:not(.browser-default):focus:not([readonly]),
+input[type=tel]:not(.browser-default):focus:not([readonly]),
+input[type=number]:not(.browser-default):focus:not([readonly]),
+input[type=search]:not(.browser-default):focus:not([readonly]),
+textarea.materialize-textarea:focus:not([readonly]) {
+  border-bottom: 1px solid var(--accent);
+  -webkit-box-shadow: 0 1px 0 0 var(--accent);
+          box-shadow: 0 1px 0 0 var(--accent);
 }

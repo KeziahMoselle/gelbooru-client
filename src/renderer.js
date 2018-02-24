@@ -2,7 +2,6 @@
   const shell = require('electron').shell,
         remote = require('electron').remote,
         axios = require('axios'),
-        saveFile = remote.require('electron-save-file'),
         Store = require('./Store');
 
 // Var
@@ -29,7 +28,7 @@
       imgLimit = 10,
       view = 'one_column',
       pid = 1,
-      tagsBlacklist;
+      tagsBlacklist = '';
 
 // Store
 
@@ -128,18 +127,28 @@ function openBlacklistModal()
 
 // Update 'tagsBlacklist' var
 function updateBlacklist()
-{ // TO DO
+{
+  tagsBlacklist = '';
   var ChipsData = M.Chips.getInstance(chips).chipsData;
 
   if (ChipsData.length > 1)
   {
+    var i = 1;
     ChipsData.forEach(data => {
-      tagsBlacklist += data.tag;
+      if (ChipsData.length === i)
+      {
+        tagsBlacklist += `-${data.tag}`;
+      }
+      else
+      {
+        tagsBlacklist += `-${data.tag}+`;
+      }
+      i++;
     });
   }
   else if (ChipsData.length === 1)
   {
-    tagsBlacklist = ChipsData[0].tag;
+    tagsBlacklist += `-${ChipsData[0].tag}`;
   }
 }
 
@@ -325,6 +334,7 @@ function clickLimit()
     if (lastTheme === 'light-mode')
     {
       root.classList.add('light-mode');
+      displayTheme.innerHTML = '<i class="material-icons left">invert_colors</i> Enable dark theme';
       console.log('Theme : Light mode enabled.');
     }
 
@@ -418,7 +428,6 @@ function getResults(url)
           {
             sample_url = `https://simg3.gelbooru.com//samples/${image.directory}/sample_${image.hash}.jpg`;
           }
-          console.log(tags);
           if (tags.includes('webm'))
           {
             container.insertAdjacentHTML('beforeend', `
@@ -458,7 +467,15 @@ function getResults(url)
  */
 function getUrl(tags = '', imgLimit = 10, rating = 'rating:safe', pid = 1)
 {
-  var url = `https://gelbooru.com/index.php?page=dapi&s=post&q=index&json=1&limit=${imgLimit}&tags=${rating}+${tags.replace(/\s/g, '+')}`;
+  var url = `https://gelbooru.com/index.php?page=dapi&s=post&q=index&json=1&limit=${imgLimit}&tags=${rating}`;
+  if (tags.length > 0)
+  {
+    url += `+${tags.replace(/\s/g, '+')}`;
+  }
+  if (tagsBlacklist.length > 0)
+  {
+    url += `+${tagsBlacklist}`;
+  }
   if (!tags.includes('webm'))
   {
     url += `+-webm`;

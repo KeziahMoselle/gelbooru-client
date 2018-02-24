@@ -30,11 +30,11 @@
 * [x] Rating (Safe, Explicit, Questionable)
 * [x] Pagination
 * [x] Save image
-* [ ] Browse all
-* [ ] Top images
-* [ ] Hot images
+* [x] Browse all
+* [x] Top images
+* [x] Hot images
+* [x] Blacklist (Exclude tags)
 * [ ] Favorites
-* [ ] Blacklist (Exclude tags)
 
 ## Installing
 
@@ -48,6 +48,11 @@ cd gelbooru-client && npm install
 To run the app :
 ```sh
 npm start
+```
+
+To run the app with live reload :
+```sh
+npm run livereload || gulp
 ```
 
 ## Build

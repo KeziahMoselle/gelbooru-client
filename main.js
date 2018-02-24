@@ -1,11 +1,11 @@
 // Modules
 
-  const electron = require('electron');
-  const app = electron.app;
-  const BrowserWindow = electron.BrowserWindow;
-  const path = require('path');
-  const url = require('url');
-  const Store = require('./src/Store');
+  const electron = require('electron'),
+        app = electron.app,
+        BrowserWindow = electron.BrowserWindow,
+        path = require('path'),
+        url = require('url'),
+        Store = require('./src/Store');
 
   let window;
 
@@ -27,7 +27,8 @@
       height,
       frame: false,
       backgroundColor: '#242424',
-      icon: path.join(__dirname, 'build/icon.ico')
+      icon: path.join(__dirname, 'build/icon.ico'),
+      title: 'Gelbooru Client'
     });
     window.loadURL(url.format({
       pathname: path.join(__dirname, './src/index.html'),
