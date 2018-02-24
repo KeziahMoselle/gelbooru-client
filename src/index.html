@@ -25,7 +25,7 @@
       </nav>
 
       <nav id="titlebar">
-        <div class="nav-wrapper primary">
+        <div class="nav-wrapper">
           <a class="brand-logo center">Gel<b>booru</b></a>
           <ul id="nav-mobile" class="left hide-on-med-and-down">
               <li class="active"><a id="openSidenav" href="#"><i class="material-icons">menu</i></a></li>
@@ -46,7 +46,7 @@
       <ul class="sidenav">
         <li>
           <div class="user-view">
-            <div class="background dark"></div>
+            <div class="background"></div>
             <span class="white-text name">Gelbooru Client</span>
             <span class="white-text email">v0.6.0</span>
           </div>
@@ -182,6 +182,8 @@
         main.style.paddingTop = '90px';
         navSearch.style.marginTop = '0px';
       });
+
+      require('electron-connect').client.create()
 
     })();
   </script>

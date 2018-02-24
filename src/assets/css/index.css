@@ -1,26 +1,17 @@
-.primary {
-  background-color: #35385B;
+:root {
+  --primary: #35385B;
+  --primary-dark: #303252;
+  --accent: #6688EC;
+  --dark: #242424;
 }
 
-.primary-dark {
-  background-color: #303252;
-}
-
-.accent {
-  background-color: #6688EC;
-}
-
-.dark {
-  background-color: #242424;
-}
-
-*::-webkit-scrollbar {background-color: #242424; width: 0.5em;}
-*::-webkit-scrollbar-thumb {background-color: #6688EC;}
+*::-webkit-scrollbar {background-color: var(--dark); width: 0.5em;}
+*::-webkit-scrollbar-thumb {background-color: var(--accent);}
 ::selection {background: #FFF;}
 
 body {
   margin-top: 20px;
-  background-color: #242424;
+  background-color: var(--dark);
   transition: background-color 0.4s;
 }
 
@@ -40,7 +31,7 @@ main {
   position: fixed;
   height: 30px;
   width: 100%;
-  background-color: #6688EC;
+  background-color: var(--accent);
   -webkit-user-select: none;
   -webkit-app-region: drag;
 }
@@ -52,6 +43,14 @@ nav#drag i.material-icons {
 }
 .no-drag {
   -webkit-app-region: no-drag;
+}
+
+.nav-wrapper {
+  background-color: var(--primary);
+}
+
+.user-view .background {
+  background-color: var(--dark);
 }
 
 ul#tagsResults {
@@ -148,7 +147,7 @@ div#loading {
   color: #35385B;
 }
 .card .card-action a:not(.btn):not(.btn-large):not(.btn-large):not(.btn-floating):hover {
-  color: #6688EC;
+  color: var(--accent);
 }
 .progress {
   height: 12px;
@@ -156,7 +155,7 @@ div#loading {
   margin: 0;
 }
 .progress .indeterminate {
-  background-color: #6688EC;
+  background-color: var(--accent);
 }
 input:not([type]):focus:not([readonly]),
 input[type=text]:not(.browser-default):focus:not([readonly]),
@@ -171,17 +170,17 @@ input[type=tel]:not(.browser-default):focus:not([readonly]),
 input[type=number]:not(.browser-default):focus:not([readonly]),
 input[type=search]:not(.browser-default):focus:not([readonly]),
 textarea.materialize-textarea:focus:not([readonly]) {
-  border-bottom: 1px solid #6688EC;
-  box-shadow: 0 1px 0 0 #6688EC;
+  border-bottom: 1px solid var(--accent);
+  box-shadow: 0 1px 0 0 var(--accent);
 }
 .input-field .prefix.active {
-  color: #6688EC;
+  color: var(--accent);
 }
 
 .btn, .btn-large {
   text-decoration: none;
   color: #fff;
-  background-color: #242424;
+  background-color: var(--dark);
   text-align: center;
   letter-spacing: .5px;
   -webkit-transition: background-color .2s ease-out;
@@ -192,7 +191,7 @@ textarea.materialize-textarea:focus:not([readonly]) {
 .btn:hover, .btn-large:hover,
 .btn-floating:hover {
   background-color: #FFF;
-  color: #242424;
+  color: var(--dark);
 }
 
 .btn:focus, .btn-large:focus,
@@ -229,10 +228,10 @@ textarea.materialize-textarea:focus:not([readonly]) {
   z-index: 1;
 }
 .select-wrapper input.select-dropdown:focus {
-  border-bottom: 1px solid #6688EC;
+  border-bottom: 1px solid var(--accent);
 }
 a, .dropdown-content li > span {
-  color: #303252;
+  color: var(--primary-dark);
 }
 .sidenav .user-view {
   position: relative;
@@ -276,4 +275,14 @@ input.select-dropdown.dropdown-trigger {
   font-size: 1.1rem;
   font-weight: 300;
   color: #fff;
+}
+
+.chips.focus {
+  border-bottom: 1px solid #26a69a;
+  -webkit-box-shadow: 0 1px 0 0 #26a69a;
+          box-shadow: 0 1px 0 0 #26a69a;
+}
+
+.input-field .prefix.active {
+  color: #26a69a;
 }
