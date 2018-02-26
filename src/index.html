@@ -48,16 +48,19 @@
           <div class="user-view">
             <div class="background"></div>
             <span class="white-text name">Gelbooru Client</span>
-            <span class="white-text email">v0.7.1</span>
+            <span class="white-text email">v0.7.2</span>
           </div>
         </li>
-        <li><a class="subheader">Settings</a></li>
+        <li><a class="subheader">Pages</a></li>
         <li><a onclick="clickActualize()" class="waves-effect"><i class="material-icons left">home</i>All</a></li>
         <li><a onclick="searchTop()" class="waves-effect"><i class="material-icons left">star</i>Top</a></li>
         <li><a onclick="searchHot()" class="waves-effect"><i class="material-icons left">whatshot</i>Hot</a></li>
         <li><a class="waves-effect disabled"><i class="material-icons left">favorite</i>Favorites</a></li>
         <li><a onclick="openBlacklistModal()" class="waves-effect"><i class="material-icons left">label</i>Exclude tags</a></li>
-        <li><a onclick="handleTheme()" id="displayTheme" class="waves-effect"><i class="material-icons left">invert_colors</i>Enable light theme</a></li>
+        <li><div class="divider"></div></li>
+        <li><a class="subheader">Settings</a></li>
+        <li><p class="sidenav-form"><label><input id="checkboxTheme" onclick="handleTheme()" type="checkbox" class="filled-in" /><span>Light theme</span></label></p></li>
+        <li><p class="sidenav-form"><label><input type="checkbox" class="filled-in" disabled /><span>Endless scrolling</span></label></p></li>
         <li><div class="divider"></div></li>
         <li><a class="subheader">Links</a></li>
         <li><a class="waves-effect" href="https://gelbooru.com/"><i class="material-icons">open_in_new</i>Gelbooru</a></li>

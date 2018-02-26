@@ -17,10 +17,10 @@
         displayPid = document.getElementById('displayPid'), // Display chip
         displayTheme = document.getElementById('displayTheme'), // Display actual theme
         tagsResults = document.getElementById('tagsResults'), // Displays popular tags
-        sidenavImg = document.getElementById('sidenavImg'),
         sidenavImageSource = document.getElementById('sidenavImageSource'),
         sidenavImageTagsParent = document.getElementById('sidenavImageTagsParent'),
-        chips = document.querySelector('.chips');
+        chips = document.querySelector('.chips'),
+        checkboxTheme = document.getElementById('checkboxTheme');
 
   // Value
   var tags,
@@ -334,7 +334,7 @@ function clickLimit()
     if (lastTheme === 'light-mode')
     {
       root.classList.add('light-mode');
-      displayTheme.innerHTML = '<i class="material-icons left">invert_colors</i> Enable dark theme';
+      checkboxTheme.setAttribute('checked', 'checked');
       console.log('Theme : Light mode enabled.');
     }
 
@@ -342,17 +342,16 @@ function clickLimit()
     function handleTheme()
     {
       var actualTheme = store.get('theme');
+      console.log(actualTheme);
       if (actualTheme === 'light-mode')
       { // Actual theme = Light Mode -> Switch on Dark Mode
         root.classList.remove('light-mode');
-        displayTheme.innerHTML = '<i class="material-icons left">invert_colors</i> Enable light theme';
         M.toast({html: 'Dark theme activated'});
         store.set('theme','dark-mode');
       }
       else
       { // Actual theme = Dark Mode -> Switch on Light Mode
         root.classList.add('light-mode');
-        displayTheme.innerHTML = '<i class="material-icons left">invert_colors</i> Enable dark theme';
         M.toast({html: 'Light theme activated'});
         store.set('theme','light-mode');
       }

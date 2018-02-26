@@ -140,6 +140,11 @@ div#loading {
   margin-top: 2rem;
 }
 
+.sidenav-form {
+  margin: 0;
+  padding: 0 32px;
+}
+
 /*
 * MATERIALIZE CSS
 */
