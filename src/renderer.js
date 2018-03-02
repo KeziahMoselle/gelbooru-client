@@ -2,7 +2,8 @@
   const shell = require('electron').shell,
         remote = require('electron').remote,
         axios = require('axios'),
-        Store = require('./Store');
+        Store = require('./Store'),
+        saveFile = remote.require('electron-save-file');
 
 // Var
   // HTML elements
@@ -150,6 +151,8 @@ function updateBlacklist()
   {
     tagsBlacklist += `-${ChipsData[0].tag}`;
   }
+
+  M.toast({html: 'Blacklist updated !'});
 }
 
 // Sidenav image details
@@ -174,7 +177,7 @@ function openImageDetails(event)
         }
         tags.forEach(tag => {
           document.getElementById('TagsParent').insertAdjacentHTML('beforeend', `
-            <li><a class="waves-effect">${tag}</a></li>
+            <li><a class="waves-effect sidenav-tags">${tag}</a></li>
           `);
         });
       });
@@ -182,6 +185,19 @@ function openImageDetails(event)
   const sidenavImageDetails = document.querySelector('#sidenavImageDetails.sidenav');
   const instanceSidenavImageDetails = M.Sidenav.init(sidenavImageDetails);
   instanceSidenavImageDetails.open();
+ 
+  // Add tag when clicking on it
+  // TODO
+  /* var sidenavTags = document.getElementsByClassName('sidenav-tags');
+  console.log(sidenavTags);
+  for(i=0; i < sidenavTags; i++)
+  {
+    sidenavTags[i].addEventListener('click', (event) => {
+      console.log(event);
+      let tags = `${searchBar.value} ${tag}`;
+      searchBar.value = tags;
+    });
+  } */
 }
 
 // GET rating
@@ -230,7 +246,6 @@ function clickLayout()
       container.classList.remove('card-container');
       if(cards.length >= 1)
       {
-        console.log(cards);
         cards.forEach(card => {
           container.classList.remove('card-column-3');
           container.classList.add('card-column-2');
@@ -370,8 +385,9 @@ function clickLimit()
         {
           event.preventDefault();
           saveFile(event.target.href)
-            .then()
-            .catch(err => console.error(err.stack));
+            .then(() => {
+              M.toast({html: 'Picture saved !'})
+            }).catch(error => M.toast({html: error.stack}));
         }
       }
       else if (event.target.localName === 'img')
