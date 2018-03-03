@@ -66,7 +66,7 @@ document.getElementById('win-close').addEventListener('click', (event) => {
 });
 
 // INPUT AND HIT ENTER
-searchBar.onkeypress = (event) => {
+searchBar.onkeydown = (event) => {
   if (event.keyCode === 13)
   {
     emptyContainer();
