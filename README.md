@@ -1,6 +1,7 @@
 <p align="center">
   <a href="build/icon-black.png">
     <img src="https://i.imgur.com/OmhYzTa.png" height="150">
+    <img src="https://i.imgur.com/r4Q1hjF.png" height="150">
   </a>
 
   <h3 align="center">Gelbooru Client</h3>
