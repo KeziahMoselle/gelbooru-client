@@ -446,7 +446,7 @@ function getResults(url)
           if (tags.includes('webm'))
           {
             container.insertAdjacentHTML('beforeend', `
-            <video class="responsive-video" controls>
+            <video class="responsive-video" controls loop>
               <source src="${image.file_url}" type="video/webm">
             </video>`)
           }
