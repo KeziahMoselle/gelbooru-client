@@ -2,7 +2,8 @@
   const shell = require('electron').shell,
         remote = require('electron').remote,
         axios = require('axios'),
-        Store = require('./Store'),
+        Store = require('electron-store'),
+        store = new Store(),
         saveFile = remote.require('electron-save-file');
 
 // Var
@@ -30,15 +31,6 @@
       view = 'one_column',
       pid = 1,
       tagsBlacklist = '';
-
-// Store
-
-const store = new Store({
-  configName: 'settings',
-  defaults: {theme: ''}
-});
-
-var lastTheme = store.get('theme');
 
 // Minimize
 document.getElementById('win-minimize').addEventListener('click', (event) => {
@@ -126,6 +118,17 @@ function openBlacklistModal()
   instanceBlacklistModal.open();
 }
 
+// Blacklist init
+
+storeBlacklist = store.get('blacklist');
+console.log(storeBlacklist);
+
+var chipsHTML = document.querySelector('.chips'),
+  instanceChips = M.Chips.init(chipsHTML, {
+    placeholder: 'Press enter',
+    data: storeBlacklist
+  });
+
 // Update 'tagsBlacklist' var
 function updateBlacklist()
 {
@@ -151,8 +154,8 @@ function updateBlacklist()
   {
     tagsBlacklist += `-${ChipsData[0].tag}`;
   }
-
   M.toast({html: 'Blacklist updated !'});
+  store.set('blacklist', ChipsData)
 }
 
 // Sidenav image details
@@ -345,6 +348,7 @@ function clickLimit()
 
   // Light & Dark Mode
 
+    lastTheme = store.get('theme');
     // Enable light theme if enabled before
     if (lastTheme === 'light-mode')
     {

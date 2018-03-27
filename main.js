@@ -5,26 +5,22 @@
         BrowserWindow = electron.BrowserWindow,
         path = require('path'),
         url = require('url'),
-        Store = require('./src/Store');
+        Store = require('electron-store'),
+        store = new Store();
 
   let window;
 
 // Store
 
-  const store = new Store({
-    configName: 'settings',
-    defaults: {
-      windowBounds: {width:1200, height: 800}
-    }
-  });
+width = store.get('width');
+height = store.get('height');
 
 // Events
 
   app.on('ready', () => {
-    let {width, height} = store.get('windowBounds');
     window = new BrowserWindow({
-      width,
-      height,
+      width: width,
+      height: height,
       frame: false,
       backgroundColor: '#242424',
       icon: path.join(__dirname, 'build/icon.ico'),
@@ -39,7 +35,8 @@
 
     window.on('resize', () => {
       let {width, height} = window.getBounds();
-      store.set('windowBounds', {width, height});
+      store.set('height', height);
+      store.set('width', width);
     });
   });
 
