@@ -1,16 +1,17 @@
 {
   "name": "gelbooru-client",
-  "version": "0.7.3",
+  "version": "0.8.0",
   "description": "You already know what it is.",
   "main": "main.js",
   "dependencies": {
     "axios": "0.17.1",
+    "baguettebox.js": "1.10.0",
     "electron-data": "2.1.0",
     "electron-save-file": "1.0.2",
     "electron-store": "1.3.0"
   },
   "devDependencies": {
-    "electron": "1.7.11",
+    "electron": "1.8.4",
     "electron-builder": "20.0.4",
     "electron-connect": "0.6.3",
     "electron-packager": "11.0.0",

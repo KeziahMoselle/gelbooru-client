@@ -4,7 +4,8 @@
         axios = require('axios'),
         Store = require('electron-store'),
         store = new Store(),
-        saveFile = remote.require('electron-save-file');
+        saveFile = remote.require('electron-save-file'),
+        baguetteBox = require('baguettebox.js');
 
 // Var
   // HTML elements
@@ -26,7 +27,7 @@
 
   // Value
   var tags,
-      rating = "rating:safe",
+      rating = 'rating:safe',
       imgLimit = 10,
       view = 'one_column',
       pid = 1,
@@ -360,8 +361,7 @@ function clickLimit()
     // Add / Remove light theme
     function handleTheme()
     {
-      var actualTheme = store.get('theme');
-      console.log(actualTheme);
+      let actualTheme = store.get('theme');
       if (actualTheme === 'light-mode')
       { // Actual theme = Light Mode -> Switch on Dark Mode
         root.classList.remove('light-mode');
@@ -459,11 +459,14 @@ function getResults(url)
             container.insertAdjacentHTML('beforeend', `<div class="card-view">
               <div class="card">
                 <div class="card-image">
+                 <a href="${isSampleExist(sample_url) ? sample_url : image.file_url}">
                   <img id="${image.id}" src="${isSampleExist(sample_url) ? sample_url : image.file_url}">
+                 </a>
                 </div>
               </div>
             </div>`);
           }
+          baguetteBox.run('.gallery');
         });
       }
       else
