@@ -9,7 +9,14 @@
 *::-webkit-scrollbar-thumb {background-color: var(--accent);}
 ::selection {background: #FFF;}
 
+html {
+  height: 100%;
+  width: 100%;
+}
+
 body {
+  height: 100%;
+  width: 100%;
   margin-top: 20px;
   background-color: var(--dark);
   transition: background-color 0.4s;
