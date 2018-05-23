@@ -41,26 +41,26 @@
 ## Installing
 
 ```sh
-git clone https://github.com/KeziahMoselle/gelbooru-client.git
+> git clone https://github.com/KeziahMoselle/gelbooru-client.git
 ```
 Install dependencies :
 ```sh
-cd gelbooru-client && npm install
+> cd gelbooru-client && npm install
 ```
 To run the app :
 ```sh
-npm start
+> npm start
 ```
 
 To run the app with live reload :
 ```sh
-npm run livereload || gulp
+> gulp
 ```
 
 ## Build
 
 ```sh
-npm run dist
+> npm run dist
 ```
 A `dist` folder should be created with `win-unpacked` and `gelbooru-client Setup version.exe`.
 
@@ -74,4 +74,4 @@ A `dist` folder should be created with `win-unpacked` and `gelbooru-client Setup
 
 ## License
 
-Gelbooru Client is licensed under the MIT License, see [LICENSE](LICENSE) file for details
+gelbooru-client is licensed under the [MIT License](LICENSE).
