@@ -20,7 +20,7 @@ body {
 }
 
 .hero-image {
-    padding: 100px 200px 100px 200px;
+    padding: 50px 200px 50px 200px;
 }
 
 .hero-image img {
@@ -50,12 +50,27 @@ main {
     margin-top: 80px;
 }
 
+ul {
+    display: inline-block;
+}
+
 li {
     font-size: 24px;
 }
 
 .page-footer {
     background-color: var(--primary);
+    padding: 10px;
+}
+
+footer a {
+    color: var(--accent);
+}
+footer a:hover {
+    text-decoration: underline;
+}
+footer p {
+    margin: 0;
 }
 
 
