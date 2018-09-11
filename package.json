@@ -1,20 +1,20 @@
 {
   "name": "gelbooru-client",
-  "version": "0.7.3",
+  "version": "0.7.5",
   "description": "You already know what it is.",
   "main": "main.js",
   "dependencies": {
-    "axios": "0.17.1",
-    "electron-data": "2.1.0",
-    "electron-save-file": "1.0.2"
+    "axios": "^0.17.1",
+    "electron-data": "^2.1.0",
+    "electron-save-file": "^1.0.2"
   },
   "devDependencies": {
-    "electron": "2.0.9",
-    "electron-builder": "20.0.4",
-    "electron-connect": "0.6.3",
-    "electron-packager": "11.0.0",
-    "electron-winstaller": "2.6.4",
-    "gulp": "3.9.1"
+    "electron": "^2.0.9",
+    "electron-builder": "^20.0.4",
+    "electron-connect": "^0.6.3",
+    "electron-packager": "^11.0.0",
+    "electron-winstaller": "^2.6.4",
+    "gulp": "^3.9.1"
   },
   "scripts": {
     "start": "electron .",
