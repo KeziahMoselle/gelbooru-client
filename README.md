@@ -53,7 +53,7 @@ To run the app :
 
 To run the app with live reload :
 ```sh
-> gulp
+> npx gulp
 ```
 
 ## Build

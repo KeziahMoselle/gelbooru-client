@@ -207,6 +207,30 @@ textarea.materialize-textarea:focus:not([readonly]) {
   color: var(--dark);
 }
 
+.sidenav-button {
+  background-color: var(--dark);
+  color: #FFF;
+  border-radius: 20px;
+  margin: 10px;
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  height: 48px;
+  line-height: 48px;
+  padding: 0 32px;
+}
+.sidenav-button:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+.sidenav-button .material-icons {
+  color: #FFF;
+  float: left;
+  height: 48px;
+  line-height: 48px;
+  margin: 0 32px 0 0;
+  width: 24px;
+}
+
 .btn:focus, .btn-large:focus,
 .btn-floating:focus {
   background-color: #FFF;
