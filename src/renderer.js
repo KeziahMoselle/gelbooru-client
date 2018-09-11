@@ -5,7 +5,7 @@
         Store = require('./Store'),
         saveFile = remote.require('electron-save-file');
 
-// Var
+// let
   // HTML elements
   const root = document.getElementById('root'), // Body
         searchBar = document.getElementById('searchBar'), // Input type text
@@ -24,7 +24,7 @@
         checkboxTheme = document.getElementById('checkboxTheme');
 
   // Value
-  var tags,
+  let tags,
       rating = "rating:safe",
       imgLimit = 10,
       view = 'one_column',
@@ -38,7 +38,7 @@ const store = new Store({
   defaults: {theme: ''}
 });
 
-var lastTheme = store.get('theme');
+let lastTheme = store.get('theme');
 
 // Minimize
 document.getElementById('win-minimize').addEventListener('click', (event) => {
@@ -72,7 +72,7 @@ searchBar.onkeydown = (event) => {
     emptyContainer();
     tags = searchBar.value;
     console.log(`Searching images for ${tags} and ${rating}`);
-    var url = getUrl(tags, imgLimit, rating);
+    let url = getUrl(tags, imgLimit, rating);
     getResults(url);
   }
   else
@@ -80,8 +80,8 @@ searchBar.onkeydown = (event) => {
     tags = searchBar.value;
     axios.get(`https://gelbooru.com/index.php?page=dapi&s=tag&q=index&json=1&name_pattern=${tags.replace(/\s/g, '+')}&limit=3&order=DESC&orderby=count`)
     .then((response) => {
-      var popularTags = response.data;
-      var list = document.getElementsByClassName('tagResult');
+      let popularTags = response.data;
+      let list = document.getElementsByClassName('tagResult');
       for (let i = 0; i < list.length; i++)
       {
         list[i].innerHTML = `${popularTags[i].tag} (${popularTags[i].count})`;
@@ -96,7 +96,7 @@ function clickActualize()
   emptyContainer();
   tags = searchBar.value;
   console.log(`Actualize with: ${tags} and ${rating}`);
-  var url = getUrl(tags, imgLimit, rating);
+  let url = getUrl(tags, imgLimit, rating);
   getResults(url);
 }
 
@@ -105,7 +105,7 @@ function searchTop()
 {
   tags = 'sort:score'
   emptyContainer();
-  var url = getUrl(tags, imgLimit, rating);
+  let url = getUrl(tags, imgLimit, rating);
   getResults(url);
 }
 
@@ -114,7 +114,7 @@ function searchHot()
 {
   tags = 'sort:date score:>=5'
   emptyContainer();
-  var url = getUrl(tags, imgLimit, rating);
+  let url = getUrl(tags, imgLimit, rating);
   getResults(url);
 }
 
@@ -126,15 +126,15 @@ function openBlacklistModal()
   instanceBlacklistModal.open();
 }
 
-// Update 'tagsBlacklist' var
+// Update 'tagsBlacklist' let
 function updateBlacklist()
 {
   tagsBlacklist = '';
-  var ChipsData = M.Chips.getInstance(chips).chipsData;
+  let ChipsData = M.Chips.getInstance(chips).chipsData;
 
   if (ChipsData.length > 1)
   {
-    var i = 1;
+    let i = 1;
     ChipsData.forEach(data => {
       if (ChipsData.length === i)
       {
@@ -159,11 +159,11 @@ function updateBlacklist()
 function openImageDetails(event)
 {
   // Fetch image informations with ID
-  var image_id = event.target.id;
+  let image_id = event.target.id;
     axios.get(`https://gelbooru.com/index.php?page=dapi&s=post&q=index&id=${image_id}&json=1`)
       .then((response) => {
         // Setting up values
-        var image = response.data[0],
+        let image = response.data[0],
             tags = image.tags.split(' ');
         // Update values
         sidenavImageSource.setAttribute('href', `https://gelbooru.com/index.php?page=post&s=view&id=${image.id}`);
@@ -188,7 +188,7 @@ function openImageDetails(event)
  
   // Add tag when clicking on it
   // TODO
-  /* var sidenavTags = document.getElementsByClassName('sidenav-tags');
+  /* let sidenavTags = document.getElementsByClassName('sidenav-tags');
   console.log(sidenavTags);
   for(i=0; i < sidenavTags; i++)
   {
@@ -234,10 +234,10 @@ function clickRating()
 // Change layout view
 function clickLayout()
 {
-  var cardsNodeList = document.getElementsByClassName('card-view');
-  var cards = Array.from(cardsNodeList);
-  var videosNodeList = document.getElementsByClassName('responsive-video');
-  var videos = Array.from(videosNodeList);
+  let cardsNodeList = document.getElementsByClassName('card-view');
+  let cards = Array.from(cardsNodeList);
+  let videosNodeList = document.getElementsByClassName('responsive-video');
+  let videos = Array.from(videosNodeList);
   switch (view)
   {
     case 'one_column': // If one_column switch on two_column
@@ -356,7 +356,7 @@ function clickLimit()
     // Add / Remove light theme
     function handleTheme()
     {
-      var actualTheme = store.get('theme');
+      let actualTheme = store.get('theme');
       console.log(actualTheme);
       if (actualTheme === 'light-mode')
       { // Actual theme = Light Mode -> Switch on Dark Mode
@@ -438,7 +438,7 @@ function getResults(url)
       { // We find results
         hideLoading();
         response.data.forEach(image => {
-          var sample_url;
+          let sample_url;
           if (image.sample)
           {
             sample_url = `https://simg3.gelbooru.com//samples/${image.directory}/sample_${image.hash}.jpg`;
@@ -482,7 +482,7 @@ function getResults(url)
  */
 function getUrl(tags = '', imgLimit = 10, rating = 'rating:safe', pid = 1)
 {
-  var url = `https://gelbooru.com/index.php?page=dapi&s=post&q=index&json=1&limit=${imgLimit}&tags=${rating}`;
+  let url = `https://gelbooru.com/index.php?page=dapi&s=post&q=index&json=1&limit=${imgLimit}&tags=${rating}`;
   if (tags.length > 0)
   {
     url += `+${tags.replace(/\s/g, '+')}`;

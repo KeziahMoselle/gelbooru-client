@@ -21,10 +21,9 @@
 // Events
 
   app.on('ready', () => {
-    let {width, height} = store.get('windowBounds');
     window = new BrowserWindow({
-      width,
-      height,
+      width: 1400,
+      height: 800,
       frame: false,
       backgroundColor: '#242424',
       icon: path.join(__dirname, 'build/icon.ico'),

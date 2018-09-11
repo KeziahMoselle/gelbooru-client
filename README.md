@@ -35,7 +35,6 @@
 * [x] Top images
 * [x] Hot images
 * [x] Blacklist (Exclude tags)
-* [ ] Favorites
 * [ ] Endless scrolling
 
 ## Installing
