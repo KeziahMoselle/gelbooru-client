@@ -154,6 +154,11 @@
         instanceSidenav.open();
       });
 
+      var chips = document.querySelector('.chips'),
+        instanceChips = M.Chips.init(chips, {
+          placeholder: 'Press enter'
+        });
+
       // Animations
       const clickSearch = document.getElementById('clickSearch');
       const navSearch = document.querySelector('nav#nav-search');
