@@ -5,25 +5,28 @@
         BrowserWindow = electron.BrowserWindow,
         path = require('path'),
         url = require('url'),
-        Store = require('./src/Store');
+        Store = require('electron-store');
 
   let window;
 
 // Store
 
   const store = new Store({
-    configName: 'settings',
     defaults: {
-      windowBounds: {width:1200, height: 800}
+      windowBounds: {
+        width: 1400,
+        height: 800
+      }
     }
   });
 
 // Events
 
   app.on('ready', () => {
+    let {width, height} = store.get('windowBounds');
     window = new BrowserWindow({
-      width: 1400,
-      height: 800,
+      width: width,
+      height: height,
       frame: false,
       backgroundColor: '#242424',
       icon: path.join(__dirname, 'build/icon.ico'),

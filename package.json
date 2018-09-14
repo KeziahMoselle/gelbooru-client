@@ -6,7 +6,8 @@
   "dependencies": {
     "axios": "^0.17.1",
     "electron-data": "^2.1.0",
-    "electron-save-file": "^1.0.2"
+    "electron-save-file": "^1.0.2",
+    "electron-store": "^2.0.0"
   },
   "devDependencies": {
     "electron": "^2.0.9",

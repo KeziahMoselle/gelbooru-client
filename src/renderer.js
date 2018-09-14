@@ -1,44 +1,39 @@
 // Modules
-  const shell = require('electron').shell,
-        remote = require('electron').remote,
-        axios = require('axios'),
-        Store = require('./Store'),
-        saveFile = remote.require('electron-save-file');
+const shell = require('electron').shell,
+      remote = require('electron').remote,
+      axios = require('axios'),
+      Store = require('electron-store'),
+      saveFile = remote.require('electron-save-file');
 
-// let
-  // HTML elements
-  const root = document.getElementById('root'), // Body
-        searchBar = document.getElementById('searchBar'), // Input type text
-        loading = document.getElementById('loading'), // Display loading or not
-        container = document.getElementById('container'), // Container of images
-        themeBtn = document.getElementById('themeBtn'), // Btn for theme
-        displayRating = document.getElementById('displayRating'), // Display Rating
-        displayLimit = document.getElementById('displayLimit'), // Display Image limit chip
-        displayLayout = document.getElementById('displayLayout'), // Display Card Layout
-        displayPid = document.getElementById('displayPid'), // Display chip
-        displayTheme = document.getElementById('displayTheme'), // Display actual theme
-        tagsResults = document.getElementById('tagsResults'), // Displays popular tags
-        sidenavImageSource = document.getElementById('sidenavImageSource'),
-        sidenavImageTagsParent = document.getElementById('sidenavImageTagsParent'),
-        chips = document.querySelector('.chips'),
-        checkboxTheme = document.getElementById('checkboxTheme');
+// HTML elements
+const root = document.getElementById('root'), // Body
+      searchBar = document.getElementById('searchBar'), // Input type text
+      loading = document.getElementById('loading'), // Display loading or not
+      container = document.getElementById('container'), // Container of images
+      themeBtn = document.getElementById('themeBtn'), // Btn for theme
+      displayRating = document.getElementById('displayRating'), // Display Rating
+      displayLimit = document.getElementById('displayLimit'), // Display Image limit chip
+      displayLayout = document.getElementById('displayLayout'), // Display Card Layout
+      displayPid = document.getElementById('displayPid'), // Display chip
+      displayTheme = document.getElementById('displayTheme'), // Display actual theme
+      tagsResults = document.getElementById('tagsResults'), // Displays popular tags
+      sidenavImageSource = document.getElementById('sidenavImageSource'),
+      sidenavImageTagsParent = document.getElementById('sidenavImageTagsParent'),
+      chips = document.querySelector('.chips'),
+      checkboxTheme = document.getElementById('checkboxTheme');
 
-  // Value
-  let tags,
-      rating = "rating:safe",
-      imgLimit = 10,
-      view = 'one_column',
-      pid = 1,
-      tagsBlacklist = '';
+// Value
+let tags,
+    rating = "rating:safe",
+    imgLimit = 10,
+    view = 'one_column',
+    pid = 1,
+    tagsBlacklist = '';
 
 // Store
-
 const store = new Store({
-  configName: 'settings',
-  defaults: {theme: ''}
+    defaults: {theme: 'dark-theme'}
 });
-
-let lastTheme = store.get('theme');
 
 // Minimize
 document.getElementById('win-minimize').addEventListener('click', (event) => {
@@ -131,17 +126,18 @@ function updateBlacklist()
 {
   tagsBlacklist = '';
   let ChipsData = M.Chips.getInstance(chips).chipsData;
-
   if (ChipsData.length > 1)
   {
     let i = 1;
     ChipsData.forEach(data => {
       if (ChipsData.length === i)
       {
+        console.log(data.tag);
         tagsBlacklist += `-${data.tag}`;
       }
       else
       {
+        console.log(data.tag);
         tagsBlacklist += `-${data.tag}+`;
       }
       i++;
@@ -345,6 +341,8 @@ function clickLimit()
 
   // Light & Dark Mode
 
+    let lastTheme = store.get('theme');
+
     // Enable light theme if enabled before
     if (lastTheme === 'light-mode')
     {
@@ -357,7 +355,6 @@ function clickLimit()
     function handleTheme()
     {
       let actualTheme = store.get('theme');
-      console.log(actualTheme);
       if (actualTheme === 'light-mode')
       { // Actual theme = Light Mode -> Switch on Dark Mode
         root.classList.remove('light-mode');
