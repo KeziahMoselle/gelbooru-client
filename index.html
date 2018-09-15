@@ -1,101 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Gelbooru Client for Windows</title>
+    <title>Gelbooru Client | A wrapper for Gelbooru.com</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
     <link rel="stylesheet" href="./assets/style.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="icon" href="favicon.ico" type="image/x-icon" />
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
 </head>
+
 <body>
-    
-    <header>
-        <nav>
-            <div class="nav-wrapper">
-                <div class="row">
-                    <div class="col s10 s1 offset-s1">
-                        <a href="#!" class="brand-logo">Gel<b>booru</b> Client</a>
-                        <a href="#" data-target="sidenav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-                        <ul class="right hide-on-med-and-down">
-                            <li><a href="" class="download_url">Download</a></li>
-                            <li><a href="https://github.com/KeziahMoselle/gelbooru-client">GitHub</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </nav>
-        
-        <ul class="sidenav" id="sidenav">
-            <li><a class="waves-effect" href="https://github.com/KeziahMoselle/gelbooru-client/releases/download/v0.5.4/gelbooru-client-setup-0.5.4.exe">Download</a></li>
-            <li><a class="waves-effect" href="https://github.com/KeziahMoselle/gelbooru-client">GitHub</a></li>
-        </ul>
-        
-        <div class="hero">
-            <div class="hero-image">
-                <img src="./assets/preview.gif" alt="Gelbooru Client Preview">
-            </div>
-            <div class="hero-actions">
-                <a href="" class="btn waves-effect waves download_url"><i class="material-icons left">file_download</i>Download</a>
-                <a href="https://github.com/KeziahMoselle/gelbooru-client" class="btn waves-effect waves">GitHub</a>
-            </div>
-        </div>
-    </header>
-    
+
     <main>
         <div class="row">
-            <div class="col s10 offset-s1">
-                <div class="col s12 row">
-                    <h2>Features</h2>
-                    <div class="col s12 m9">
-                        <ul>
-                            <li>Search images (up to 100/page)</li>
-                            <li>Rating (Safe, Questionable, Explicit, All)</li>
-                            <li>Pagination</li>
-                            <li>Top images</li>
-                            <li>Hot images</li>
-                        </ul>
-                    </div>
-                    <div class="col s12 m3">
-                        <ul>
-                            <li>Save image</li>
-                            <li>Blacklist</li>
-                            <li>3 cards layout</li>
-                            <li>Dark & Light theme</li>
-                        </ul>
-                    </div>
-                </div>
+
+            <div class="col s12 center">
+                <h1>Gel<b>booru</b> Client</h1>
             </div>
+
+            <div class="col s12 center">
+                <img class="responsive-img" src="assets/preview.gif" alt="preview">
+            </div>
+
+            <div class="col s12 center">
+                <a href="" class="btn-large win-dl"><span>Download</span> <img src="assets/windows.png" alt="Windows logo"></a>
+            </div>
+
         </div>
     </main>
-    
-    
+
+
     <footer class="page-footer">
         <div class="footer-copyright">
             <div class="container">
                 This project is under the <a href="https://github.com/KeziahMoselle/gelbooru-client/blob/master/LICENSE">MIT License</a>
                 <p class="right">Not affiliated with <a href="http://gelbooru.com/">Gelbooru.com</a></p>
-                
             </div>
         </div>
     </footer>
-    
+
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
     <script defer src="./assets/init.js"></script>
     <script>
-        fetch('https://api.github.com/repos/KeziahMoselle/gelbooru-client/releases')
-        .then(response => response.json())
-        .then((response) => {
-            let download_url = response[0].assets[0].browser_download_url,
-            tag_name = response[0].tag_name,
-            download_btns = document.querySelectorAll('.download_url');
-            download_btns.forEach(node => {
-                node.setAttribute('href', download_url);
-                node.innerHTML = `<i class="material-icons left">file_download</i>Download ${tag_name}`;
+        try {
+            fetch('https://api.github.com/repos/KeziahMoselle/gelbooru-client/releases')
+            .then(response => response.json())
+            .then((response) => {
+                let download_url = response[0].assets[0].browser_download_url,
+                    download_btn = document.querySelector('.win-dl')
+
+                download_btn.setAttribute('href', download_url);
             });
-        });
+        } catch (e) {
+            alert(e);
+        }
     </script>
 </body>
+
 </html>
