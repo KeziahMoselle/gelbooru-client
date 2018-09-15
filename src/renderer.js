@@ -10,15 +10,11 @@ const root = document.getElementById('root'), // Body
       searchBar = document.getElementById('searchBar'), // Input type text
       loading = document.getElementById('loading'), // Display loading or not
       container = document.getElementById('container'), // Container of images
-      themeBtn = document.getElementById('themeBtn'), // Btn for theme
       displayRating = document.getElementById('displayRating'), // Display Rating
       displayLimit = document.getElementById('displayLimit'), // Display Image limit chip
       displayLayout = document.getElementById('displayLayout'), // Display Card Layout
       displayPid = document.getElementById('displayPid'), // Display chip
-      displayTheme = document.getElementById('displayTheme'), // Display actual theme
-      tagsResults = document.getElementById('tagsResults'), // Displays popular tags
       sidenavImageSource = document.getElementById('sidenavImageSource'),
-      sidenavImageTagsParent = document.getElementById('sidenavImageTagsParent'),
       chips = document.querySelector('.chips'),
       checkboxTheme = document.getElementById('checkboxTheme');
 

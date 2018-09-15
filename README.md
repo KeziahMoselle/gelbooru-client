@@ -21,7 +21,9 @@
     </a>
 </p>
 
-<img src="./src/assets/preview.gif">
+![Preview](https://puu.sh/BvqcP/9e74482d45.png)
+![Preview](https://puu.sh/BvqkA/0bae5d376e.gif)
+![Preview](https://puu.sh/BvqlG/82802e162c.gif)
 
 ## Features
 
@@ -40,7 +42,7 @@
 ## Binaries
 
 Only Windows is supported right now.
-[Download gelbooru-client.Setup.0.7.5.exe](https://github.com/KeziahMoselle/gelbooru-client/releases/download/v0.7.5/gelbooru-client.Setup.0.7.5.exe)
+- [Click here to download .exe](https://github.com/KeziahMoselle/gelbooru-client/releases/download/v0.7.6/gelbooru-client.Setup.0.7.6.exe)
 
 ## Installing
 
@@ -66,7 +68,7 @@ To run the app with live reload :
 ```sh
 > npm run dist
 ```
-A `dist` folder should be created with `win-unpacked` and `gelbooru-client Setup version.exe`.
+The binaries will be created in the `dist` folder.
 
 ## Built With
 
@@ -74,6 +76,7 @@ A `dist` folder should be created with `win-unpacked` and `gelbooru-client Setup
 * [Axios](https://github.com/axios/axios) - Promise based HTTP client for the browser and node.js
 * [MaterializeCSS](http://next.materializecss.com/) - A modern responsive front-end framework based on Material Design
 * [Gelbooru API](https://gelbooru.com/index.php?page=help&topic=dapi) - An image board based on Danbooru
+* [Undraw Illustrations](https://undraw.co/illustrations) - Illustrations under [MIT License](https://undraw.co/license)
 
 
 ## License
