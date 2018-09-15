@@ -21,9 +21,9 @@
     </a>
 </p>
 
-![Preview](https://puu.sh/BvqcP/9e74482d45.png)
-![Preview](https://puu.sh/BvqkA/0bae5d376e.gif)
-![Preview](https://puu.sh/BvqlG/82802e162c.gif)
+![Preview](src/assets/preview.png)
+![Preview](src/assets/preview2.gif)
+![Preview](src/assets/preview3.gif)
 
 ## Features
 
