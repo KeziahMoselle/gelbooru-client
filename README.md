@@ -37,6 +37,11 @@
 * [x] Blacklist (Exclude tags)
 * [ ] Endless scrolling
 
+## Binaries
+
+Only Windows is supported right now.
+[Download gelbooru-client.Setup.0.7.5.exe](https://github.com/KeziahMoselle/gelbooru-client/releases/download/v0.7.5/gelbooru-client.Setup.0.7.5.exe)
+
 ## Installing
 
 ```sh
