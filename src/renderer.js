@@ -181,19 +181,6 @@ function openImageDetails(event)
   const sidenavImageDetails = document.querySelector('#sidenavImageDetails.sidenav');
   const instanceSidenavImageDetails = M.Sidenav.init(sidenavImageDetails);
   instanceSidenavImageDetails.open();
- 
-  // Add tag when clicking on it
-  // TODO
-  /* let sidenavTags = document.getElementsByClassName('sidenav-tags');
-  console.log(sidenavTags);
-  for(i=0; i < sidenavTags; i++)
-  {
-    sidenavTags[i].addEventListener('click', (event) => {
-      console.log(event);
-      let tags = `${searchBar.value} ${tag}`;
-      searchBar.value = tags;
-    });
-  } */
 }
 
 // GET rating
@@ -387,7 +374,7 @@ function clickLimit()
             }).catch(error => M.toast({html: error.stack}));
         }
       }
-      else if (event.target.localName === 'img')
+      else if (event.target.localName === 'img' && event.target.className != 'no-content-img')
       {
         openImageDetails(event);
       }
