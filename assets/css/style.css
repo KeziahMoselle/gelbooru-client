@@ -59,24 +59,22 @@ footer p {
   background-color: #5679e2;
 }
 
-.btn-large {
-    position: relative;
-    padding: 0 40px 0 16px;
-}
-.btn-large img {
-    height: 24px;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    -webkit-transform: translateY(-50%);
-    -moz-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
-    -o-transform: translateY(-50%);
-}
-
-.btn-large span {
-    margin-right: 6px;
-}
 .slider .indicators .indicator-item.active {
     background-color: var(--accent);
+}
+
+.btn-large {
+    white-space: nowrap;
+    text-align: center;
+}
+.btn-large img {
+    padding-left: 6px;
+    max-height: 24px;
+    vertical-align: middle;
+}
+
+.helper {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
 }

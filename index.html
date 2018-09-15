@@ -50,8 +50,8 @@
             </div>
 
             <div class="col s12 center">
-                <a href="" class="btn-large win-dl"><span>Download</span> <img src="assets/images/windows.svg" alt="Windows logo"></a>
-                <a href="https://github.com/KeziahMoselle/gelbooru-client" class="btn-large"><span>Source Code</span> <img src="assets/images/github.svg" alt="GitHub logo"></a>
+                <a class="waves-effect waves-light btn-large" id="win-dl" href="#">Download<img src="assets/images/windows.svg" alt="Windows Logo"></a>
+                <a class="waves-effect waves-light btn-large" href="https://github.com/KeziahMoselle/gelbooru-client">Source Code<img src="assets/images/github.svg" alt="Github Logo"></a>
             </div>
 
         </div>
@@ -79,7 +79,7 @@
             .then(response => response.json())
             .then((response) => {
                 let download_url = response[0].assets[0].browser_download_url,
-                    download_btn = document.querySelector('.win-dl')
+                    download_btn = document.querySelector('#win-dl')
 
                 download_btn.setAttribute('href', download_url);
             });
