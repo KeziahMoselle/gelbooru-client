@@ -1,0 +1,82 @@
+:root {
+    --primary: #35385B;
+    --primary-dark: #303252;
+    --accent: #6688EC;
+    --dark: #242424;
+}
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    background-color: var(--dark);
+    color: #FFF;
+}
+
+main {
+    flex: 1 0 auto;
+    margin-top: 80px;
+    margin: 20px
+}
+
+h1 {
+    margin: 0;
+}
+
+div.col.s12 {
+    margin: 2.8rem 0 1.68rem 0;
+}
+
+
+.page-footer {
+    background-color: var(--primary);
+    padding: 10px;
+}
+
+footer a {
+    color: var(--accent);
+}
+footer a:hover {
+    text-decoration: underline;
+}
+footer p {
+    margin: 0;
+}
+
+
+/* MaterializeCSS Overriding */
+
+.btn:focus, .btn-large:focus, .btn-small:focus,
+.btn-floating:focus {
+  background-color: var(--accent);
+}
+
+.btn, .btn-large, .btn-small {
+  background-color: var(--accent);
+}
+
+.btn:hover, .btn-large:hover, .btn-small:hover {
+  background-color: #5679e2;
+}
+
+.btn-large {
+    position: relative;
+    padding: 0 40px 0 16px;
+}
+.btn-large img {
+    height: 24px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+}
+
+.btn-large span {
+    margin-right: 6px;
+}
+.slider .indicators .indicator-item.active {
+    background-color: var(--accent);
+}

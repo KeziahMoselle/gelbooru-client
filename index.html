@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Gelbooru Client | A wrapper for Gelbooru.com</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
-    <link rel="stylesheet" href="./assets/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="icon" href="favicon.ico" type="image/x-icon" />
 </head>
@@ -21,12 +21,37 @@
                 <h1>Gel<b>booru</b> Client</h1>
             </div>
 
-            <div class="col s12 center">
-                <img class="responsive-img" src="assets/preview.gif" alt="preview">
+            <div class="col s12">
+                <div class="slider">
+                    <ul class="slides">
+                        <li>
+                            <img src="assets/images/preview.png">
+                            <div class="caption center-align">
+                                <h3>Revisit Gelbooru.com</h3>
+                                <h5 class="light grey-text text-lighten-3">A minimal wrapper</h5>
+                            </div>
+                        </li>
+                        <li>
+                            <img src="assets/images/preview2.gif">
+                            <div class="caption left-align">
+                                <h3>Search up to 100 images per page</h3>
+                                <h5 class="light grey-text text-lighten-3">Including a blacklist</h5>
+                            </div>
+                        </li>
+                        <li>
+                            <img src="assets/images/preview3.gif">
+                            <div class="caption right-align">
+                                <h3>3 Layouts of cards and a light theme</h3>
+                                <h5 class="light grey-text text-lighten-3">(SOON: A gallery mode)</h5>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
 
             <div class="col s12 center">
-                <a href="" class="btn-large win-dl"><span>Download</span> <img src="assets/windows.png" alt="Windows logo"></a>
+                <a href="" class="btn-large win-dl"><span>Download</span> <img src="assets/images/windows.png" alt="Windows logo"></a>
+                <a href="https://github.com/KeziahMoselle/gelbooru-client" class="btn-large"><span>Source Code</span> <img src="assets/images/github.svg" alt="GitHub logo"></a>
             </div>
 
         </div>
@@ -36,17 +61,22 @@
     <footer class="page-footer">
         <div class="footer-copyright">
             <div class="container">
-                This project is under the <a href="https://github.com/KeziahMoselle/gelbooru-client/blob/master/LICENSE">MIT License</a>
+                This project is under the <a href="https://github.com/KeziahMoselle/gelbooru-client/blob/master/LICENSE">MIT
+                    License</a>
                 <p class="right">Not affiliated with <a href="http://gelbooru.com/">Gelbooru.com</a></p>
             </div>
         </div>
     </footer>
 
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
-    <script defer src="./assets/init.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="assets/js/init.js"></script>
     <script>
-        try {
-            fetch('https://api.github.com/repos/KeziahMoselle/gelbooru-client/releases')
+        var elems = document.querySelectorAll('.slider');
+        var instances = M.Slider.init(elems, {
+            indicators: true,
+            height: 800
+        });
+        fetch('https://api.github.com/repos/KeziahMoselle/gelbooru-client/releases')
             .then(response => response.json())
             .then((response) => {
                 let download_url = response[0].assets[0].browser_download_url,
@@ -54,9 +84,6 @@
 
                 download_btn.setAttribute('href', download_url);
             });
-        } catch (e) {
-            alert(e);
-        }
     </script>
 </body>
 
