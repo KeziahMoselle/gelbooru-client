@@ -169,7 +169,7 @@ function openImageDetails(event)
         }
         tags.forEach(tag => {
           document.getElementById('TagsParent').insertAdjacentHTML('beforeend', `
-            <li><a class="waves-effect ${isTagInSearchBar(tag) ? 'sidenav-tags-in-searchbar' : 'sidenav-tags-not-in-searchbar'}" id="${tag}" onclick="handleSidenavTags('${tag}')">${tag}</a></li>
+            <li><a class="waves-effect ${isTagInSearchBar(tag) ? 'sidenav-tags-in-searchbar' : 'sidenav-tags-not-in-searchbar'}" id="ADDCLASSTO_${tag}" onclick="handleSidenavTags('${tag}')">${tag}</a></li>
           `);
         });
       });
@@ -358,6 +358,7 @@ function clickLimit()
       if (!isTagInSearchBar(tag))
       {
         searchBar.value = `${searchBar.value} ${tag}`;
+        let element = document.getElementById(`ADDCLASSTO_${tag}`).classList.add('sidenav-tags-in-searchbar');
         clickActualize();
         M.toast({html: `Added ${tag}.`})
       }
@@ -365,6 +366,7 @@ function clickLimit()
       {
         let tags = searchBar.value;
         searchBar.value = tags.replace(tag, '');
+        let element = document.getElementById(`ADDCLASSTO_${tag}`).classList.remove('sidenav-tags-in-searchbar');
         clickActualize();
         M.toast({html: `Removed ${tag}`})
       }
