@@ -354,16 +354,18 @@ function clickLimit()
 
     function handleSidenavTags(tag)
     {
-      // Add the tag to the search bar without actualize
+      // Add the tag to the search bar and actualize
       if (!isTagInSearchBar(tag))
       {
         searchBar.value = `${searchBar.value} ${tag}`;
+        clickActualize();
         M.toast({html: `Added ${tag}.`})
       }
       else
       {
         let tags = searchBar.value;
         searchBar.value = tags.replace(tag, '');
+        clickActualize();
         M.toast({html: `Removed ${tag}`})
       }
     }
