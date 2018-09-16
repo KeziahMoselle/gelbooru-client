@@ -169,7 +169,7 @@ function openImageDetails(event)
         }
         tags.forEach(tag => {
           document.getElementById('TagsParent').insertAdjacentHTML('beforeend', `
-            <li><a class="waves-effect sidenav-tags">${tag}</a></li>
+            <li><a class="waves-effect ${isTagInSearchBar(tag) ? 'sidenav-tags-in-searchbar' : 'sidenav-tags-not-in-searchbar'}" id="${tag}" onclick="handleSidenavTags('${tag}')">${tag}</a></li>
           `);
         });
       });
@@ -352,6 +352,22 @@ function clickLimit()
       }
     }
 
+    function handleSidenavTags(tag)
+    {
+      // Add the tag to the search bar without actualize
+      if (!isTagInSearchBar(tag))
+      {
+        searchBar.value = `${searchBar.value} ${tag}`;
+        M.toast({html: `Added ${tag}.`})
+      }
+      else
+      {
+        let tags = searchBar.value;
+        searchBar.value = tags.replace(tag, '');
+        M.toast({html: `Removed ${tag}`})
+      }
+    }
+
   // Handle links
     document.addEventListener('click', (event) => {
       if (event.target.tagName === 'A')
@@ -514,12 +530,23 @@ function isSampleExist(sample_url)
 {
   if (sample_url)
   {
-    console.log(`Sample exist: ${sample_url}`);
     return true;
   }
   else
   {
-    console.log(`Sample doesn't exist: ${sample_url}`);
+    return false;
+  }
+}
+
+function isTagInSearchBar(tag)
+{
+  let tags = searchBar.value;
+  if (tags.includes(tag))
+  {
+    return true;
+  }
+  else
+  {
     return false;
   }
 }

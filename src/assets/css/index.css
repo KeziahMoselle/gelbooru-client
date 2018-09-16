@@ -230,6 +230,9 @@ textarea.materialize-textarea:focus:not([readonly]) {
   margin: 0 32px 0 0;
   width: 24px;
 }
+.sidenav-tags-in-searchbar {
+  background-color: rgba(0, 0, 0, 0.2);
+}
 
 .btn:focus, .btn-large:focus,
 .btn-floating:focus {
