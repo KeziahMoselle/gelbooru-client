@@ -40,7 +40,7 @@
 * [ ] Endless scrolling
 
 ## Download
-Note: Only Windows is supported for the moment.
+Note: gelbooru-client is developped on Windows, but you can follow the `Installing` part to build the .dmg for MacOS, it should work.
 See [releases](https://github.com/KeziahMoselle/gelbooru-client/releases) to download the .exe
 
 ## Installing
