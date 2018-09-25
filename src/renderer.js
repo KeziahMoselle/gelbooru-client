@@ -1,3 +1,4 @@
+var currentURL='';
 // Modules
 const shell = require('electron').shell,
       remote = require('electron').remote,
@@ -469,6 +470,7 @@ function getResults(url)
         return;
       }
     })
+    currentURL = url;
 }
 
 /**
@@ -511,6 +513,7 @@ function emptyContainer()
   while (container.firstChild)
   {
     container.removeChild(container.firstChild);
+    pid = 1;
   }
 }
 
@@ -554,3 +557,16 @@ function isTagInSearchBar(tag)
     return false;
   }
 }
+
+$(document).ready(function(){
+  $(window).scroll(function () {
+    if ($(window).scrollTop() >= $(document).height() - $(window).height() - 0.1) {
+      showLoading();
+      hideLoading();
+      let url = getUrl(tags, imgLimit, rating);
+      getResults(url + `&pid=${pid}`);
+      pid++;
+      displayPid.innerHTML = `Page ${pid}`;
+    }
+})
+})
