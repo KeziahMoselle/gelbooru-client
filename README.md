@@ -35,7 +35,7 @@
 * [x] Save image
 * [x] Browse all, see Top images and Hot images
 * [x] Blacklist (Exclude tags)
-* [ ] Endless scrolling (in progress #15)
+* [ ] Endless scrolling (in progress [see #15](https://github.com/KeziahMoselle/gelbooru-client/pull/15))
 
 ## Download
 Note: gelbooru-client is developped on Windows, but you can follow the `Installing` part to build the .dmg for MacOS, it should work.
