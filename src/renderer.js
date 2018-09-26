@@ -188,6 +188,22 @@ function updateTheme()
   store.set('themeCustomization.primary', primaryColor);
   store.set('themeCustomization.accent', accentColor);
   store.set('themeCustomization.dark', darkColor);
+  // Feedback
+  M.toast({html: 'The color palette has been updated !'})
+}
+
+function resetTheme()
+{
+  // Update CSS var
+  document.documentElement.style.setProperty('--primary', "#35385B");
+  document.documentElement.style.setProperty('--accent', "#6688EC");
+  document.documentElement.style.setProperty('--dark', "#242424");
+  // Persist data to the store
+  store.set('themeCustomization.primary', "#35385B");
+  store.set('themeCustomization.accent', "#6688EC");
+  store.set('themeCustomization.dark', "#242424");
+  // Feedback
+  M.toast({html: 'The color palette has been restored !'})
 }
 
 // Update at launch the theme
