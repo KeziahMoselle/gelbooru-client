@@ -28,7 +28,14 @@ let tags,
 
 // Store
 const store = new Store({
-    defaults: {theme: 'dark-theme'}
+  defaults: {
+    theme: 'dark-theme',
+    themeCustomization : {
+      "primary": "#35385B",
+      "accent": "#6688EC",
+      "dark": "#242424"
+    }
+  }
 });
 
 // Minimize
@@ -117,6 +124,22 @@ function openBlacklistModal()
   instanceBlacklistModal.open();
 }
 
+function openThemeCustomizationModal()
+{
+  // Get themes colors from the store
+  let primaryColor = store.get('themeCustomization.primary'),
+      accentColor = store.get('themeCustomization.accent'),
+      darkColor = store.get('themeCustomization.dark');
+  // Set the color of the three div.preview-color
+  document.getElementById('primaryColor-preview').style.backgroundColor = primaryColor;
+  document.getElementById('accentColor-preview').style.backgroundColor = accentColor;
+  document.getElementById('darkColor-preview').style.backgroundColor = darkColor;
+  // Open Modal
+  const themeCustomization = document.querySelector('#themeCustomization.modal');
+  const instancethemeCustomization = M.Modal.init(themeCustomization);
+  instancethemeCustomization.open();
+}
+
 // Update 'tagsBlacklist' let
 function updateBlacklist()
 {
@@ -146,6 +169,36 @@ function updateBlacklist()
 
   M.toast({html: 'Blacklist updated !'});
 }
+
+/*
+ *--primary: #35385B;
+  --accent: #6688EC;
+  --dark: #242424;
+ */
+function updateTheme()
+{
+  let primaryColor = document.getElementById('primaryColor').value || store.get(themeCustomization.primary),
+      accentColor = document.getElementById('accentColor').value || store.get(themeCustomization.accent),
+      darkColor = document.getElementById('darkColor').value || store.get(themeCustomization.dark);
+  // Update CSS var
+  document.documentElement.style.setProperty('--primary', primaryColor);
+  document.documentElement.style.setProperty('--accent', accentColor);
+  document.documentElement.style.setProperty('--dark', darkColor);
+  // Persist data to the store
+  store.set('themeCustomization.primary', primaryColor);
+  store.set('themeCustomization.accent', accentColor);
+  store.set('themeCustomization.dark', darkColor);
+}
+
+// Update at launch the theme
+  // Get themes colors from the store
+  let primaryColor = store.get('themeCustomization.primary'),
+      accentColor = store.get('themeCustomization.accent'),
+      darkColor = store.get('themeCustomization.dark');
+  // Update CSS var
+  document.documentElement.style.setProperty('--primary', primaryColor);
+  document.documentElement.style.setProperty('--accent', accentColor);
+  document.documentElement.style.setProperty('--dark', darkColor);
 
 // Sidenav image details
 function openImageDetails(event)
