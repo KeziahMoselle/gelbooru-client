@@ -1,6 +1,5 @@
 :root {
   --primary: #35385B;
-  --primary-dark: #303252;
   --accent: #6688EC;
   --dark: #242424;
 }
@@ -151,6 +150,27 @@ div#loading {
   margin: 0;
   padding: 0 32px;
 }
+
+/**
+ * THEME CUSTOMIZATION
+ */
+
+ .preview-color {
+   height: 90px;
+   width: auto;
+   border-radius: 5px;
+   -webkit-border-radius: 5px;
+   -moz-border-radius: 5px;
+   -ms-border-radius: 5px;
+   -o-border-radius: 5px;
+   display: inline-block;
+   background-color: #EEE;
+  }
+
+  #themeCustomization.modal h1 {
+    font-weight: 600;
+    margin-bottom: 40px;
+  }
 
 /*
 * MATERIALIZE CSS
@@ -346,6 +366,22 @@ textarea.materialize-textarea:focus:not([readonly]) {
   border-bottom: 1px solid var(--accent);
   -webkit-box-shadow: 0 1px 0 0 var(--accent);
           box-shadow: 0 1px 0 0 var(--accent);
+}
+
+input:not([type]):focus:not([readonly]) + label,
+input[type=text]:not(.browser-default):focus:not([readonly]) + label,
+input[type=password]:not(.browser-default):focus:not([readonly]) + label,
+input[type=email]:not(.browser-default):focus:not([readonly]) + label,
+input[type=url]:not(.browser-default):focus:not([readonly]) + label,
+input[type=time]:not(.browser-default):focus:not([readonly]) + label,
+input[type=date]:not(.browser-default):focus:not([readonly]) + label,
+input[type=datetime]:not(.browser-default):focus:not([readonly]) + label,
+input[type=datetime-local]:not(.browser-default):focus:not([readonly]) + label,
+input[type=tel]:not(.browser-default):focus:not([readonly]) + label,
+input[type=number]:not(.browser-default):focus:not([readonly]) + label,
+input[type=search]:not(.browser-default):focus:not([readonly]) + label,
+textarea.materialize-textarea:focus:not([readonly]) + label {
+  color: var(--accent);
 }
 
 .no-content-img {

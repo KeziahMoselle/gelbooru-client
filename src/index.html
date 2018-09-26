@@ -48,7 +48,7 @@
           <div class="user-view">
             <div class="background"></div>
             <span class="white-text name">Gel<b>booru</b> Client</span>
-            <span class="white-text email">v0.8.0</span>
+            <span class="white-text email">v0.9.0</span>
           </div>
         </li>
         <li><a class="subheader">Pages</a></li>
@@ -58,6 +58,7 @@
         <li><a onclick="openBlacklistModal()" class="waves-effect"><i class="material-icons left">label</i>Exclude tags</a></li>
         <li><div class="divider"></div></li>
         <li><a class="subheader">Settings</a></li>
+        <li><a onclick="openThemeCustomizationModal()" class="waves-effect"><i class="material-icons left">palette</i>Customization</a></li>
         <li><p class="sidenav-form"><label><input id="checkboxTheme" onclick="handleTheme()" type="checkbox" class="filled-in" /><span>Light theme</span></label></p></li>
         <li><p class="sidenav-form"><label><input type="checkbox" class="filled-in" disabled /><span>Endless scrolling</span></label></p></li>
         <li><div class="divider"></div></li>
@@ -137,6 +138,52 @@
       </div>
     </div>
     <!-- [End Blacklist tags modal] -->
+
+    <!-- Theme customization modal -->
+    <div id="themeCustomization" class="modal">
+      <div class="modal-content">
+        <div class="row">
+
+          <div class="col s12 center">
+            <h1>Theme Customization</h1>
+          </div>
+
+          <div class="col s10 offset-s1">
+            
+            <div class="row">
+              <div class="preview-color col s3 offset-s3" id="primaryColor-preview"></div>
+              <div class="input-field col s3">
+                <input placeholder="#35385B" id="primaryColor" type="text">
+                <label for="primaryColor">Primary Color</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="preview-color col s3 offset-s3" id="accentColor-preview"></div>
+              <div class="input-field col s3">
+                <input placeholder="#6688EC" id="accentColor" type="text">
+                <label for="accentColor">Accent Color</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="preview-color col s3 offset-s3" id="darkColor-preview"></div>
+              <div class="input-field col s3">
+                <input placeholder="#242424" id="darkColor" type="text">
+                <label for="darkColor">Dark Color</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="modalClose col s10 offset-s1">
+              <a href="#" onclick="resetTheme()" class="modal-action modal-close waves-effect btn">Reset</a>
+            </div>
+          <div class="modalClose col s10 offset-s1">
+            <a href="#" onclick="updateTheme()" class="modal-action modal-close waves-effect btn">Update Theme</a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <!-- [End Theme customization modal] -->
     
   </main>
   <!-- [END MAIN] -->
@@ -183,7 +230,7 @@
         main.style.paddingTop = '90px';
         navSearch.style.marginTop = '0px';
       });
-
+      
       require('electron-connect').client.create()
 
     })();

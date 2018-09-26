@@ -29,15 +29,13 @@
 
 * [x] Search images (10 to 100 per request)
 * [x] 3 cards layout
-* [x] Dark & Light mode
+* [x] Advanced Theme Customization
 * [x] Rating (Safe, Explicit, Questionable)
 * [x] Pagination
 * [x] Save image
-* [x] Browse all
-* [x] Top images
-* [x] Hot images
+* [x] Browse all, see Top images and Hot images
 * [x] Blacklist (Exclude tags)
-* [ ] Endless scrolling
+* [ ] Endless scrolling (in progress [see #15](https://github.com/KeziahMoselle/gelbooru-client/pull/15))
 
 ## Download
 Note: gelbooru-client is developped on Windows, but you can follow the `Installing` part to build the .dmg for MacOS, it should work.
