@@ -148,26 +148,31 @@
             <h1>Theme Customization</h1>
           </div>
 
+          <!-- Handles the color selection -->
+          <input hidden value="#35385B" id="selector1" type="color" onchange="selecCol1()">
+          <input hidden value="#6688EC" id="selector2" type="color" onchange="selecCol2()">
+          <input hidden value="#242424" id="selector3" type="color" onchange="selecCol3()">
+
           <div class="col s10 offset-s1">
             
             <div class="row">
-              <div class="preview-color col s3 offset-s3" id="primaryColor-preview"></div>
+              <label for="selector1" class="preview-color col s3 offset-s3" id="primaryColor-preview"></label>
               <div class="input-field col s3">
-                <input placeholder="#35385B" id="primaryColor" type="text">
+                <input placeholder="#35385B" id="primaryColor" type="text" onkeypress="changePrimaryWhenEnter(event)">
                 <label for="primaryColor">Primary Color</label>
               </div>
             </div>
             <div class="row">
-              <div class="preview-color col s3 offset-s3" id="accentColor-preview"></div>
+              <label for="selector2" class="preview-color col s3 offset-s3" id="accentColor-preview"></label>
               <div class="input-field col s3">
-                <input placeholder="#6688EC" id="accentColor" type="text">
+                <input placeholder="#6688EC" id="accentColor" type="text" onkeypress="changePrimaryWhenEnter(event)">
                 <label for="accentColor">Accent Color</label>
               </div>
             </div>
             <div class="row">
-              <div class="preview-color col s3 offset-s3" id="darkColor-preview"></div>
+              <label for="selector3" class="preview-color col s3 offset-s3" id="darkColor-preview"></label>
               <div class="input-field col s3">
-                <input placeholder="#242424" id="darkColor" type="text">
+                <input placeholder="#242424" id="darkColor" type="text" onkeypress="changePrimaryWhenEnter(event)">
                 <label for="darkColor">Dark Color</label>
               </div>
             </div>

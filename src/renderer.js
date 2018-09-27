@@ -198,6 +198,14 @@ function resetTheme()
   document.documentElement.style.setProperty('--primary', "#35385B");
   document.documentElement.style.setProperty('--accent', "#6688EC");
   document.documentElement.style.setProperty('--dark', "#242424");
+
+  document.getElementById('primaryColor').setAttribute('placeholder', primaryColor);
+  document.getElementById('accentColor').setAttribute('placeholder', accentColor);
+  document.getElementById('darkColor').setAttribute('placeholder', darkColor);
+
+  document.getElementById('selector1').setAttribute('value', "#35385B");
+  document.getElementById('selector2').setAttribute('value', "#6688EC");
+  document.getElementById('selector3').setAttribute('value', "#242424");
   // Persist data to the store
   store.set('themeCustomization.primary', "#35385B");
   store.set('themeCustomization.accent', "#6688EC");
@@ -621,5 +629,67 @@ function isTagInSearchBar(tag)
   else
   {
     return false;
+  }
+}
+
+function selecCol1(){
+  let primaryColor = document.getElementById('selector1').value || store.get(themeCustomization.primary);
+  document.documentElement.style.setProperty('--primary', primaryColor);
+  document.getElementById('primaryColor-preview').style.backgroundColor = primaryColor;
+  document.getElementById('primaryColor').setAttribute('placeholder', primaryColor);
+  store.set('themeCustomization.primary', primaryColor);
+  M.toast({html: 'The primary color has been updated !'})
+}
+
+function selecCol2(){
+  let accentColor = document.getElementById('selector2').value || store.get(themeCustomization.accent);
+  document.documentElement.style.setProperty('--accent', accentColor);
+  document.getElementById('accentColor-preview').style.backgroundColor = accentColor;
+  document.getElementById('accentColor').setAttribute('placeholder', accentColor);
+  store.set('themeCustomization.accent', accentColor);
+  M.toast({html: 'The accent color has been updated !'})
+}
+function selecCol3(){
+  let darkColor = document.getElementById('selector3').value || store.get(themeCustomization.dark);
+  document.documentElement.style.setProperty('--dark', darkColor);
+  document.getElementById('darkColor-preview').style.backgroundColor = darkColor;
+  document.getElementById('darkColor').setAttribute('placeholder', darkColor);
+  store.set('themeCustomization.dark', darkColor);
+  M.toast({html: 'The dark color has been updated !'})
+}
+
+function changePrimaryWhenEnter(e) {
+  if (e.keyCode == 13) {
+    let primaryColor = document.getElementById('primaryColor').value || store.get(themeCustomization.primary);
+    document.documentElement.style.setProperty('--primary', primaryColor);
+    document.getElementById('primaryColor-preview').style.backgroundColor = primaryColor;
+    e.currentTarget.value = "";
+    document.getElementById('primaryColor').setAttribute('placeholder', primaryColor);
+    store.set('themeCustomization.primary', primaryColor);
+    M.toast({ html: 'The primary color has been updated !' })
+  }
+}
+
+function changeAccentWhenEnter(e) {
+  if (e.keyCode == 13) {
+    let accentColor = document.getElementById('accentColor').value || store.get(themeCustomization.accent);
+    document.documentElement.style.setProperty('--accent', accentColor);
+    document.getElementById('accentColor-preview').style.backgroundColor = accentColor;
+    e.currentTarget.value = "";
+    document.getElementById('accentColor').setAttribute('placeholder', accentColor);
+    store.set('themeCustomization.accent', accentColor);
+    M.toast({ html: 'The accent color has been updated !' })
+  }
+}
+
+function changeDarkWhenEnter(e) {
+  if (e.keyCode == 13) {
+    let darkColor = document.getElementById('darkColor').value || store.get(themeCustomization.dark);
+    document.documentElement.style.setProperty('--dark', darkColor);
+    document.getElementById('darkColor-preview').style.backgroundColor = darkColor;
+    e.currentTarget.value = "";
+    document.getElementById('darkColor').setAttribute('placeholder', darkColor);
+    store.set('themeCustomization.dark', darkColor);
+    M.toast({ html: 'The dark color has been updated !' })
   }
 }
