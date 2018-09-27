@@ -1,3 +1,28 @@
+/* Hides the input button */
+input.xd{ 
+  position:absolute;
+  left:9999px;
+  top:9999px;
+}
+
+/* Removes default styling from input color element */
+::-webkit-color-swatch {
+  border: none;
+}
+
+::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+::-moz-color-swatch,
+::-moz-focus-inner {
+  border: none;
+}
+
+::-moz-focus-inner {
+  padding: 0;
+}
+
 :root {
   --primary: #35385B;
   --accent: #6688EC;
