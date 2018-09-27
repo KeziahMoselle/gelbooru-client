@@ -2,7 +2,7 @@
   "name": "gelbooru-client",
   "version": "0.9.0",
   "description": "You already know what it is.",
-  "main": "main.js",
+  "main": "src/main.js",
   "dependencies": {
     "axios": "^0.17.1",
     "electron-save-file": "^1.0.2",
@@ -26,7 +26,8 @@
     "productName": "gelbooru-client",
     "win": {
       "target": "NSIS",
-      "icon": "./build/icon.ico"
+      "icon": "./build/icon.ico",
+      "publish": ["github"]
     },
     "nsis": {
       "installerHeaderIcon": "./build/icon-black.ico"
