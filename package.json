@@ -9,17 +9,17 @@
     "electron-store": "^2.0.0"
   },
   "devDependencies": {
+    "dotenv": "^6.0.0",
     "electron": "^2.0.9",
     "electron-builder": "^20.0.4",
     "electron-connect": "^0.6.3",
-    "gulp": "^3.9.1"
+    "gulp": "^3.9.1",
+    "standard": "^12.0.1"
   },
   "scripts": {
-    "start": "electron .",
-    "pack": "electron-builder --dir",
+    "start": "npx gulp",
     "dist": "electron-builder",
-    "release": "build",
-    "livereload": "gulp"
+    "test": "npx standard \"src/main.js\" \"src/renderer.js\" --fix"
   },
   "build": {
     "appId": "com.gelbooru-client.app",
@@ -27,11 +27,18 @@
     "win": {
       "target": "NSIS",
       "icon": "./build/icon.ico",
-      "publish": ["github"]
+      "publish": [
+        "github"
+      ]
     },
     "nsis": {
       "installerHeaderIcon": "./build/icon-black.ico"
     }
+  },
+  "standard": {
+    "ignore": [
+      "/src/assets/js/"
+    ]
   },
   "author": "KeziahMoselle",
   "license": "MIT",

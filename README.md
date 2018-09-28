@@ -10,15 +10,9 @@
     An Electron app for Gelbooru.
     <br>
     <br>
-    <a href="https://ci.appveyor.com/project/KeziahMoselle/gelbooru-client">
-      <img src="https://img.shields.io/appveyor/ci/KeziahMoselle/gelbooru-client.svg?style=for-the-badge" alt="AppVeyor Badge">
-    </a>
-    <a href="https://github.com/KeziahMoselle/gelbooru-client/releases">
-      <img src="https://img.shields.io/github/release-date-pre/KeziahMoselle/gelbooru-client.svg?style=for-the-badge" alt="Last release Badge">
-    </a>
-    <a href="LICENSE">
-      <img src="https://img.shields.io/apm/l/vim-mode.svg?style=for-the-badge" alt="License Badge">
-    </a>
+    <a href='https://semaphoreci.com/keziahmoselle/gelbooru-client'> <img src='https://semaphoreci.com/api/v1/keziahmoselle/gelbooru-client/branches/master/badge.svg' alt='Build Status'></a>
+    <br>
+    <a href='https://github.com/standard/standard'> <img src='https://cdn.rawgit.com/standard/standard/master/badge.svg' alt='StandardJS'></a>
 </p>
 
 ![Preview](src/assets/preview.png)
@@ -28,18 +22,20 @@
 ## Features
 
 * [x] Search images (10 to 100 per request)
+* [x] Browse all, see Top images and Hot images
+* [x] Rating (Safe, Explicit, Questionable)
+* [x] Blacklist (Exclude tags)
 * [x] 3 cards layout
 * [x] Advanced Theme Customization
-* [x] Rating (Safe, Explicit, Questionable)
-* [x] Pagination
 * [x] Save image
-* [x] Browse all, see Top images and Hot images
-* [x] Blacklist (Exclude tags)
+* [ ] Save all visible images
 * [ ] Endless scrolling (in progress [see #15](https://github.com/KeziahMoselle/gelbooru-client/pull/15))
+* [ ] Gallery mode
 
 ## Download
-Note: gelbooru-client is developped on Windows, but you can follow the `Installing` part to build the .dmg for MacOS, it should work.
-See [releases](https://github.com/KeziahMoselle/gelbooru-client/releases) to download the .exe
+> Note: gelbooru-client is developped on Windows, but you can follow the `Installing` part to build it on your platform, it should work. If not please [create an issue](https://github.com/KeziahMoselle/gelbooru-client/issues/new).
+
+Head to [Release](https://github.com/KeziahMoselle/gelbooru-client/releases) tab, and download the version you want.
 
 ## Installing
 
@@ -50,14 +46,14 @@ Install dependencies :
 ```sh
 > cd gelbooru-client && npm install
 ```
-To run the app :
+To run the app (with hot reload):
 ```sh
 > npm start
 ```
 
-To run the app with live reload :
+Your code must follow the [standardjs](https://standardjs.com/) rules :
 ```sh
-> npx gulp
+> npm test
 ```
 
 ## Build
