@@ -29,7 +29,7 @@
       height: height,
       frame: false,
       backgroundColor: '#242424',
-      icon: path.join(__dirname, 'build/icon.ico'),
+      icon: path.join(__dirname, '../build/icon.ico'),
       title: 'Gelbooru Client'
     });
     window.loadURL(url.format({
