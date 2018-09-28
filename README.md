@@ -11,6 +11,7 @@
     <br>
     <br>
     <a href='https://semaphoreci.com/keziahmoselle/gelbooru-client'> <img src='https://semaphoreci.com/api/v1/keziahmoselle/gelbooru-client/branches/master/badge.svg' alt='Build Status'></a>
+  <img src='https://app.buddy.works/keziahmoselle/gelbooru-client/pipelines/pipeline/151928/badge.svg?token=72fa9825e76df34e8e403d0373782e21385d02da8291fd2795023bc02bc74059' alt='Buddy.works'>
     <br>
     <a href='https://github.com/standard/standard'> <img src='https://cdn.rawgit.com/standard/standard/master/badge.svg' alt='StandardJS'></a>
 </p>
