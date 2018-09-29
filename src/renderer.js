@@ -245,7 +245,7 @@ function openImageDetails (event) {
       // Insert new tags
       tags.forEach(tag => {
         document.getElementById('TagsParent').insertAdjacentHTML('beforeend', `
-            <li><a class="waves-effect ${isTagInSearchBar(tag) ? 'sidenav-tags-in-searchbar' : 'sidenav-tags-not-in-searchbar'}" id="ADDCLASSTO_${tag}" onclick="handleSidenavTags('${tag}')">${tag}</a></li>
+            <li><a class="waves-effect ${isTagInSearchBar(tag) ? 'sidenav-tags-in-searchbar' : 'sidenav-tags-not-in-searchbar'}" id="ADDCLASSTO_${tag}">${tag}</a></li>
           `)
       })
     })
@@ -402,9 +402,9 @@ document.getElementById('checkboxTheme').addEventListener('click', () => {
   }
 })
 
-// REFACTOR NEEDED
-function handleSidenavTags (tag) {
-  // Add the tag to the search bar and actualize
+// Add tag dynamically via sidenav
+document.getElementById('TagsParent').addEventListener('click', (event) => {
+  let tag = event.target.innerText
   if (!isTagInSearchBar(tag)) {
     searchBar.value = `${searchBar.value} ${tag}`
     document.getElementById(`ADDCLASSTO_${tag}`).classList.add('sidenav-tags-in-searchbar')
@@ -417,7 +417,7 @@ function handleSidenavTags (tag) {
     Refresh()
     M.toast({ html: `Removed ${tag}` })
   }
-}
+})
 
 // Handle links
 document.addEventListener('click', (event) => {
