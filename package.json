@@ -19,7 +19,7 @@
   "scripts": {
     "start": "npx gulp",
     "dist": "electron-builder",
-    "test": "npx standard \"src/main.js\" \"src/renderer.js\" --fix"
+    "test": "npx standard --fix"
   },
   "build": {
     "appId": "com.gelbooru-client.app",

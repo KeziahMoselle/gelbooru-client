@@ -1,4 +1,4 @@
-/* global M, alert */
+/* global M, alert, themeCustomization */
 
 require('dotenv').config()
 
@@ -42,7 +42,7 @@ const chips = document.querySelector('.chips')
 
 const checkboxTheme = document.getElementById('checkboxTheme')
 
-// Value
+// Values
 let tags
 
 let rating = 'rating:safe'
@@ -435,7 +435,7 @@ document.addEventListener('click', (event) => {
           M.toast({ html: 'Picture saved !' })
         }).catch(error => M.toast({ html: error.stack }))
     }
-  } else if (event.target.localName === 'img' && event.target.className != 'no-content-img') {
+  } else if (event.target.localName === 'img' && event.target.className !== 'no-content-img') {
     openImageDetails(event)
   }
 })
