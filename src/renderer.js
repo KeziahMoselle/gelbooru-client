@@ -9,6 +9,8 @@ const store = require('./store')
 const saveFile = remote.require('electron-save-file')
 
 // HTML elements
+const windowElement = window.window
+const documentElement = document.documentElement
 const root = document.getElementById('root')
 // Body
 const searchBar = document.getElementById('searchBar')
@@ -133,9 +135,7 @@ document.getElementById('openBlacklistModalBtn').addEventListener('click', () =>
 document.getElementById('openThemeCustomizationModalBtn').addEventListener('click', () => {
   // Get themes colors from the store
   let primaryColor = store.get('themeCustomization.primary')
-
   let accentColor = store.get('themeCustomization.accent')
-
   let darkColor = store.get('themeCustomization.dark')
   // Set the color of the three div.preview-color
   document.getElementById('primaryColor-preview').style.backgroundColor = primaryColor
@@ -173,9 +173,7 @@ document.getElementById('updateBlacklistBtn').addEventListener('click', () => {
 // Update :root CSS variables
 document.getElementById('updateThemeBtn').addEventListener('click', () => {
   let primaryColor = document.getElementById('primaryColor').value || store.get(themeCustomization.primary)
-
   let accentColor = document.getElementById('accentColor').value || store.get(themeCustomization.accent)
-
   let darkColor = document.getElementById('darkColor').value || store.get(themeCustomization.dark)
   // Update CSS var
   document.documentElement.style.setProperty('--primary', primaryColor)
@@ -213,9 +211,7 @@ document.getElementById('resetThemeBtn').addEventListener('click', () => {
 // Update at launch the theme
 // Get themes colors from the store
 let primaryColor = store.get('themeCustomization.primary')
-
 let accentColor = store.get('themeCustomization.accent')
-
 let darkColor = store.get('themeCustomization.dark')
 // Update CSS var
 document.documentElement.style.setProperty('--primary', primaryColor)
@@ -230,7 +226,6 @@ function openImageDetails (event) {
     .then((response) => {
       // Setting up values
       let image = response.data[0]
-
       let tags = image.tags.split(' ')
       // Update values
       sidenavImageSource.setAttribute('href', `https://gelbooru.com/index.php?page=post&s=view&id=${image.id}`)
@@ -379,10 +374,8 @@ document.getElementById('limitBtn').addEventListener('click', () => {
 
 // Light & Dark Mode
 
-let lastTheme = store.get('theme')
-
 // Enable light theme if enabled before
-if (lastTheme === 'light-mode') {
+if (store.get('theme') === 'light-mode') {
   root.classList.add('light-mode')
   checkboxTheme.setAttribute('checked', 'checked')
   console.log('Theme : Light mode enabled.')
@@ -390,8 +383,7 @@ if (lastTheme === 'light-mode') {
 
 // Add / Remove light theme
 document.getElementById('checkboxTheme').addEventListener('click', () => {
-  let actualTheme = store.get('theme')
-  if (actualTheme === 'light-mode') { // Actual theme = Light Mode -> Switch on Dark Mode
+  if (store.get('theme') === 'light-mode') { // Actual theme = Light Mode -> Switch on Dark Mode
     root.classList.remove('light-mode')
     M.toast({ html: 'Dark theme activated' })
     store.set('theme', 'dark-mode')
@@ -626,6 +618,42 @@ document.getElementById('darkColor').addEventListener('keypress', (event) => {
     document.getElementById('darkColor').setAttribute('placeholder', darkColor)
     store.set('themeCustomization.dark', darkColor)
     M.toast({ html: 'The dark color has been updated !' })
+  }
+})
+
+// Enable / Disable Endless Scrolling
+if (store.get('endless')) {
+  // Check the checkbox at launch
+  document.getElementById('checkboxEndlessScrolling').setAttribute('checked', 'checked')
+  // Enable Endless Scrolling
+  windowElement.addEventListener('scroll', () => {
+    if (windowElement.scrollY >= documentElement.scrollHeight - windowElement.innerHeight - 0.1) {
+      let url = getUrl(tags, imgLimit, rating)
+      pid++
+      getResults(url + `&pid=${pid}`)
+      displayPid.innerHTML = `Page ${pid}`
+    }
+  })
+}
+
+document.getElementById('checkboxEndlessScrolling').addEventListener('click', () => {
+  if (store.get('endless')) {
+    // If it's enabled, disable it
+    store.set('endless', false)
+    M.toast({ html: 'Disabled : Endless Scrolling' })
+  } else {
+    // If it's disabled, enable it
+    store.set('endless', true)
+    // Enable Endless Scrolling
+    windowElement.addEventListener('scroll', () => {
+      if (windowElement.scrollY >= documentElement.scrollHeight - windowElement.innerHeight - 0.1) {
+        let url = getUrl(tags, imgLimit, rating)
+        pid++
+        getResults(url + `&pid=${pid}`)
+        displayPid.innerHTML = `Page ${pid}`
+      }
+    })
+    M.toast({ html: 'Enabled : Endless Scrolling' })
   }
 })
 

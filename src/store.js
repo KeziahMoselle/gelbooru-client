@@ -7,10 +7,11 @@ module.exports = new Store({
       'accent': '#6688EC',
       'dark': '#242424'
     },
-    theme: 'dark-theme',
     windowBounds: {
       width: 1400,
       height: 800
-    }
+    },
+    theme: 'dark-theme',
+    endless: false
   }
 })
