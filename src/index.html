@@ -30,15 +30,15 @@
           <ul id="nav-mobile">
               <li class="active"><a id="openSidenav" href="#"><i class="material-icons">menu</i></a></li>
               <li><a title="Click to search" id="clickSearch" href="#"><i class="material-icons">search</i></a></li>
-              <li><a title="Click to actualize" onclick="clickActualize()" href="#"><i class="material-icons">cached</i></a></li>
-              <li><a title="Click to change image limit" onclick="clickLimit()" href="#"><div id="displayLimit" class="chip">10 images</div></a></li>
-              <li><a title="Click to enable NSFW" onclick="clickRating()" href="#"><i id="displayRating" class="material-icons">lock_outline</i></a></li>
-              <li><a title="Click to change cards layout" onclick="clickLayout()" href="#"><i id="displayLayout" class="material-icons">view_module</i></a></li>
+              <li><a title="Click to actualize" id="refreshBtn" href="#"><i class="material-icons">cached</i></a></li>
+              <li><a title="Click to change image limit" id="limitBtn" href="#"><div id="displayLimit" class="chip">10 images</div></a></li>
+              <li><a title="Click to enable NSFW" id="ratingBtn" href="#"><i id="displayRating" class="material-icons">lock_outline</i></a></li>
+              <li><a title="Click to change cards layout" id="layoutBtn" href="#"><i id="displayLayout" class="material-icons">view_module</i></a></li>
           </ul>
           <ul class="right">
-            <li><a title="Previous page" onclick="clickPrevious()" href="#"><i class="material-icons">keyboard_arrow_left</i></a></li>
+            <li><a title="Previous page" id="previousBtn" href="#"><i class="material-icons">keyboard_arrow_left</i></a></li>
             <li><a title="Page ID" ><div id="displayPid" class="chip">Page 1</div></a></li>
-            <li><a title="Next page" onclick="clickNext()" href="#"><i class="material-icons">keyboard_arrow_right</i></a></li>
+            <li><a title="Next page" id="nextBtn" href="#"><i class="material-icons">keyboard_arrow_right</i></a></li>
           </ul>
         </div>
       </nav>
@@ -52,14 +52,14 @@
           </div>
         </li>
         <li><a class="subheader">Pages</a></li>
-        <li><a onclick="clickActualize()" class="waves-effect"><i class="material-icons left">home</i>All</a></li>
-        <li><a onclick="searchTop()" class="waves-effect"><i class="material-icons left">star</i>Top</a></li>
-        <li><a onclick="searchHot()" class="waves-effect"><i class="material-icons left">whatshot</i>Hot</a></li>
-        <li><a onclick="openBlacklistModal()" class="waves-effect"><i class="material-icons left">label</i>Exclude tags</a></li>
+        <li><a id="searchAllBtn" class="waves-effect"><i class="material-icons left">home</i>All</a></li>
+        <li><a id="searchTopBtn" class="waves-effect"><i class="material-icons left">star</i>Top</a></li>
+        <li><a id="searchHotBtn" class="waves-effect"><i class="material-icons left">whatshot</i>Hot</a></li>
+        <li><a id="openBlacklistModalBtn" class="waves-effect"><i class="material-icons left">label</i>Exclude tags</a></li>
         <li><div class="divider"></div></li>
         <li><a class="subheader">Settings</a></li>
-        <li><a onclick="openThemeCustomizationModal()" class="waves-effect"><i class="material-icons left">palette</i>Customization</a></li>
-        <li><p class="sidenav-form"><label><input id="checkboxTheme" onclick="handleTheme()" type="checkbox" class="filled-in" /><span>Light theme</span></label></p></li>
+        <li><a id="openThemeCustomizationModalBtn" class="waves-effect"><i class="material-icons left">palette</i>Customization</a></li>
+        <li><p class="sidenav-form"><label><input id="checkboxTheme" type="checkbox" class="filled-in" /><span>Light theme</span></label></p></li>
         <li><p class="sidenav-form"><label><input type="checkbox" class="filled-in" disabled /><span>Endless scrolling</span></label></p></li>
         <li><div class="divider"></div></li>
         <li><a class="subheader">Links</a></li>
@@ -131,7 +131,7 @@
           </div>
 
           <div class="modalClose col s10 offset-s1">
-            <a href="#" onclick="updateBlacklist()" class="modal-action modal-close waves-effect btn">Update Blacklist</a>
+            <a href="#" id="updateBlacklistBtn" class="modal-action modal-close waves-effect btn">Update Blacklist</a>
           </div>
 
         </div>
@@ -149,40 +149,40 @@
           </div>
 
           <!-- Handles the color selection -->
-          <input hidden value="#35385B" id="selector1" type="color" onchange="selecCol1()">
-          <input hidden value="#6688EC" id="selector2" type="color" onchange="selecCol2()">
-          <input hidden value="#242424" id="selector3" type="color" onchange="selecCol3()">
+          <input hidden value="#35385B" id="handleColorPickerPrimary" type="color">
+          <input hidden value="#6688EC" id="handleColorPickerAccent" type="color">
+          <input hidden value="#242424" id="handleColorPickerDark" type="color">
 
           <div class="col s10 offset-s1">
             
             <div class="row">
-              <label for="selector1" class="preview-color col s3 offset-s3" id="primaryColor-preview"></label>
+              <label for="handleColorPickerPrimary" class="preview-color col s3 offset-s3" id="primaryColor-preview"></label>
               <div class="input-field col s3">
-                <input placeholder="#35385B" id="primaryColor" type="text" onkeypress="changePrimaryWhenEnter(event)">
+                <input placeholder="#35385B" id="primaryColor" type="text">
                 <label for="primaryColor">Primary Color</label>
               </div>
             </div>
             <div class="row">
-              <label for="selector2" class="preview-color col s3 offset-s3" id="accentColor-preview"></label>
+              <label for="handleColorPickerAccent" class="preview-color col s3 offset-s3" id="accentColor-preview"></label>
               <div class="input-field col s3">
-                <input placeholder="#6688EC" id="accentColor" type="text" onkeypress="changeAccentWhenEnter(event)">
+                <input placeholder="#6688EC" id="accentColor" type="text">
                 <label for="accentColor">Accent Color</label>
               </div>
             </div>
             <div class="row">
-              <label for="selector3" class="preview-color col s3 offset-s3" id="darkColor-preview"></label>
+              <label for="handleColorPickerDark" class="preview-color col s3 offset-s3" id="darkColor-preview"></label>
               <div class="input-field col s3">
-                <input placeholder="#242424" id="darkColor" type="text" onkeypress="changeDarkWhenEnter(event)">
+                <input placeholder="#242424" id="darkColor" type="text">
                 <label for="darkColor">Dark Color</label>
               </div>
             </div>
           </div>
 
           <div class="modalClose col s10 offset-s1">
-              <a href="#" onclick="resetTheme()" class="modal-action modal-close waves-effect btn">Reset</a>
+              <a href="#" id="resetThemeBtn" class="modal-action modal-close waves-effect btn">Reset</a>
             </div>
           <div class="modalClose col s10 offset-s1">
-            <a href="#" onclick="updateTheme()" class="modal-action modal-close waves-effect btn">Update Theme</a>
+            <a href="#" id="updateThemeBtn" class="modal-action modal-close waves-effect btn">Update Theme</a>
           </div>
 
         </div>

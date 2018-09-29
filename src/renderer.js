@@ -89,7 +89,7 @@ searchBar.onkeydown = (event) => {
 }
 
 // Refresh
-function clickActualize () {
+function Refresh () {
   emptyContainer()
   tags = searchBar.value
   console.log(`Actualize with: ${tags} and ${rating}`)
@@ -97,30 +97,40 @@ function clickActualize () {
   getResults(url)
 }
 
+// Refresh Btn
+document.getElementById('refreshBtn').addEventListener('click', () => {
+  Refresh()
+})
+
+// All images
+document.getElementById('searchAllBtn').addEventListener('click', () => {
+  Refresh()
+})
+
 // Top images
-function searchTop () {
+document.getElementById('searchTopBtn').addEventListener('click', () => {
   tags = 'sort:score'
   emptyContainer()
   let url = getUrl(tags, imgLimit, rating)
   getResults(url)
-}
+})
 
 // Hot images
-function searchHot () {
+document.getElementById('searchHotBtn').addEventListener('click', () => {
   tags = 'sort:date score:>=5'
   emptyContainer()
   let url = getUrl(tags, imgLimit, rating)
   getResults(url)
-}
+})
 
 // Open Blacklist modal
-function openBlacklistModal () {
+document.getElementById('openBlacklistModalBtn').addEventListener('click', () => {
   const blacklistModal = document.querySelector('#blacklist.modal')
   const instanceBlacklistModal = M.Modal.init(blacklistModal)
   instanceBlacklistModal.open()
-}
+})
 
-function openThemeCustomizationModal () {
+document.getElementById('openThemeCustomizationModalBtn').addEventListener('click', () => {
   // Get themes colors from the store
   let primaryColor = store.get('themeCustomization.primary')
 
@@ -135,10 +145,10 @@ function openThemeCustomizationModal () {
   const themeCustomization = document.querySelector('#themeCustomization.modal')
   const instancethemeCustomization = M.Modal.init(themeCustomization)
   instancethemeCustomization.open()
-}
+})
 
 // Update 'tagsBlacklist' let
-function updateBlacklist () {
+document.getElementById('updateBlacklistBtn').addEventListener('click', () => {
   tagsBlacklist = ''
   let ChipsData = M.Chips.getInstance(chips).chipsData
   if (ChipsData.length > 1) {
@@ -158,14 +168,10 @@ function updateBlacklist () {
   }
 
   M.toast({ html: 'Blacklist updated !' })
-}
+})
 
-/*
- *--primary: #35385B;
-  --accent: #6688EC;
-  --dark: #242424;
- */
-function updateTheme () {
+// Update :root CSS variables
+document.getElementById('updateThemeBtn').addEventListener('click', () => {
   let primaryColor = document.getElementById('primaryColor').value || store.get(themeCustomization.primary)
 
   let accentColor = document.getElementById('accentColor').value || store.get(themeCustomization.accent)
@@ -181,9 +187,9 @@ function updateTheme () {
   store.set('themeCustomization.dark', darkColor)
   // Feedback
   M.toast({ html: 'The color palette has been updated !' })
-}
+})
 
-function resetTheme () {
+document.getElementById('resetThemeBtn').addEventListener('click', () => {
   // Update CSS var
   document.documentElement.style.setProperty('--primary', '#35385B')
   document.documentElement.style.setProperty('--accent', '#6688EC')
@@ -193,16 +199,16 @@ function resetTheme () {
   document.getElementById('accentColor').setAttribute('placeholder', accentColor)
   document.getElementById('darkColor').setAttribute('placeholder', darkColor)
 
-  document.getElementById('selector1').setAttribute('value', '#35385B')
-  document.getElementById('selector2').setAttribute('value', '#6688EC')
-  document.getElementById('selector3').setAttribute('value', '#242424')
+  document.getElementById('handleColorPickerPrimary').setAttribute('value', '#35385B')
+  document.getElementById('handleColorPickerAccent').setAttribute('value', '#6688EC')
+  document.getElementById('handleColorPickerDark').setAttribute('value', '#242424')
   // Persist data to the store
   store.set('themeCustomization.primary', '#35385B')
   store.set('themeCustomization.accent', '#6688EC')
   store.set('themeCustomization.dark', '#242424')
   // Feedback
   M.toast({ html: 'The color palette has been restored !' })
-}
+})
 
 // Update at launch the theme
 // Get themes colors from the store
@@ -250,7 +256,7 @@ function openImageDetails (event) {
 }
 
 // GET rating
-function clickRating () {
+document.getElementById('ratingBtn').addEventListener('click', () => {
   switch (rating) {
     case 'rating:safe': // Switch on Questionable
       displayRating.innerHTML = 'warning'
@@ -276,10 +282,10 @@ function clickRating () {
       M.toast({ html: `Rating is now ${rating}` })
       break
   }
-}
+})
 
 // Change layout view
-function clickLayout () {
+document.getElementById('layoutBtn').addEventListener('click', () => {
   let cardsNodeList = document.getElementsByClassName('card-view')
   let cards = Array.from(cardsNodeList)
   let videosNodeList = document.getElementsByClassName('responsive-video')
@@ -343,10 +349,10 @@ function clickLayout () {
       }
       break
   }
-}
+})
 
 // GET imgLimit
-function clickLimit () {
+document.getElementById('limitBtn').addEventListener('click', () => {
   switch (imgLimit) {
     case 10: // If 10 switch on 20
       displayLimit.innerHTML = '20 images'
@@ -369,7 +375,7 @@ function clickLimit () {
       break
   }
   M.toast({ html: `Image limit is now ${imgLimit}` })
-}
+})
 
 // Light & Dark Mode
 
@@ -383,7 +389,7 @@ if (lastTheme === 'light-mode') {
 }
 
 // Add / Remove light theme
-function handleTheme () {
+document.getElementById('checkboxTheme').addEventListener('click', () => {
   let actualTheme = store.get('theme')
   if (actualTheme === 'light-mode') { // Actual theme = Light Mode -> Switch on Dark Mode
     root.classList.remove('light-mode')
@@ -394,20 +400,21 @@ function handleTheme () {
     M.toast({ html: 'Light theme activated' })
     store.set('theme', 'light-mode')
   }
-}
+})
 
+// REFACTOR NEEDED
 function handleSidenavTags (tag) {
   // Add the tag to the search bar and actualize
   if (!isTagInSearchBar(tag)) {
     searchBar.value = `${searchBar.value} ${tag}`
     document.getElementById(`ADDCLASSTO_${tag}`).classList.add('sidenav-tags-in-searchbar')
-    clickActualize()
+    Refresh()
     M.toast({ html: `Added ${tag}.` })
   } else {
     let tags = searchBar.value
     searchBar.value = tags.replace(tag, '')
     document.getElementById(`ADDCLASSTO_${tag}`).classList.remove('sidenav-tags-in-searchbar')
-    clickActualize()
+    Refresh()
     M.toast({ html: `Removed ${tag}` })
   }
 }
@@ -431,15 +438,15 @@ document.addEventListener('click', (event) => {
 })
 
 // Pagination
-function clickNext () {
+document.getElementById('nextBtn').addEventListener('click', () => {
   pid++
   displayPid.innerHTML = `Page ${pid}`
   emptyContainer()
   let url = getUrl(tags, imgLimit, rating, pid)
   getResults(url)
-}
+})
 
-function clickPrevious () {
+document.getElementById('previousBtn').addEventListener('click', () => {
   if (pid > 1) {
     pid--
     displayPid.innerHTML = `Page ${pid}`
@@ -447,7 +454,7 @@ function clickPrevious () {
     let url = getUrl(tags, imgLimit, rating, pid)
     getResults(url)
   }
-}
+})
 
 /**
  * Show loading
@@ -557,67 +564,70 @@ function isTagInSearchBar (tag) {
   }
 }
 
-function selecCol1 () {
-  let primaryColor = document.getElementById('selector1').value || store.get(themeCustomization.primary)
+// COLOR PICKER
+document.getElementById('handleColorPickerPrimary').addEventListener('change', () => {
+  let primaryColor = document.getElementById('handleColorPickerPrimary').value || store.get(themeCustomization.primary)
   document.documentElement.style.setProperty('--primary', primaryColor)
   document.getElementById('primaryColor-preview').style.backgroundColor = primaryColor
   document.getElementById('primaryColor').setAttribute('placeholder', primaryColor)
   store.set('themeCustomization.primary', primaryColor)
   M.toast({ html: 'The primary color has been updated !' })
-}
+})
 
-function selecCol2 () {
-  let accentColor = document.getElementById('selector2').value || store.get(themeCustomization.accent)
+document.getElementById('handleColorPickerAccent').addEventListener('change', () => {
+  let accentColor = document.getElementById('handleColorPickerAccent').value || store.get(themeCustomization.accent)
   document.documentElement.style.setProperty('--accent', accentColor)
   document.getElementById('accentColor-preview').style.backgroundColor = accentColor
   document.getElementById('accentColor').setAttribute('placeholder', accentColor)
   store.set('themeCustomization.accent', accentColor)
   M.toast({ html: 'The accent color has been updated !' })
-}
-function selecCol3 () {
-  let darkColor = document.getElementById('selector3').value || store.get(themeCustomization.dark)
+})
+
+document.getElementById('handleColorPickerDark').addEventListener('change', () => {
+  let darkColor = document.getElementById('handleColorPickerDark').value || store.get(themeCustomization.dark)
   document.documentElement.style.setProperty('--dark', darkColor)
   document.getElementById('darkColor-preview').style.backgroundColor = darkColor
   document.getElementById('darkColor').setAttribute('placeholder', darkColor)
   store.set('themeCustomization.dark', darkColor)
   M.toast({ html: 'The dark color has been updated !' })
-}
+})
 
-function changePrimaryWhenEnter (e) {
-  if (e.keyCode === 13) {
+// TEXT INPUT COLOR
+document.getElementById('primaryColor').addEventListener('keypress', (event) => {
+  if (event.keyCode === 13) {
     let primaryColor = document.getElementById('primaryColor').value || store.get(themeCustomization.primary)
     document.documentElement.style.setProperty('--primary', primaryColor)
     document.getElementById('primaryColor-preview').style.backgroundColor = primaryColor
-    e.currentTarget.value = ''
+    event.currentTarget.value = ''
     document.getElementById('primaryColor').setAttribute('placeholder', primaryColor)
     store.set('themeCustomization.primary', primaryColor)
     M.toast({ html: 'The primary color has been updated !' })
   }
-}
+})
 
-function changeAccentWhenEnter (e) {
-  if (e.keyCode === 13) {
+document.getElementById('accentColor').addEventListener('keypress', (event) => {
+  if (event.keyCode === 13) {
     let accentColor = document.getElementById('accentColor').value || store.get(themeCustomization.accent)
     document.documentElement.style.setProperty('--accent', accentColor)
     document.getElementById('accentColor-preview').style.backgroundColor = accentColor
-    e.currentTarget.value = ''
+    event.currentTarget.value = ''
     document.getElementById('accentColor').setAttribute('placeholder', accentColor)
     store.set('themeCustomization.accent', accentColor)
     M.toast({ html: 'The accent color has been updated !' })
   }
-}
+})
 
-function changeDarkWhenEnter (e) {
-  if (e.keyCode === 13) {
+document.getElementById('darkColor').addEventListener('keypress', (event) => {
+  if (event.keyCode === 13) {
     let darkColor = document.getElementById('darkColor').value || store.get(themeCustomization.dark)
     document.documentElement.style.setProperty('--dark', darkColor)
     document.getElementById('darkColor-preview').style.backgroundColor = darkColor
-    e.currentTarget.value = ''
+    event.currentTarget.value = ''
     document.getElementById('darkColor').setAttribute('placeholder', darkColor)
     store.set('themeCustomization.dark', darkColor)
     M.toast({ html: 'The dark color has been updated !' })
   }
-}
+})
 
 // Livereload only on development environment
 if (process.env.NODE_ENV === 'development') {
