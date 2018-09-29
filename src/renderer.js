@@ -1,42 +1,37 @@
-/* global M, alert, themeCustomization */
+/* global M, themeCustomization */
 
 require('dotenv').config()
 
 // Modules
 const { shell, remote } = require('electron')
-
 const axios = require('axios')
-
 const store = require('./store')
-
 const saveFile = remote.require('electron-save-file')
 
 // HTML elements
 const root = document.getElementById('root')
 // Body
-
 const searchBar = document.getElementById('searchBar')
 // Input type text
-
 const loading = document.getElementById('loading')
 // Display loading or not
-
 const container = document.getElementById('container')
 // Container of images
 
 const displayRating = document.getElementById('displayRating')
 // Display Rating
-
 const displayLimit = document.getElementById('displayLimit')
 // Display Image limit chip
-
 const displayLayout = document.getElementById('displayLayout')
 // Display Card Layout
-
 const displayPid = document.getElementById('displayPid')
 // Display chip
 
 const sidenavImageSource = document.getElementById('sidenavImageSource')
+const sidenavImageSaveAs = document.getElementById('sidenavImageSaveAs')
+const sidenavImageDirectory = document.getElementById('sidenavImageDirectory')
+const sidenavImageOwner = document.getElementById('sidenavImageOwner')
+const sidenavImageScore = document.getElementById('sidenavImageScore')
 
 const chips = document.querySelector('.chips')
 
@@ -44,15 +39,10 @@ const checkboxTheme = document.getElementById('checkboxTheme')
 
 // Values
 let tags
-
 let rating = 'rating:safe'
-
 let imgLimit = 10
-
 let view = 'one_column'
-
 let pid = 1
-
 let tagsBlacklist = ''
 
 // Minimize
@@ -495,7 +485,7 @@ function getResults (url) {
         })
       } else { // We don't find any results
         hideLoading()
-        alert('Any results was found')
+        M.toast({ html: 'Any results was found.' })
       }
     })
 }
