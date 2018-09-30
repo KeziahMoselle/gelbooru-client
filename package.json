@@ -1,15 +1,15 @@
 {
   "name": "gelbooru-client",
-  "version": "0.10.0",
+  "version": "0.10.1",
   "description": "You already know what it is.",
   "main": "src/main.js",
   "dependencies": {
     "axios": "^0.17.1",
     "electron-save-file": "^1.0.2",
-    "electron-store": "^2.0.0"
+    "electron-store": "^2.0.0",
+    "dotenv": "^6.0.0"
   },
   "devDependencies": {
-    "dotenv": "^6.0.0",
     "electron": "^2.0.9",
     "electron-builder": "^20.0.4",
     "electron-connect": "^0.6.3",
@@ -19,6 +19,7 @@
   "scripts": {
     "start": "npx gulp",
     "dist": "electron-builder",
+    "dist-portable": "electron-builder -w portable",
     "test": "npx standard --fix"
   },
   "build": {
@@ -32,6 +33,8 @@
       ]
     },
     "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
       "installerHeaderIcon": "./build/icon-black.ico"
     }
   },
