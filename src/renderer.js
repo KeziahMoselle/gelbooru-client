@@ -487,6 +487,9 @@ function getResults (url) {
         M.toast({ html: 'Any results was found.' })
       }
     })
+    .catch(() => {
+      M.toast({ html: 'Search error: API disabled due to abuse.' })
+    })
 }
 
 /**

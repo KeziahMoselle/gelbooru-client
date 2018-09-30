@@ -1,6 +1,6 @@
 {
   "name": "gelbooru-client",
-  "version": "0.10.1",
+  "version": "0.10.2",
   "description": "You already know what it is.",
   "main": "src/main.js",
   "dependencies": {
