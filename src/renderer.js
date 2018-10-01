@@ -660,6 +660,12 @@ document.getElementById('checkboxEndlessScrolling').addEventListener('click', ()
   }
 })
 
+// Online / Offline detection
+if (!navigator.onLine) {
+  console.log('offline')
+  document.querySelector('.no-content-img').setAttribute('src', '')
+}
+
 // Livereload only on development environment
 if (process.env.NODE_ENV === 'development') {
   require('electron-connect').client.create()
