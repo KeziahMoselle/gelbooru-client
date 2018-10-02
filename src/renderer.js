@@ -660,6 +660,12 @@ document.getElementById('checkboxEndlessScrolling').addEventListener('click', ()
   }
 })
 
+// Online / Offline detection
+if (!navigator.onLine) {
+  document.querySelector('.no-content-img').setAttribute('src', 'assets/images/undraw_offline.svg')
+  M.toast({ html: 'You are offline. Please check your connection and retry' })
+}
+
 // Livereload only on development environment
 if (process.env.NODE_ENV === 'development') {
   require('electron-connect').client.create()
