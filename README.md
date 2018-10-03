@@ -28,7 +28,7 @@
 * [x] 3 cards layout
 * [x] Advanced Theme Customization
 * [x] Download image
-* [x] Endless scrolling
+* [x] Endless scrolling (Thank's to [@Shiroifuyu](https://github.com/Shiroifuyu))
 
 ## Features incoming
 
