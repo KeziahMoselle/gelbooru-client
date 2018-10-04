@@ -29,13 +29,13 @@
 * [x] Advanced Theme Customization
 * [x] Download image
 * [x] Endless scrolling (Thank's to [@Shiroifuyu](https://github.com/Shiroifuyu))
+* [x] Auto Update
 
 ## Features incoming
 
-* [ ] Download all visible images (up to 100)
 * [ ] Gallery mode
+* [ ] Download all visible images (up to 100)
 * [ ] Code Signing
-* [ ] Auto Update
 * [ ] Build for MacOS and Linux
 
 ## Download
