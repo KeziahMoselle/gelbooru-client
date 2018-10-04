@@ -1,6 +1,6 @@
 {
   "name": "gelbooru-client",
-  "version": "0.10.4",
+  "version": "0.11.0",
   "description": "You already know what it is.",
   "main": "src/main.js",
   "dependencies": {
@@ -28,11 +28,13 @@
   "build": {
     "appId": "com.gelbooru-client.app",
     "productName": "gelbooru-client",
-    "publish": [{
-      "provider": "github",
-      "owner": "KeziahMoselle",
-      "repo": "gelbooru-client"
-    }],
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "KeziahMoselle",
+        "repo": "gelbooru-client"
+      }
+    ],
     "win": {
       "target": "NSIS",
       "icon": "./build/icon.ico"
