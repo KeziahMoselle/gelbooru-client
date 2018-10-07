@@ -60,3 +60,6 @@ typings/
 # Distribution folder
 dist/
 .DS_Store
+
+# VSCode
+.vscode
