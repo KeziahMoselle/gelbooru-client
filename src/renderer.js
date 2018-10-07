@@ -1,4 +1,4 @@
-/* global M, themeCustomization */
+/* global M, themeCustomization, IntersectionObserver */
 
 require('dotenv').config()
 
@@ -46,6 +46,7 @@ let imgLimit = 10
 let view = 'one_column'
 let pid = 1
 let tagsBlacklist = ''
+let lazyImages
 
 // Minimize
 document.getElementById('win-minimize').addEventListener('click', (event) => {
@@ -476,7 +477,7 @@ function getResults (url) {
             container.insertAdjacentHTML('beforeend', `<div class="card-view">
               <div class="card">
                 <div class="card-image">
-                  <img id="${image.id}" src="${isSampleExist(sampleUrl) ? sampleUrl : image.file_url}">
+                  <img class="lazy" id="${image.id}" data-src="${isSampleExist(sampleUrl) ? sampleUrl : image.file_url}">
                 </div>
               </div>
             </div>`)
@@ -486,6 +487,10 @@ function getResults (url) {
         hideLoading()
         M.toast({ html: 'Any results was found.' })
       }
+      lazyImages = document.querySelectorAll('.lazy')
+      lazyImages.forEach((image) => {
+        imageObserver.observe(image)
+      })
     })
     .catch(() => {
       M.toast({ html: 'Search error: API disabled due to abuse.' })
@@ -655,7 +660,23 @@ function handleEndlessScrolling () {
   }
 }
 
-// Online / Offline detection
+// Lazy Loading
+let imageObserver = new IntersectionObserver((entries, observer) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      console.log(entry)
+      let image = entry.target
+      image.src = image.dataset.src
+      image.classList.remove('lazy')
+      imageObserver.unobserve(image)
+    }
+  })
+}, {
+  root: document.querySelector('#container'),
+  rootMargin: '0px 0px 500px 0px'
+})
+
+// Offline detection
 if (!navigator.onLine) {
   document.querySelector('.no-content-img').setAttribute('src', 'assets/images/undraw_offline.svg')
   M.toast({ html: 'You are offline. Please check your connection and retry' })

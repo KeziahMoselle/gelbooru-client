@@ -410,3 +410,10 @@ textarea.materialize-textarea:focus:not([readonly]) + label {
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+.lazy {
+  background: #F1F1FA;
+  width: 400px;
+  height: 400px;
+  display: block;
+}
