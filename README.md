@@ -45,6 +45,10 @@ Head to [Release](https://github.com/KeziahMoselle/gelbooru-client/releases) tab
 
 ## Installing
 
+### Prerequisites
+* Install [NodeJS](https://nodejs.org/en/) 8 or higher
+* Install [Yarn](https://yarnpkg.com/)
+
 ```sh
 > git clone https://github.com/KeziahMoselle/gelbooru-client.git
 ```
@@ -54,18 +58,18 @@ Install dependencies :
 ```
 To run the app (with hot reload):
 ```sh
-> npm start
+> yarn start
 ```
 
 Your code must follow the [standardjs](https://standardjs.com/) rules :
 ```sh
-> npm test
+> yarn test
 ```
 
 ## Build
 
 ```sh
-> npm run dist
+> yarn dist
 ```
 The binaries will be created in the `dist` folder.
 
