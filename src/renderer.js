@@ -81,10 +81,17 @@ searchBar.onkeydown = (event) => {
     tags = searchBar.value
     axios.get(`https://gelbooru.com/index.php?page=dapi&s=tag&q=index&json=1&name_pattern=${tags.replace(/\s/g, '+')}&limit=3&order=DESC&orderby=count`)
       .then((response) => {
-        let popularTags = response.data
-        let list = document.getElementsByClassName('tagResult')
-        for (let i = 0; i < list.length; i++) {
-          list[i].innerHTML = `${popularTags[i].tag} (${popularTags[i].count})`
+        if (response.data.length !== 0) {
+          let popularTags = response.data
+          let list = document.getElementsByClassName('tagResult')
+          for (let i = 0; i < list.length; i++) {
+            list[i].innerHTML = `${popularTags[i].tag} (${popularTags[i].count})`
+          }
+        } else {
+          let list = document.getElementsByClassName('tagResult')
+          for (let i = 0; i < 3; i++) {
+            list[i].innerHTML = 'Not found.'
+          }
         }
       })
   }
@@ -463,11 +470,8 @@ function getResults (url) {
       if (response.data) { // We find results
         hideLoading()
         response.data.forEach(image => {
-          let sampleUrl
-          if (image.sample) {
-            sampleUrl = `https://simg3.gelbooru.com//samples/${image.directory}/sample_${image.hash}.jpg`
-          }
-          if (tags.includes('webm')) {
+          const sampleUrl = image.sample === true ? `https://simg3.gelbooru.com//samples/${image.directory}/sample_${image.hash}.jpg` : false
+          if (image.file_url.split('.')[3] === 'webm') {
             container.insertAdjacentHTML('beforeend', `
             <video class="responsive-video" controls loop>
               <source src="${image.file_url}" type="video/webm">
@@ -508,9 +512,6 @@ function getUrl (tags = '', imgLimit = 10, rating = 'rating:safe', pid = 1) {
   }
   if (tagsBlacklist.length > 0) {
     url += `+${tagsBlacklist}`
-  }
-  if (!tags.includes('webm')) {
-    url += `+-webm`
   }
   if (pid !== 1) {
     url += `&pid=${pid}`

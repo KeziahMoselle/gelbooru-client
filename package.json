@@ -23,7 +23,7 @@
     "dist": "electron-builder",
     "dist-portable": "electron-builder -w portable",
     "publish": "build --win -p always",
-    "test": "npx standard --fix"
+    "test": "npx standard"
   },
   "build": {
     "appId": "com.gelbooru-client.app",
