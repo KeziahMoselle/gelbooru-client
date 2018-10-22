@@ -81,10 +81,3 @@ autoUpdater.on('update-downloaded', () => {
     setImmediate(() => autoUpdater.quitAndInstall())
   })
 })
-
-function checkForUpdates (menuItem, focusedWindow, event) {
-  updater = menuItem
-  updater.enabled = false
-  autoUpdater.checkForUpdates()
-}
-
