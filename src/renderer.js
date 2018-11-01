@@ -49,12 +49,14 @@ let tagsBlacklist = ''
 
 // Minimize
 document.getElementById('win-minimize').addEventListener('click', (event) => {
+  event.preventDefault()
   let window = remote.getCurrentWindow()
   window.minimize()
 })
 
 // Fullscreen
 document.getElementById('win-fullscreen').addEventListener('click', (event) => {
+  event.preventDefault()
   let window = remote.getCurrentWindow()
   if (!window.isMaximized()) {
     window.maximize()
@@ -65,12 +67,14 @@ document.getElementById('win-fullscreen').addEventListener('click', (event) => {
 
 // Close
 document.getElementById('win-close').addEventListener('click', (event) => {
+  event.preventDefault()
   let window = remote.getCurrentWindow()
   window.close()
 })
 
 // INPUT AND HIT ENTER
 searchBar.onkeydown = (event) => {
+  event.preventDefault()
   if (event.keyCode === 13) {
     emptyContainer()
     tags = searchBar.value
@@ -133,13 +137,15 @@ document.getElementById('searchHotBtn').addEventListener('click', () => {
 })
 
 // Open Blacklist modal
-document.getElementById('openBlacklistModalBtn').addEventListener('click', () => {
+document.getElementById('openBlacklistModalBtn').addEventListener('click', (event) => {
+  event.preventDefault()
   const blacklistModal = document.querySelector('#blacklist.modal')
   const instanceBlacklistModal = M.Modal.init(blacklistModal)
   instanceBlacklistModal.open()
 })
 
-document.getElementById('openThemeCustomizationModalBtn').addEventListener('click', () => {
+document.getElementById('openThemeCustomizationModalBtn').addEventListener('click', (event) => {
+  event.preventDefault()
   // Get themes colors from the store
   let primaryColor = store.get('themeCustomization.primary')
   let accentColor = store.get('themeCustomization.accent')
@@ -155,7 +161,8 @@ document.getElementById('openThemeCustomizationModalBtn').addEventListener('clic
 })
 
 // Update 'tagsBlacklist' let
-document.getElementById('updateBlacklistBtn').addEventListener('click', () => {
+document.getElementById('updateBlacklistBtn').addEventListener('click', (event) => {
+  event.preventDefault()
   tagsBlacklist = ''
   let ChipsData = M.Chips.getInstance(chips).chipsData
   if (ChipsData.length > 1) {
@@ -178,7 +185,8 @@ document.getElementById('updateBlacklistBtn').addEventListener('click', () => {
 })
 
 // Update :root CSS variables
-document.getElementById('updateThemeBtn').addEventListener('click', () => {
+document.getElementById('updateThemeBtn').addEventListener('click', (event) => {
+  event.preventDefault()
   let primaryColor = document.getElementById('primaryColor').value || store.get(themeCustomization.primary)
   let accentColor = document.getElementById('accentColor').value || store.get(themeCustomization.accent)
   let darkColor = document.getElementById('darkColor').value || store.get(themeCustomization.dark)
@@ -194,7 +202,8 @@ document.getElementById('updateThemeBtn').addEventListener('click', () => {
   M.toast({ html: 'The color palette has been updated !' })
 })
 
-document.getElementById('resetThemeBtn').addEventListener('click', () => {
+document.getElementById('resetThemeBtn').addEventListener('click', (event) => {
+  event.preventDefault()
   // Update CSS var
   document.documentElement.style.setProperty('--primary', '#35385B')
   document.documentElement.style.setProperty('--accent', '#6688EC')
@@ -227,6 +236,7 @@ document.documentElement.style.setProperty('--dark', darkColor)
 
 // Sidenav image details
 function openImageDetails (event) {
+  event.preventDefault()
   // Fetch image informations with ID
   let imageId = event.target.id
   axios.get(`https://gelbooru.com/index.php?page=dapi&s=post&q=index&id=${imageId}&json=1`)
@@ -258,7 +268,8 @@ function openImageDetails (event) {
 }
 
 // GET rating
-document.getElementById('ratingBtn').addEventListener('click', () => {
+document.getElementById('ratingBtn').addEventListener('click', (event) => {
+  event.preventDefault()
   switch (rating) {
     case 'rating:safe': // Switch on Questionable
       displayRating.innerHTML = 'warning'
@@ -287,7 +298,8 @@ document.getElementById('ratingBtn').addEventListener('click', () => {
 })
 
 // Change layout view
-document.getElementById('layoutBtn').addEventListener('click', () => {
+document.getElementById('layoutBtn').addEventListener('click', (event) => {
+  event.preventDefault()
   let cardsNodeList = document.getElementsByClassName('card-view')
   let cards = Array.from(cardsNodeList)
   let videosNodeList = document.getElementsByClassName('responsive-video')
@@ -354,7 +366,8 @@ document.getElementById('layoutBtn').addEventListener('click', () => {
 })
 
 // GET imgLimit
-document.getElementById('limitBtn').addEventListener('click', () => {
+document.getElementById('limitBtn').addEventListener('click', (event) => {
+  event.preventDefault()
   switch (imgLimit) {
     case 10: // If 10 switch on 20
       displayLimit.innerHTML = '20 images'
@@ -389,7 +402,8 @@ if (store.get('theme') === 'light-mode') {
 }
 
 // Add / Remove light theme
-document.getElementById('checkboxTheme').addEventListener('click', () => {
+document.getElementById('checkboxTheme').addEventListener('change', (event) => {
+  event.preventDefault()
   if (store.get('theme') === 'light-mode') { // Actual theme = Light Mode -> Switch on Dark Mode
     root.classList.remove('light-mode')
     M.toast({ html: 'Dark theme activated' })
@@ -403,6 +417,7 @@ document.getElementById('checkboxTheme').addEventListener('click', () => {
 
 // Add tag dynamically via sidenav
 document.getElementById('TagsParent').addEventListener('click', (event) => {
+  event.preventDefault()
   let tag = event.target.innerText
   if (!isTagInSearchBar(tag)) {
     searchBar.value = `${searchBar.value} ${tag}`
@@ -420,6 +435,7 @@ document.getElementById('TagsParent').addEventListener('click', (event) => {
 
 // Handle links
 document.addEventListener('click', (event) => {
+  event.stopPropagation()
   if (event.target.tagName === 'A') {
     if (event.target.href.startsWith('https://gelbooru.com/') || event.target.href.startsWith('https://github.com/')) {
       event.preventDefault()

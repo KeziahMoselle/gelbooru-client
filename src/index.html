@@ -200,44 +200,45 @@
     (function() {
       // MaterializeCSS
       const sidenav = document.querySelector('.sidenav'),
-            instanceSidenav = M.Sidenav.init(sidenav);
-      document.getElementById('openSidenav').addEventListener('click', () => {
-        instanceSidenav.open();
-      });
+            instanceSidenav = M.Sidenav.init(sidenav)
+      document.getElementById('openSidenav').addEventListener('click', (event) => {
+        event.preventDefault()
+        instanceSidenav.open()
+      })
 
       var chips = document.querySelector('.chips'),
         instanceChips = M.Chips.init(chips, {
           placeholder: 'Press enter'
-        });
+        })
 
       // Animations
-      const clickSearch = document.getElementById('clickSearch');
-      const navSearch = document.querySelector('nav#nav-search');
-      const main = document.querySelector('main.row');
-      var marginTop = 0;
+      const clickSearch = document.getElementById('clickSearch')
+      const navSearch = document.querySelector('nav#nav-search')
+      const main = document.querySelector('main.row')
+      var marginTop = 0
       clickSearch.addEventListener('click', () => {
         if (marginTop === 0)
         {
-          marginTop = 70;
-          navSearch.style.marginTop = '70px';
-          main.style.paddingTop = '148px';
-          document.getElementById('searchBar').focus();
+          marginTop = 70
+          navSearch.style.marginTop = '70px'
+          main.style.paddingTop = '148px'
+          document.getElementById('searchBar').focus()
         }
         else
         {
-          marginTop = 0;
-          main.style.paddingTop = '90px';
-          navSearch.style.marginTop = '0px';
+          marginTop = 0
+          main.style.paddingTop = '90px'
+          navSearch.style.marginTop = '0px'
         }
-      });
+      })
       const closeSearchBar = document.getElementById('closeSearchBar').addEventListener('click', (event) => {
-        event.preventDefault();
-        marginTop = 0;
-        main.style.paddingTop = '90px';
-        navSearch.style.marginTop = '0px';
-      });
+        event.preventDefault()
+        marginTop = 0
+        main.style.paddingTop = '90px'
+        navSearch.style.marginTop = '0px'
+      })
 
-    })();
+    })()
   </script>
   <script src="./renderer.js"></script>
 </body>
