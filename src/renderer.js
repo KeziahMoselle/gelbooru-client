@@ -46,6 +46,7 @@ let imgLimit = 10
 let view = 'one_column'
 let pid = 1
 let tagsBlacklist = ''
+let galleryMode = false
 
 // Minimize
 document.getElementById('win-minimize').addEventListener('click', (event) => {
@@ -293,6 +294,19 @@ document.getElementById('ratingBtn').addEventListener('click', (event) => {
       rating = 'rating:safe'
       M.toast({ html: `Rating is now ${rating}` })
       break
+  }
+})
+
+// GALLERY
+document.getElementById('galleryBtn').addEventListener('click', (event) => {
+  event.preventDefault()
+  galleryMode = !galleryMode
+  if (galleryMode) {
+    document.getElementById('displayGallery').innerHTML = 'cancel'
+    M.toast({ html: 'Gallery mode.' })
+  } else {
+    document.getElementById('displayGallery').innerHTML = 'burst_mode'
+    M.toast({ html: 'Normal mode.' })
   }
 })
 
