@@ -1,4 +1,4 @@
-/* global M, themeCustomization */
+/* global M, themeCustomization, lightGallery */
 
 require('dotenv').config()
 
@@ -304,9 +304,11 @@ document.getElementById('galleryBtn').addEventListener('click', (event) => {
   if (galleryMode) {
     document.getElementById('displayGallery').innerHTML = 'cancel'
     M.toast({ html: 'Gallery mode.' })
+    lightGallery(document.getElementById('container'))
   } else {
     document.getElementById('displayGallery').innerHTML = 'burst_mode'
     M.toast({ html: 'Normal mode.' })
+    window.lgData.lg0.destroy(true)
   }
 })
 
@@ -687,7 +689,7 @@ function handleEndlessScrolling () {
 
 // Online / Offline detection
 if (!navigator.onLine) {
-  document.querySelector('.no-content-img').setAttribute('src', 'assets/images/undraw_offline.svg')
+  document.querySelector('.no-content-img').setAttribute('src', 'assets/img/undraw_offline.svg')
   M.toast({ html: 'You are offline. Please check your connection and retry' })
 }
 
