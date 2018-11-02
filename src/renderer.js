@@ -74,7 +74,6 @@ document.getElementById('win-close').addEventListener('click', (event) => {
 
 // INPUT AND HIT ENTER
 searchBar.onkeydown = (event) => {
-  event.preventDefault()
   if (event.keyCode === 13) {
     emptyContainer()
     tags = searchBar.value
