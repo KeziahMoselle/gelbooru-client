@@ -300,11 +300,12 @@ document.getElementById('ratingBtn').addEventListener('click', (event) => {
 // GALLERY
 document.getElementById('galleryBtn').addEventListener('click', (event) => {
   event.preventDefault()
+  emptyContainer()
   galleryMode = !galleryMode
   if (galleryMode) {
     document.getElementById('displayGallery').innerHTML = 'cancel'
     M.toast({ html: 'Gallery mode.' })
-    lightGallery(document.getElementById('container'))
+    lightGallery(document.getElementById('gallery-container'))
   } else {
     document.getElementById('displayGallery').innerHTML = 'burst_mode'
     M.toast({ html: 'Normal mode.' })
@@ -450,7 +451,6 @@ document.getElementById('TagsParent').addEventListener('click', (event) => {
 
 // Handle links
 document.addEventListener('click', (event) => {
-  event.stopPropagation()
   if (event.target.tagName === 'A') {
     if (event.target.href.startsWith('https://gelbooru.com/') || event.target.href.startsWith('https://github.com/')) {
       event.preventDefault()
@@ -463,6 +463,9 @@ document.addEventListener('click', (event) => {
         }).catch(error => M.toast({ html: error.stack }))
     }
   } else if (event.target.localName === 'img' && event.target.className !== 'no-content-img') {
+    if (galleryMode) {
+      return
+    }
     openImageDetails(event)
   }
 })
@@ -502,19 +505,10 @@ function getResults (url) {
         hideLoading()
         response.data.forEach(image => {
           const sampleUrl = image.sample === true ? `https://simg3.gelbooru.com//samples/${image.directory}/sample_${image.hash}.jpg` : false
-          if (image.file_url.split('.')[3] === 'webm') {
-            container.insertAdjacentHTML('beforeend', `
-            <video class="responsive-video" controls loop>
-              <source src="${image.file_url}" type="video/webm">
-            </video>`)
+          if (galleryMode) {
+            appendGalleryImg(image, sampleUrl)
           } else {
-            container.insertAdjacentHTML('beforeend', `<div class="card-view">
-              <div class="card">
-                <div class="card-image">
-                  <img id="${image.id}" src="${isSampleExist(sampleUrl) ? sampleUrl : image.file_url}">
-                </div>
-              </div>
-            </div>`)
+            appendNormalImg(image, sampleUrl)
           }
         })
       } else { // We don't find any results
@@ -684,6 +678,36 @@ function handleEndlessScrolling () {
     pid++
     getResults(`${url}&pid=${pid}`)
     displayPid.innerHTML = `Page ${pid}`
+  }
+}
+
+function appendGalleryImg (image, sampleUrl) {
+  if (image.file_url.split('.')[3] === 'webm') {
+    M.toast({ html: 'webm not displayed because it\'s not supported in gallery yet.' })
+  } else {
+    document.getElementById('gallery-container').insertAdjacentHTML('beforeend', `
+    <li data-src="${image.file_url}">
+      <a href="#">
+        <img src="${isSampleExist(sampleUrl) ? sampleUrl : image.file_url}">
+      </a>
+    </li>`)
+  }
+}
+
+function appendNormalImg (image, sampleUrl) {
+  if (image.file_url.split('.')[3] === 'webm') {
+    container.insertAdjacentHTML('beforeend', `
+    <video class="responsive-video" controls loop>
+      <source src="${image.file_url}" type="video/webm">
+    </video>`)
+  } else {
+    container.insertAdjacentHTML('beforeend', `<div class="card-view">
+      <div class="card">
+        <div class="card-image">
+          <img id="${image.id}" src="${isSampleExist(sampleUrl) ? sampleUrl : image.file_url}">
+        </div>
+      </div>
+    </div>`)
   }
 }
 
