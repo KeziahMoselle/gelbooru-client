@@ -47,30 +47,8 @@ let view = 'one_column'
 let pid = 1
 let tagsBlacklist = ''
 
-// Minimize
-document.getElementById('win-minimize').addEventListener('click', (event) => {
-  event.preventDefault()
-  let window = remote.getCurrentWindow()
-  window.minimize()
-})
-
-// Fullscreen
-document.getElementById('win-fullscreen').addEventListener('click', (event) => {
-  event.preventDefault()
-  let window = remote.getCurrentWindow()
-  if (!window.isMaximized()) {
-    window.maximize()
-  } else {
-    window.unmaximize()
-  }
-})
-
-// Close
-document.getElementById('win-close').addEventListener('click', (event) => {
-  event.preventDefault()
-  let window = remote.getCurrentWindow()
-  window.close()
-})
+// Window controls
+require('./components/window')
 
 // INPUT AND HIT ENTER
 searchBar.onkeydown = (event) => {
