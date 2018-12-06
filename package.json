@@ -19,11 +19,11 @@
     "standard": "^12.0.1"
   },
   "scripts": {
-    "start": "npx gulp",
-    "dist": "electron-builder",
-    "dist-portable": "electron-builder -w portable",
+    "start": "gulp",
+    "build": "electron-builder",
     "publish": "build --win -p always",
-    "test": "npx standard"
+    "lint": "npx standard",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "build": {
     "appId": "com.gelbooru-client.app",

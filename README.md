@@ -63,13 +63,13 @@ To run the app (with hot reload):
 
 Your code must follow the [standardjs](https://standardjs.com/) rules :
 ```sh
-> yarn test
+> yarn lint
 ```
 
 ## Build
 
 ```sh
-> yarn dist
+> yarn build
 ```
 The binaries will be created in the `dist` folder.
 
