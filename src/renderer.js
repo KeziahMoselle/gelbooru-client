@@ -50,6 +50,9 @@ let tagsBlacklist = ''
 // Window controls
 require('./components/window')
 
+// Navbar
+require('./components/navbar')
+
 // INPUT AND HIT ENTER
 searchBar.onkeydown = (event) => {
   if (event.keyCode === 13) {

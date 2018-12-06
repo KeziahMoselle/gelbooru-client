@@ -1,14 +1,21 @@
 const { remote } = require('electron')
 
 // Minimize
-document.getElementById('win-minimize').addEventListener('click', (event) => {
+document.getElementById('win-minimize').addEventListener('click', minimize)
+
+// Fullscreen
+document.getElementById('win-fullscreen').addEventListener('click', fullscreen)
+
+// Close
+document.getElementById('win-close').addEventListener('click', close)
+
+function minimize (event) {
   event.preventDefault()
   let window = remote.getCurrentWindow()
   window.minimize()
-})
+}
 
-// Fullscreen
-document.getElementById('win-fullscreen').addEventListener('click', (event) => {
+function fullscreen (event) {
   event.preventDefault()
   let window = remote.getCurrentWindow()
   if (!window.isMaximized()) {
@@ -16,11 +23,11 @@ document.getElementById('win-fullscreen').addEventListener('click', (event) => {
   } else {
     window.unmaximize()
   }
-})
+}
 
-// Close
-document.getElementById('win-close').addEventListener('click', (event) => {
+function close (event) {
   event.preventDefault()
   let window = remote.getCurrentWindow()
   window.close()
-})
+}
+

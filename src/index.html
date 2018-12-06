@@ -3,9 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <title>Gelbooru Client</title>
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="./assets/css/materialize.min.css">
   <link rel="stylesheet" href="./assets/css/index.css">
+  <script defer src="./assets/js/materialize.min.js"></script>
+  <script defer src="./renderer.js"></script>
 </head>
 <body id="root">
 
@@ -194,52 +196,5 @@
   </main>
   <!-- [END MAIN] -->
 
-  <!-- Require MaterializeCSS & The renderer process -->
-  <script src="./assets/js/materialize.min.js"></script>
-  <script>
-    (function() {
-      // MaterializeCSS
-      const sidenav = document.querySelector('.sidenav'),
-            instanceSidenav = M.Sidenav.init(sidenav)
-      document.getElementById('openSidenav').addEventListener('click', (event) => {
-        event.preventDefault()
-        instanceSidenav.open()
-      })
-
-      var chips = document.querySelector('.chips'),
-        instanceChips = M.Chips.init(chips, {
-          placeholder: 'Press enter'
-        })
-
-      // Animations
-      const clickSearch = document.getElementById('clickSearch')
-      const navSearch = document.querySelector('nav#nav-search')
-      const main = document.querySelector('main.row')
-      var marginTop = 0
-      clickSearch.addEventListener('click', () => {
-        if (marginTop === 0)
-        {
-          marginTop = 70
-          navSearch.style.marginTop = '70px'
-          main.style.paddingTop = '148px'
-          document.getElementById('searchBar').focus()
-        }
-        else
-        {
-          marginTop = 0
-          main.style.paddingTop = '90px'
-          navSearch.style.marginTop = '0px'
-        }
-      })
-      const closeSearchBar = document.getElementById('closeSearchBar').addEventListener('click', (event) => {
-        event.preventDefault()
-        marginTop = 0
-        main.style.paddingTop = '90px'
-        navSearch.style.marginTop = '0px'
-      })
-
-    })()
-  </script>
-  <script src="./renderer.js"></script>
 </body>
 </html>
