@@ -1,13 +1,14 @@
 const { remote } = require('electron')
+const {
+  winMinimize,
+  winFullscreen,
+  winClose
+} = require('../helpers/elements.js')
+console.log(winMinimize)
 
-// Minimize
-document.getElementById('win-minimize').addEventListener('click', minimize)
-
-// Fullscreen
-document.getElementById('win-fullscreen').addEventListener('click', fullscreen)
-
-// Close
-document.getElementById('win-close').addEventListener('click', close)
+winMinimize.addEventListener('click', minimize)
+winFullscreen.addEventListener('click', fullscreen)
+winClose.addEventListener('click', close)
 
 function minimize (event) {
   event.preventDefault()
@@ -30,4 +31,3 @@ function close (event) {
   let window = remote.getCurrentWindow()
   window.close()
 }
-
