@@ -81,14 +81,16 @@ searchBar.onkeydown = (event) => {
     let url = getUrl(tags, imgLimit, rating)
     getResults(url)
   } else {
-    tags = searchBar.value
-    axios.get(`https://gelbooru.com/index.php?page=dapi&s=tag&q=index&json=1&name_pattern=${tags.replace(/\s/g, '+')}&limit=3&order=DESC&orderby=count`)
+    tags = (searchBar.value + event.key).split(" ").pop() + "%"
+
+    axios.get(`https://gelbooru.com/index.php?page=dapi&s=tag&q=index&json=1&name_pattern=${tags}&limit=3&order=DESC&orderby=count`)
       .then((response) => {
-        if (response.data.length !== 0) {
-          let popularTags = response.data
+        if (response.data !== 0 && 'tag' in response.data) {
+          let popularTags = response.data.tag
           let list = document.getElementsByClassName('tagResult')
           for (let i = 0; i < list.length; i++) {
-            list[i].innerHTML = `${popularTags[i].tag} (${popularTags[i].count})`
+            if (i >= popularTags.length) { list[i].innerHTML = ''; continue;}
+            list[i].innerHTML = `${popularTags[i].name} (${popularTags[i].count})`
           }
         } else {
           let list = document.getElementsByClassName('tagResult')
@@ -241,7 +243,7 @@ function openImageDetails (event) {
   axios.get(`https://gelbooru.com/index.php?page=dapi&s=post&q=index&id=${imageId}&json=1`)
     .then((response) => {
       // Setting up values
-      let image = response.data[0]
+      let image = response.data.post[0]
       let tags = image.tags.split(' ')
       // Update values
       sidenavImageSource.setAttribute('href', `https://gelbooru.com/index.php?page=post&s=view&id=${image.id}`)
@@ -479,17 +481,18 @@ document.getElementById('previousBtn').addEventListener('click', () => {
  */
 function getResults (url) {
   showLoading()
-
   axios.get(url)
     .then((response) => {
-      if (response.data) { // We find results
+      if (response.data.post) { // We find results
         hideLoading()
-        response.data.forEach(image => {
+        response.data.post.forEach(image => {
           const sampleUrl = image.sample === true ? `https://simg3.gelbooru.com//samples/${image.directory}/sample_${image.hash}.jpg` : false
-          if (image.file_url.split('.')[3] === 'webm') {
+          fileType = image.file_url.split('.')[3]
+          if (fileType === 'webm' ||
+              fileType === 'mp4') {
             container.insertAdjacentHTML('beforeend', `
-            <video class="responsive-video" controls loop>
-              <source src="${image.file_url}" type="video/webm">
+            <video class="responsive-video" controls loop onclick="this.paused ? this.play() : this.pause();">
+              <source src="${image.file_url}" type="video/${fileType}">
             </video>`)
           } else {
             container.insertAdjacentHTML('beforeend', `<div class="card-view">
@@ -503,11 +506,12 @@ function getResults (url) {
         })
       } else { // We don't find any results
         hideLoading()
-        M.toast({ html: 'Any results was found.' })
+        M.toast({ html: 'No results were found.' })
       }
     })
-    .catch(() => {
+    .catch((error) => {
       M.toast({ html: 'Search error: API disabled due to abuse.' })
+      console.log(error)
     })
 }
 
